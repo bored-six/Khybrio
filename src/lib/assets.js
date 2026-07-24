@@ -54,6 +54,9 @@ export const A = {
    */
   flightClip: `${BASE}assets/world/island-flight.mp4`,
 
+  /** 1080p seamless loop that plays over the hero zone before you scroll. */
+  heroLoop: `${BASE}assets/world/hero-loop.mp4`,
+
   mark: {
     src: `${BASE}assets/brand/khybrio-mark.svg`,
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,

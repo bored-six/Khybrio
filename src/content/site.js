@@ -237,15 +237,40 @@ export const testimonials = {
   ],
 }
 
+// Count-up strip. Deliberately honest facts (not fabricated business counts):
+// three services in one bundle, typical setup time, one tap, full ownership.
+export const stats = [
+  { value: 3, suffix: '-in-1', label: 'website, NFC card & local presence' },
+  { value: 48, suffix: 'h', label: 'typical setup, start to live' },
+  { value: 1, suffix: ' tap', label: 'to share everything you do' },
+  { value: 100, suffix: '%', label: 'yours to keep — nothing locked in' },
+]
+
+// Interactive NFC tap demo. Placeholder contact rows.
+export const nfcDemo = {
+  eyebrow: 'The tap card',
+  title: 'Tap it. Everything’s shared.',
+  body: 'One tap puts your website, socials, number and map pin straight onto their phone — no app, no typing. Hover the card to see it.',
+  rows: [
+    { icon: 'globe', label: 'yourbusiness.ph' },
+    { icon: 'phone', label: '+63 9XX XXX XXXX' },
+    { icon: 'facebook', label: 'facebook.com/yourbiz' },
+    { icon: 'mapPin', label: 'Zamboanga City' },
+  ],
+}
+
 export const pricing = {
   eyebrow: 'Pricing',
   title: 'One setup fee. Retainer optional.',
   body: 'You own everything we build. The monthly retainer is for keeping it fed — nothing is held hostage if you stop.',
-  // PLACEHOLDER — set your real rates.
+  // Toggle between paying the setup once and splitting it over `splitMonths`.
+  toggle: { once: 'Pay once', split: 'Split monthly', splitMonths: 6 },
+  // PLACEHOLDER — set your real rates. `amount` drives the animated numbers;
+  // `recurring` tiers (the retainer) ignore the split toggle.
   tiers: [
     {
       name: 'Essential',
-      price: '₱15,000',
+      amount: 15000,
       unit: 'one-time setup',
       body: 'For a business that needs to exist online, properly, this month.',
       features: [
@@ -259,7 +284,7 @@ export const pricing = {
     },
     {
       name: 'Complete',
-      price: '₱28,000',
+      amount: 28000,
       unit: 'one-time setup',
       body: 'The full bundle, tuned for businesses that live on local search.',
       features: [
@@ -274,8 +299,9 @@ export const pricing = {
     },
     {
       name: 'Retainer',
-      price: '₱4,500',
+      amount: 4500,
       unit: 'per month, optional',
+      recurring: true,
       body: 'Add on to either tier. Cancel whenever.',
       features: [
         'Social media management across platforms',
@@ -288,7 +314,7 @@ export const pricing = {
     },
   ],
   footnote:
-    'Prices depend on scope and page count. We quote after a 15-minute call, not before.',
+    'Prices depend on scope and page count. We quote after a 15-minute call, not before. Split billing is available on request.',
 }
 
 export const contact = {

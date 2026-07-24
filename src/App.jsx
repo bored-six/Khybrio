@@ -3,7 +3,9 @@ import { initSmoothScroll, ScrollTrigger } from './lib/smoothScroll'
 import { Nav } from './components/Nav'
 import { SceneCounter } from './components/SceneCounter'
 import { Flight } from './sections/Flight'
+import { StatStrip } from './components/StatStrip'
 import { Problem } from './sections/Problem'
+import { NfcTapDemo } from './sections/NfcTapDemo'
 import { Showcase } from './sections/Showcase'
 import { Testimonials } from './sections/Testimonials'
 import { Pricing } from './sections/Pricing'
@@ -33,7 +35,9 @@ export default function App() {
       <main>
         {/* The whole island tour — hero, bundle and crew — as one scrubbed flight. */}
         <Flight />
+        <StatStrip />
         <Problem />
+        <NfcTapDemo />
         <Showcase />
         <Testimonials />
         <Pricing />

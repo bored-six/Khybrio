@@ -15,6 +15,7 @@ export const scenes = {
     id: 'flight',
     mediaType: 'image', // 'video' once A.flightClip exists
     clip: A.flightClip,
+    heroLoop: A.heroLoop, // autoplay loop over zone 0
     // Eight zones, in flight order — must line up with content/site.js `flight.zones`.
     stills: [
       A.hero,

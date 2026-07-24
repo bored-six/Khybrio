@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
+import { Magnetic } from './Magnetic'
 import { nav } from '../content/site'
 import { scrollToId, scrollToSceneProgress } from '../lib/smoothScroll'
 
@@ -64,13 +65,15 @@ export function Nav() {
               {item.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            onClick={go('contact')}
-            className="rounded-full bg-coral px-5 py-2.5 text-sm font-semibold text-cream transition-transform duration-300 hover:scale-[1.04]"
-          >
-            Get started
-          </a>
+          <Magnetic>
+            <a
+              href="#contact"
+              onClick={go('contact')}
+              className="inline-block rounded-full bg-coral px-5 py-2.5 text-sm font-semibold text-cream transition-transform duration-300 hover:scale-[1.04]"
+            >
+              Get started
+            </a>
+          </Magnetic>
         </nav>
 
         <button

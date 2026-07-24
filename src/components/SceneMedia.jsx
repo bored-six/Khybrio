@@ -16,10 +16,11 @@ const clamp = (v) => Math.min(1, Math.max(0, v))
  * The Ken-Burns move is applied once to the whole stack rather than per layer,
  * so the camera reads as continuous across the cuts.
  */
-function StillStack({ stills, progressRef, transition, zoom, pan, foreground, reduced }) {
+function StillStack({ stills, progressRef, transition, zoom, pan, foreground, reduced, heroLoop }) {
   const stackRef = useRef(null)
   const foregroundRef = useRef(null)
   const layerRefs = useRef([])
+  const heroLoopRef = useRef(null)
 
   useKenBurns({ ref: stackRef, progressRef, zoom, pan, depth: 1, enabled: !reduced })
   // A separate subject layer drifts at a different rate, faking depth.
@@ -68,6 +69,21 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
         el.style.opacity = String(rise * (1 - fall))
       }
     }
+
+    // Hero loop video rides zone 0's opacity, and pauses once it's faded out
+    // so it isn't decoding a 1080p loop off-screen.
+    const hv = heroLoopRef.current
+    if (hv) {
+      const W = 0.42
+      const seg = cp * n
+      const op = 1 - smooth(clamp((seg - (1 - W / 2)) / W))
+      hv.style.opacity = String(op)
+      if (op < 0.02) {
+        if (!hv.paused) hv.pause()
+      } else if (hv.paused) {
+        hv.play().catch(() => {})
+      }
+    }
   })
 
   return (
@@ -93,6 +109,24 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
           }}
         />
       ))}
+      {/* Ambient hero loop over zone 0 — autoplays at the top, fades into the
+          scrubbed stills as you scroll. Sits at z0 (above the hero still it
+          covers, below every later zone). Falls back to the still if it can't
+          play. */}
+      {heroLoop && !reduced ? (
+        <video
+          ref={heroLoopRef}
+          src={heroLoop}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: 'center 44%', zIndex: 0 }}
+        />
+      ) : null}
       {foreground ? (
         <div ref={foregroundRef} className="absolute inset-0 scene-layer">
           <AssetImage
@@ -119,6 +153,7 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
 export function SceneMedia({
   mediaType = 'image',
   clip,
+  heroLoop,
   stills,
   foreground,
   progressRef,
@@ -146,6 +181,7 @@ export function SceneMedia({
         pan={pan}
         foreground={foreground}
         reduced={reduced}
+        heroLoop={heroLoop}
       />
 
       {mediaType === 'video' && !reduced ? (

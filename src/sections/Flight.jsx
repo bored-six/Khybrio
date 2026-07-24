@@ -4,6 +4,7 @@ import { ScrollScene } from '../components/ScrollScene'
 import { SceneMedia } from '../components/SceneMedia'
 import { AssetImage } from '../components/AssetImage'
 import { InitialsAvatar } from '../components/InitialsAvatar'
+import { Magnetic } from '../components/Magnetic'
 import { useProgressEffect, band, smooth } from '../hooks/useProgressEffect'
 import { scrollToId, scrollToSceneProgress } from '../lib/smoothScroll'
 import { scenes } from '../scenes/scenes.config'
@@ -144,20 +145,24 @@ function FlightOverlay({ progressRef }) {
 
               {z.ctas ? (
                 <div className="pointer-events-auto mt-5 flex flex-wrap gap-3 sm:mt-7">
-                  <a
-                    href={z.ctas.primary.href ?? '#flight'}
-                    onClick={ctaClick(z.ctas.primary)}
-                    className="rounded-full bg-coral px-6 py-3 font-semibold text-cream transition-transform duration-300 hover:scale-[1.04] sm:px-7 sm:py-3.5"
-                  >
-                    {z.ctas.primary.label}
-                  </a>
-                  <a
-                    href={z.ctas.secondary.href ?? '#flight'}
-                    onClick={ctaClick(z.ctas.secondary)}
-                    className="rounded-full border border-cream/30 px-6 py-3 font-semibold text-cream transition-colors duration-300 hover:bg-cream/10 sm:px-7 sm:py-3.5"
-                  >
-                    {z.ctas.secondary.label}
-                  </a>
+                  <Magnetic>
+                    <a
+                      href={z.ctas.primary.href ?? '#flight'}
+                      onClick={ctaClick(z.ctas.primary)}
+                      className="inline-block rounded-full bg-coral px-6 py-3 font-semibold text-cream transition-transform duration-300 hover:scale-[1.04] sm:px-7 sm:py-3.5"
+                    >
+                      {z.ctas.primary.label}
+                    </a>
+                  </Magnetic>
+                  <Magnetic>
+                    <a
+                      href={z.ctas.secondary.href ?? '#flight'}
+                      onClick={ctaClick(z.ctas.secondary)}
+                      className="inline-block rounded-full border border-cream/30 px-6 py-3 font-semibold text-cream transition-colors duration-300 hover:bg-cream/10 sm:px-7 sm:py-3.5"
+                    >
+                      {z.ctas.secondary.label}
+                    </a>
+                  </Magnetic>
                 </div>
               ) : null}
             </div>
@@ -281,6 +286,7 @@ export function Flight() {
             <SceneMedia
               mediaType={scene.mediaType}
               clip={scene.clip}
+              heroLoop={scene.heroLoop}
               stills={scene.stills}
               transition={scene.transition}
               zoom={scene.zoom}
