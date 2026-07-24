@@ -68,6 +68,9 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
             layerRefs.current[k] = el
           }}
           loading={k === 0 ? 'eager' : 'lazy'}
+          // First zone wins the network so it paints immediately; later zones
+          // yield so they don't compete with it on load.
+          fetchPriority={k === 0 ? 'high' : 'low'}
           className="absolute inset-0 h-full w-full object-cover"
           style={{
             opacity: k === 0 ? 1 : 0,

@@ -13,6 +13,15 @@
 
     <!-- %BASE_URL% expands to '/' in dev and '/Khybrio/' in the Pages build,
          so these resolve correctly under the repo subpath. -->
+    <!-- Start the hero image downloading before the JS bundle even parses, so
+         the first island frame paints as fast as possible. -->
+    <link
+      rel="preload"
+      as="image"
+      href="%BASE_URL%assets/world/01-hero.jpg"
+      fetchpriority="high"
+    />
+
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <link rel="apple-touch-icon" href="%BASE_URL%assets/brand/khybrio-mark-clean.svg" />
 

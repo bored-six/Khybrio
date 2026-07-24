@@ -6,7 +6,14 @@ import { useEffect, useState } from 'react'
  * event, so no build-time check is needed and dropping a real PNG into
  * public/assets/ upgrades the page on next load with zero code change.
  */
-export function AssetImage({ asset, className = '', style, loading = 'lazy', ref }) {
+export function AssetImage({
+  asset,
+  className = '',
+  style,
+  loading = 'lazy',
+  fetchPriority,
+  ref,
+}) {
   const [src, setSrc] = useState(asset.src)
   const [fellBack, setFellBack] = useState(false)
 
@@ -25,6 +32,7 @@ export function AssetImage({ asset, className = '', style, loading = 'lazy', ref
       className={className}
       style={style}
       loading={loading}
+      fetchPriority={fetchPriority}
       decoding="async"
       draggable={false}
       onError={() => {
