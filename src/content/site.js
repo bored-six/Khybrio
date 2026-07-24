@@ -213,16 +213,23 @@ export const people = {
   ],
 }
 
-// PLACEHOLDER — real reviews only. Fabricated testimonials attributed to
-// plausible-sounding local businesses are a legal and reputational problem,
-// so these are visibly blank until you have genuine quotes with permission.
+// PLACEHOLDER reviews. Every item is `sample: true` and the UI tags each card
+// "Sample", so these read as filler, not real endorsements — swap them for
+// genuine, permissioned quotes (real names/businesses) before launch. They use
+// only first names + generic business types on purpose, so nothing here claims
+// a specific real business said it.
 export const testimonials = {
   eyebrow: 'What owners say',
   title: 'Straight from the shop floor',
   items: [
-    { quote: null, name: null, business: null, rating: 5 },
-    { quote: null, name: null, business: null, rating: 5 },
-    { quote: null, name: null, business: null, rating: 5 },
+    { quote: 'They set everything up in a week and calls started coming in straight from Google.', name: 'Maria', business: 'Sari-sari store', rating: 5, sample: true },
+    { quote: 'The tap card is a hit at events — one tap and they have all our details.', name: 'Carlo', business: 'Barbershop', rating: 5, sample: true },
+    { quote: 'Our Facebook page finally looks alive, and messages actually get answered now.', name: 'Jenny', business: 'Milk tea shop', rating: 5, sample: true },
+    { quote: 'Went from invisible to the first page for our area. Worth every peso.', name: 'Ryan', business: 'Auto repair', rating: 5, sample: true },
+    { quote: 'Clean website that loads fast even on mobile data — clients notice.', name: 'Aisha', business: 'Dental clinic', rating: 5, sample: true },
+    { quote: 'Simple to work with. They explained everything without the tech jargon.', name: 'Miguel', business: 'Catering', rating: 4, sample: true },
+    { quote: 'The bundle just made sense — no chasing three different people.', name: 'Grace', business: 'Boutique', rating: 5, sample: true },
+    { quote: 'Setup was painless and the follow-up support is actually there.', name: 'Paolo', business: 'Photography', rating: 5, sample: true },
   ],
 }
 

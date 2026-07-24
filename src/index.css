@@ -71,6 +71,18 @@
   transform: translateZ(0);
 }
 
+/* Testimonial marquee. The track holds the cards twice, so shifting by exactly
+   half its width lands the second copy where the first began — a seamless loop.
+   Trailing space rides on each card's margin, not a flex gap, so 50% stays exact. */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
