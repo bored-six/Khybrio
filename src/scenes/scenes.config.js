@@ -1,36 +1,37 @@
 import { A } from '../lib/assets'
 
 /**
- * Every scrubbed section on the page, as data.
+ * The scrubbed scenes, as data.
  *
- * The upgrade path this file exists to protect: when there's budget for a
- * second Higgsfield flight — say from the showcase into the crew corner —
- * generating the clip and changing that scene's `mediaType` from 'image' to
- * 'video' (plus pointing `clip` at the new file) is the entire change. The
- * pin/scrub machinery in ScrollScene is blind to media type, so nothing
- * underneath has to move.
- *
- * `scroll` is measured in viewport heights of scroll distance the section
- * stays pinned for.
+ * The flight is the centrepiece: one pinned scene scrubbing all eight island
+ * zones as a single continuous take (crossfade + camera push over the stills).
+ * It runs as `mediaType: 'image'` today — the closest we can get to the planned
+ * flight without true image-to-video. When real Seedance clips exist, drop the
+ * stitched file at A.flightClip and flip `mediaType` to 'video'; the pin/scrub
+ * machinery underneath doesn't change.
  */
-export const scenes = [
-  {
-    id: 'hero-bundle',
-    // The one video on the site. Falls back to a still crossfade when the clip
-    // is missing — which is the live behaviour until it's generated.
-    mediaType: 'video',
-    clip: A.heroToBundleClip,
-    stills: [A.heroIsland, A.bundleZone],
-    scroll: 2.6,
-    zoom: [1, 1.14],
+export const scenes = {
+  flight: {
+    id: 'flight',
+    mediaType: 'image', // 'video' once A.flightClip exists
+    clip: A.flightClip,
+    // Eight zones, in flight order — must line up with content/site.js `flight.zones`.
+    stills: [
+      A.hero,
+      A.webDesk,
+      A.nfcKiosk,
+      A.signalTower,
+      A.shiek,
+      A.dave,
+      A.haiqal,
+      A.rein,
+    ],
+    scroll: 7.2, // viewport-heights of scroll the flight stays pinned for
+    zoom: [1, 1.12],
     pan: [0, -3],
     transition: 'crossfade',
-    /** Hotspot cards fade in once the flight has landed on the bundle zone. */
-    hotspotsAt: 0.8,
-    /** Counter advances from 'hero' to 'bundle' mid-pin. */
-    milestoneSwitchAt: 0.55,
   },
-  {
+  showcase: {
     id: 'showcase',
     mediaType: 'image',
     stills: A.samples,
@@ -39,15 +40,4 @@ export const scenes = [
     pan: [0, 0],
     transition: 'clip',
   },
-  {
-    id: 'people',
-    mediaType: 'image',
-    stills: [A.crewShiek, A.crewDave, A.crewHaiqal, A.crewRein],
-    scroll: 3.4,
-    zoom: [1, 1.08],
-    pan: [0, -2],
-    transition: 'crossfade',
-  },
-]
-
-export const sceneById = Object.fromEntries(scenes.map((s) => [s.id, s]))
+}

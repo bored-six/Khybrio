@@ -13,7 +13,7 @@ export function Footer() {
     <footer className="relative z-10 overflow-hidden bg-teal-deep">
       <div className="relative h-52 overflow-hidden sm:h-64">
         <AssetImage
-          asset={A.heroIsland}
+          asset={A.hero}
           className="absolute inset-0 h-full w-full object-cover"
           style={{ objectPosition: '38% 46%', transform: 'scale(2.1)' }}
         />

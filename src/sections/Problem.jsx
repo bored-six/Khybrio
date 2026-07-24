@@ -1,19 +1,13 @@
-import { useRef } from 'react'
 import { motion } from 'motion/react'
 import { SearchX, MessageSquareOff, ScanLine } from 'lucide-react'
-import { useMilestone } from '../hooks/useMilestone'
 import { problem } from '../content/site'
 
 const icons = [SearchX, MessageSquareOff, ScanLine]
 
 export function Problem() {
-  const ref = useRef(null)
-  useMilestone(ref, 1)
-
   return (
     <section
       id="problem"
-      ref={ref}
       className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32"
     >
       <div className="mx-auto max-w-7xl">

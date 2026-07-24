@@ -1,6 +1,5 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { useMilestone } from '../hooks/useMilestone'
 import { contact } from '../content/site'
 
 /**
@@ -11,9 +10,7 @@ import { contact } from '../content/site'
  * today.
  */
 export function Contact() {
-  const ref = useRef(null)
   const [status, setStatus] = useState('idle')
-  useMilestone(ref, 5)
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -43,7 +40,6 @@ export function Contact() {
   return (
     <section
       id="contact"
-      ref={ref}
       className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32"
     >
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">

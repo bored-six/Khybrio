@@ -1,12 +1,11 @@
 /**
  * Single source of truth for every generated asset.
  *
- * Each entry carries a `src` (the real file you generate — see ASSETS.md) and a
+ * Each entry carries a `src` (the real file — see HIGGSFIELD.md) and a
  * `placeholder` (an SVG stand-in committed to the repo at the same aspect
- * ratio). Nothing here is conditional at build time: components render `src`
- * and swap to `placeholder` on the image's `error` event, so dropping a real
- * PNG into public/assets/ upgrades the site with no code change and no
- * layout shift.
+ * ratio). Components render `src` and swap to `placeholder` on the image's
+ * `error` event, so dropping a real PNG into public/assets/ upgrades the site
+ * with no code change and no layout shift.
  */
 
 const world = (name, alt) => ({
@@ -22,18 +21,15 @@ const showcase = (name, alt) => ({
 })
 
 export const A = {
-  heroIsland: world(
-    '01-hero-island',
-    'Wide isometric view of the Khybrio island, all zones visible',
-  ),
-  bundleZone: world(
-    '02-bundle-zone',
-    'The island town centre: glass office, NFC kiosk and signal tower',
-  ),
-  crewShiek: world('03-crew-shiek', 'Khybi at a desk nook with a floating laptop'),
-  crewDave: world('04-crew-dave', 'Khybi with a briefcase, mid-handshake'),
-  crewHaiqal: world('05-crew-haiqal', 'Khybi holding a tablet pitch deck'),
-  crewRein: world('06-crew-rein', 'Khybi with a phone and floating like bubbles'),
+  // The eight island zones, in flight order.
+  hero: world('01-hero', 'Wide isometric view of the Khybrio island'),
+  webDesk: world('02-web-desk', 'Khybi at the web desk with a floating browser'),
+  nfcKiosk: world('03-nfc-kiosk', 'Khybi tapping an NFC card to a phone'),
+  signalTower: world('04-signal-tower', 'Khybi on the map-pin platform by the signal tower'),
+  shiek: world('05-shiek', 'Khybi at a desk nook with floating code brackets'),
+  dave: world('06-dave', 'Khybi with a briefcase, mid-handshake'),
+  haiqal: world('07-haiqal', 'Khybi presenting a tablet pitch deck'),
+  rein: world('08-rein', 'Khybi with a phone and floating like bubbles'),
 
   samples: [
     showcase('sample-01', 'Client website mockup'),
@@ -42,16 +38,19 @@ export const A = {
     showcase('sample-04', 'Client website mockup'),
   ],
 
-  /** The single Higgsfield video on the whole site. */
-  heroToBundleClip: '/assets/world/hero-to-bundle.mp4',
+  /**
+   * Optional: the one continuous flight clip. Absent by default — the flight
+   * runs as a scroll-scrubbed crossfade + camera push over the eight stills,
+   * which needs no video. Drop a real Seedance/stitched clip here and flip the
+   * flight scene's mediaType to 'video' to upgrade to true 3D parallax.
+   */
+  flightClip: '/assets/world/island-flight.mp4',
 
-  /** Grain version — nav, footer, and the printed NFC card face. */
   mark: {
     src: '/assets/brand/khybrio-mark.svg',
     placeholder: '/assets/placeholders/brand-mark.svg',
     alt: 'Khybrio',
   },
-  /** Grain-free version for favicon and other very small sizes. */
   markClean: {
     src: '/assets/brand/khybrio-mark-clean.svg',
     placeholder: '/assets/placeholders/brand-mark.svg',

@@ -27,7 +27,7 @@ export function SceneCounter() {
       <span className="flex flex-col items-center gap-2.5">
         {milestones.map((m, i) => (
           <button
-            key={m.id}
+            key={m.label}
             type="button"
             title={m.label}
             aria-label={`Go to ${m.label}`}

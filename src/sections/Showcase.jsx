@@ -3,10 +3,10 @@ import { ScrollScene } from '../components/ScrollScene'
 import { SceneMedia } from '../components/SceneMedia'
 import { AssetImage } from '../components/AssetImage'
 import { useProgressEffect, smooth } from '../hooks/useProgressEffect'
-import { sceneById } from '../scenes/scenes.config'
+import { scenes } from '../scenes/scenes.config'
 import { showcase } from '../content/site'
 
-const scene = sceneById.showcase
+const scene = scenes.showcase
 
 /**
  * Scroll-driven gallery. Same pin/scrub primitive as the hero flight, but with
@@ -86,7 +86,7 @@ function ReducedLayout() {
 
 export function Showcase() {
   return (
-    <ScrollScene id="showcase" scroll={scene.scroll} milestone={3}>
+    <ScrollScene id="showcase" scroll={scene.scroll}>
       {({ progressRef, reduced }) =>
         reduced ? (
           <ReducedLayout />

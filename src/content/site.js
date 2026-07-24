@@ -13,35 +13,106 @@ export const brand = {
 }
 
 /**
- * The counter and dot trail run off this list. It is deliberately flat and
- * independent of how each section animates — the hero owns milestones 0 and 1
- * and switches between them mid-pin, which is exactly what makes the handoff
- * from the video scrub to the still scrubs invisible.
+ * The counter and dot trail run off this list — one entry per island zone in
+ * the continuous flight. It stays flat and independent of the animation so the
+ * counter can advance zone-by-zone as the single scrubbed flight moves through
+ * the whole tour, exactly like the reference reel.
  */
 export const milestones = [
-  { id: 'hero', label: 'The island' },
-  { id: 'problem', label: 'The problem' },
-  { id: 'bundle', label: 'The bundle' },
-  { id: 'showcase', label: 'The work' },
-  { id: 'people', label: 'The people' },
-  { id: 'contact', label: 'Get started' },
+  { id: 'flight', label: 'The island' },
+  { id: 'flight', label: 'Website' },
+  { id: 'flight', label: 'NFC card' },
+  { id: 'flight', label: 'Local presence' },
+  { id: 'flight', label: 'Shiek' },
+  { id: 'flight', label: 'Dave' },
+  { id: 'flight', label: 'Haiqal' },
+  { id: 'flight', label: 'Rein' },
 ]
 
 export const nav = [
   { id: 'problem', label: 'The problem' },
-  { id: 'bundle', label: 'The bundle' },
+  { id: 'flight', label: 'The bundle' },
   { id: 'showcase', label: 'Work' },
-  { id: 'people', label: 'People' },
   { id: 'pricing', label: 'Pricing' },
 ]
 
-export const hero = {
-  eyebrow: 'Digital presence, Zamboanga City',
-  title: 'Get found. Get trusted. In one bundle.',
-  body: 'A professional website, an NFC tap card, and a Google Business Profile that actually turns up in search — set up for your business in one go.',
-  cta: { label: 'See the bundle', href: '#bundle' },
-  secondary: { label: 'Talk to us', href: '#contact' },
+/**
+ * The continuous flight: eight island zones scrubbed as one take. Each zone
+ * carries an all-caps eyebrow, a headline with exactly one phrase in the coral
+ * accent, and a one-line subhead — the reference's per-scene copy pattern.
+ * Bundle zones (2–4) add a service hotspot with a PHP price; crew zones (5–8)
+ * add a name/role card. `hint` shows the scroll cue only on the first zone.
+ */
+export const flight = {
   hint: 'Scroll to fly in',
+  zones: [
+    {
+      key: 'hero',
+      eyebrow: 'Get found. Get trusted.',
+      title: ['One bundle, ', 'no compromises', '.'],
+      sub: 'A website, an NFC tap card, and a Google Business Profile — set up together, not one at a time.',
+      ctas: {
+        primary: { label: 'See the bundle', href: '#flight' },
+        secondary: { label: 'Meet the team', href: '#flight' },
+      },
+    },
+    {
+      key: 'website',
+      eyebrow: 'The website',
+      title: ['A site that actually ', 'converts', '.'],
+      sub: 'Fast, mobile-first, built around one goal: getting the visitor to contact you.',
+      // PLACEHOLDER — set your real rate.
+      hotspot: { price: '₱12,000 – ₱25,000' },
+    },
+    {
+      key: 'nfc',
+      eyebrow: 'The tap card',
+      title: ['One tap, ', 'everything shared', '.'],
+      sub: 'Your site, socials and number land on any phone in about a second. Reprogrammable any time.',
+      // PLACEHOLDER — set your real rate.
+      hotspot: { price: '₱1,500 – ₱3,500' },
+    },
+    {
+      key: 'local',
+      eyebrow: 'Local presence',
+      title: ['Turn up when they ', 'search', '.'],
+      sub: 'Google Business Profile and Facebook Page claimed, filled out and optimized for local search.',
+      // PLACEHOLDER — set your real rate.
+      hotspot: { price: '₱4,000 – ₱8,000' },
+    },
+    {
+      key: 'shiek',
+      eyebrow: 'Behind the bundle',
+      title: ['Shiek ', 'builds', ' it all.'],
+      sub: 'Every site we ship, plus the technical side of the whole bundle.',
+      crew: { name: 'Shiek Abdurahman', role: 'Developer', initials: 'SA', accent: 'var(--color-teal-deep)' },
+    },
+    {
+      key: 'dave',
+      eyebrow: 'Behind the bundle',
+      title: ['Dave ', 'opens', ' the door.'],
+      sub: 'First contact — walks owners through what the bundle changes for their business.',
+      crew: { name: 'Dave Calio', role: 'Cold pitch & client presentations', initials: 'DC', accent: 'var(--color-teal-bright)' },
+    },
+    {
+      key: 'haiqal',
+      eyebrow: 'Behind the bundle',
+      title: ['Haiqal ', 'makes the case', '.'],
+      sub: 'Runs presentations and follow-through, from first pitch to signed scope.',
+      crew: { name: 'Haiqal Munjalin', role: 'Cold pitch & client presentations', initials: 'HM', accent: 'var(--color-coral)' },
+    },
+    {
+      key: 'rein',
+      eyebrow: 'Behind the bundle',
+      title: ['Rein keeps it ', 'alive', '.'],
+      sub: 'Social media management across every platform once the bundle goes live.',
+      crew: { name: 'Rein Garcia', role: 'Social media management', initials: 'RG', accent: 'var(--color-teal-deep)' },
+      ctas: {
+        primary: { label: 'See pricing', href: '#pricing' },
+        secondary: { label: 'Talk to us', href: '#contact' },
+      },
+    },
+  ],
 }
 
 export const problem = {
