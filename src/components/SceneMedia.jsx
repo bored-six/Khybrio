@@ -3,6 +3,7 @@ import { AssetImage } from './AssetImage'
 import { useScrubbedVideo } from '../hooks/useScrubbedVideo'
 import { useKenBurns } from '../hooks/useKenBurns'
 import { useProgressEffect, smooth } from '../hooks/useProgressEffect'
+import { isCoarsePointer } from '../lib/smoothScroll'
 
 const clamp = (v) => Math.min(1, Math.max(0, v))
 
@@ -163,6 +164,8 @@ export function SceneMedia({
   transition = 'crossfade',
 }) {
   const videoRef = useRef(null)
+  const rootRef = useRef(null)
+  const tiltRef = useRef(null)
 
   const status = useScrubbedVideo({
     videoRef,
@@ -171,18 +174,43 @@ export function SceneMedia({
     enabled: mediaType === 'video' && !reduced,
   })
 
+  // Pointer-parallax: the island tilts a few degrees toward the cursor and
+  // springs back, damped by a CSS transition. Off on touch and reduced-motion.
+  const onMove = (e) => {
+    if (reduced || isCoarsePointer() || !tiltRef.current || !rootRef.current) return
+    const r = rootRef.current.getBoundingClientRect()
+    const px = (e.clientX - r.left) / r.width - 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5
+    tiltRef.current.style.transform = `rotateY(${px * 5}deg) rotateX(${-py * 5}deg) scale(1.03)`
+  }
+  const onLeave = () => {
+    if (tiltRef.current) tiltRef.current.style.transform = ''
+  }
+
   return (
-    <div className="absolute inset-0 overflow-hidden bg-teal-deep">
-      <StillStack
-        stills={stills}
-        progressRef={progressRef}
-        transition={transition}
-        zoom={zoom}
-        pan={pan}
-        foreground={foreground}
-        reduced={reduced}
-        heroLoop={heroLoop}
-      />
+    <div
+      ref={rootRef}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="absolute inset-0 overflow-hidden bg-teal-deep"
+      style={{ perspective: '1200px' }}
+    >
+      <div
+        ref={tiltRef}
+        className="absolute inset-0 transition-transform duration-500 ease-out"
+        style={{ willChange: 'transform' }}
+      >
+        <StillStack
+          stills={stills}
+          progressRef={progressRef}
+          transition={transition}
+          zoom={zoom}
+          pan={pan}
+          foreground={foreground}
+          reduced={reduced}
+          heroLoop={heroLoop}
+        />
+      </div>
 
       {mediaType === 'video' && !reduced ? (
         <video

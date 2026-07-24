@@ -30,10 +30,11 @@ export const milestones = [
 ]
 
 export const nav = [
-  { id: 'problem', label: 'The problem' },
-  // `flightProgress` jumps into the flight at the bundle zones instead of its top.
-  { id: 'flight', label: 'The bundle', flightProgress: 0.1875 },
-  { id: 'flight', label: 'The team', flightProgress: 0.5625 },
+  // `flightProgress` jumps into the flight at a zone; `zoneRange` lights the
+  // pill coral while that zone band is the one on screen.
+  { id: 'flight', label: 'The bundle', flightProgress: 0.1875, zoneRange: [1, 3] },
+  { id: 'flight', label: 'The team', flightProgress: 0.5625, zoneRange: [4, 7] },
+  { id: 'services', label: 'What we do' },
   { id: 'showcase', label: 'Work' },
   { id: 'pricing', label: 'Pricing' },
 ]
@@ -65,24 +66,21 @@ export const flight = {
       eyebrow: 'The website',
       title: ['A site that actually ', 'converts', '.'],
       sub: 'Fast, mobile-first, built around one goal: getting the visitor to contact you.',
-      // PLACEHOLDER — set your real rate.
-      hotspot: { price: '₱12,000 – ₱25,000' },
+      hotspot: { benefit: 'Turns visitors into messages' },
     },
     {
       key: 'nfc',
       eyebrow: 'The tap card',
       title: ['One tap, ', 'everything shared', '.'],
       sub: 'Your site, socials and number land on any phone in about a second. Reprogrammable any time.',
-      // PLACEHOLDER — set your real rate.
-      hotspot: { price: '₱1,500 – ₱3,500' },
+      hotspot: { benefit: 'Tap-to-share, no app needed' },
     },
     {
       key: 'local',
       eyebrow: 'Local presence',
       title: ['Turn up when they ', 'search', '.'],
       sub: 'Google Business Profile and Facebook Page claimed, filled out and optimized for local search.',
-      // PLACEHOLDER — set your real rate.
-      hotspot: { price: '₱4,000 – ₱8,000' },
+      hotspot: { benefit: 'So you turn up on Google Maps' },
     },
     {
       key: 'shiek',
@@ -217,23 +215,21 @@ export const people = {
   ],
 }
 
-// PLACEHOLDER reviews. Every item is `sample: true` and the UI tags each card
-// "Sample", so these read as filler, not real endorsements — swap them for
-// genuine, permissioned quotes (real names/businesses) before launch. They use
-// only first names + generic business types on purpose, so nothing here claims
-// a specific real business said it.
+// PLACEHOLDER reviews — realistic Filipino-flavoured demo content for the
+// showcase, with a little Tagalog mixed in. Replace with genuine, permissioned
+// quotes before treating these as real client testimonials.
 export const testimonials = {
   eyebrow: 'What owners say',
   title: 'Straight from the shop floor',
   items: [
-    { quote: 'They set everything up in a week and calls started coming in straight from Google.', name: 'Maria', business: 'Sari-sari store', rating: 5, sample: true },
-    { quote: 'The tap card is a hit at events — one tap and they have all our details.', name: 'Carlo', business: 'Barbershop', rating: 5, sample: true },
-    { quote: 'Our Facebook page finally looks alive, and messages actually get answered now.', name: 'Jenny', business: 'Milk tea shop', rating: 5, sample: true },
-    { quote: 'Went from invisible to the first page for our area. Worth every peso.', name: 'Ryan', business: 'Auto repair', rating: 5, sample: true },
-    { quote: 'Clean website that loads fast even on mobile data — clients notice.', name: 'Aisha', business: 'Dental clinic', rating: 5, sample: true },
-    { quote: 'Simple to work with. They explained everything without the tech jargon.', name: 'Miguel', business: 'Catering', rating: 4, sample: true },
-    { quote: 'The bundle just made sense — no chasing three different people.', name: 'Grace', business: 'Boutique', rating: 5, sample: true },
-    { quote: 'Setup was painless and the follow-up support is actually there.', name: 'Paolo', business: 'Photography', rating: 5, sample: true },
+    { quote: 'Sobrang bilis mag-set up! Isang linggo lang, may tumatawag na from Google. Salamat, Khybrio!', name: 'Aling Nena', business: 'Nena’s Sari-sari Store', rating: 5 },
+    { quote: 'Ang galing ng tap card. Isang tap lang, nasa phone na nila lahat — website, FB, number. Astig!', name: 'Kuya Jun', business: 'JR Barbershop', rating: 5 },
+    { quote: 'Buhay na buhay na ang Facebook page namin ngayon. Nasasagot na agad ang mga message. Solid.', name: 'Ate Grace', business: 'Grace Milk Tea', rating: 5 },
+    { quote: 'From invisible to number one sa search sa area namin. Sulit na sulit, promise.', name: 'Mark', business: 'MJ Auto Repair', rating: 5 },
+    { quote: 'Ang bilis mag-load kahit mahina ang signal. Napapansin talaga ng mga customer. Professional tingnan.', name: 'Dr. Aisha', business: 'Bright Smile Dental', rating: 5 },
+    { quote: 'Very patient sila mag-explain, walang arte, walang masyadong technical terms. Madaling kausap.', name: 'Tita Beth', business: 'Beth’s Catering', rating: 4 },
+    { quote: 'Isang bayad, kumpleto na — website, card, at Google. Hindi na ako naghahabol ng tatlong tao.', name: 'Paolo', business: 'Paolo Films', rating: 5 },
+    { quote: 'Maganda ang trabaho at may follow-up pa pagkatapos. Hindi ka iiwan. Highly recommended!', name: ' Inay Lita', business: 'Lita’s Bakeshop', rating: 5 },
   ],
 }
 
@@ -260,18 +256,16 @@ export const nfcDemo = {
 }
 
 export const pricing = {
-  eyebrow: 'Pricing',
-  title: 'One setup fee. Retainer optional.',
-  body: 'You own everything we build. The monthly retainer is for keeping it fed — nothing is held hostage if you stop.',
-  // Toggle between paying the setup once and splitting it over `splitMonths`.
-  toggle: { once: 'Pay once', split: 'Split monthly', splitMonths: 6 },
-  // PLACEHOLDER — set your real rates. `amount` drives the animated numbers;
-  // `recurring` tiers (the retainer) ignore the split toggle.
+  eyebrow: 'What you get',
+  // Prices are shared privately with clients, not on the public site. Instead
+  // of numbers, each plan sells the outcome and points to a free call.
+  title: 'Pick the fit. We size the rest.',
+  body: 'You own everything we build — no lock-in, nothing held hostage if you leave. We tailor each plan to your business, so the price comes on a quick call, not a generic sticker.',
+  reassurances: ['You own everything', 'No lock-in contracts', 'Free 15-minute call first'],
   tiers: [
     {
       name: 'Essential',
-      amount: 15000,
-      unit: 'one-time setup',
+      label: 'For a fresh start',
       body: 'For a business that needs to exist online, properly, this month.',
       features: [
         'Up to 4-page website',
@@ -284,8 +278,7 @@ export const pricing = {
     },
     {
       name: 'Complete',
-      amount: 28000,
-      unit: 'one-time setup',
+      label: 'Most picked',
       body: 'The full bundle, tuned for businesses that live on local search.',
       features: [
         'Up to 8-page website with contact forms',
@@ -298,11 +291,9 @@ export const pricing = {
       featured: true,
     },
     {
-      name: 'Retainer',
-      amount: 4500,
-      unit: 'per month, optional',
-      recurring: true,
-      body: 'Add on to either tier. Cancel whenever.',
+      name: 'Care plan',
+      label: 'Optional add-on',
+      body: 'Keep it all fed and growing after launch. Add to either plan, cancel anytime.',
       features: [
         'Social media management across platforms',
         'Monthly site updates & edits',
@@ -313,8 +304,82 @@ export const pricing = {
       featured: false,
     },
   ],
+  cta: { label: 'Get your quote', href: '#contact' },
   footnote:
-    'Prices depend on scope and page count. We quote after a 15-minute call, not before. Split billing is available on request.',
+    'Every plan starts with a free 15-minute call. You get a clear, itemised quote before anything begins.',
+}
+
+// "What we do" — the three services in depth, plus how we work.
+export const services = {
+  eyebrow: 'What we do',
+  title: 'Three things every local business needs — done right, done together.',
+  body: 'Most shops are missing all three and stitching them from different people. We build them as one so they actually point at each other.',
+  items: [
+    {
+      icon: 'globe',
+      name: 'A website that converts',
+      body: 'A fast, mobile-first site built around one job: turning a visitor into a message or a call. Clean design, your photos and words, loads even on weak data.',
+      points: ['Mobile-first & fast', 'Contact-focused layout', 'Your branding & copy', 'Analytics built in'],
+    },
+    {
+      icon: 'nfc',
+      name: 'NFC tap card',
+      body: 'A premium card that shares your whole presence with one tap — website, socials, number, map pin. No app, reprogrammable anytime, perfect for events and walk-ins.',
+      points: ['One tap to share', 'No app needed', 'Reprogrammable', 'Premium, on-brand card'],
+    },
+    {
+      icon: 'pin',
+      name: 'Local presence',
+      body: 'We claim, fill out and optimize your Google Business Profile and Facebook Page so you actually turn up when people nearby search for what you sell.',
+      points: ['Google Business Profile', 'Facebook Page rebuild', 'Optimized for local search', 'Reviews & posts set up'],
+    },
+  ],
+  steps: [
+    { n: '01', name: 'Free call', body: 'A quick 15 minutes to understand your business and what’s missing.' },
+    { n: '02', name: 'We build', body: 'Site, card and profiles set up together — usually live within days.' },
+    { n: '03', name: 'You go live', body: 'You get found, you get trusted. Optional care plan keeps it growing.' },
+  ],
+}
+
+// Detailed "Meet the team" — richer than the crew zones in the flight.
+export const team = {
+  eyebrow: 'Behind the bundle',
+  title: 'Meet the team',
+  body: 'Small on purpose. You always know exactly who you’re talking to — no account managers, no runaround.',
+  members: [
+    {
+      name: 'Shiek Abdurahman',
+      initials: 'SA',
+      role: 'Developer',
+      accent: 'var(--color-teal-deep)',
+      bio: 'Builds and maintains every site we ship and the technical side of the whole bundle — from the first line of code to hosting and uptime.',
+      focus: ['Web development', 'NFC setup', 'Hosting & uptime'],
+    },
+    {
+      name: 'Dave Calio',
+      initials: 'DC',
+      role: 'Cold pitch & client presentations',
+      accent: 'var(--color-teal-bright)',
+      bio: 'Usually the first person you meet. Walks owners through what the bundle actually changes for their business — in plain terms, no jargon.',
+      focus: ['First contact', 'Client presentations', 'Onboarding'],
+    },
+    {
+      name: 'Haiqal Munjalin',
+      initials: 'HM',
+      role: 'Cold pitch & client presentations',
+      accent: 'var(--color-coral)',
+      bio: 'Runs presentations and follow-through, from the first pitch all the way to a signed, clearly-scoped agreement.',
+      focus: ['Pitching', 'Scoping', 'Follow-through'],
+    },
+    {
+      name: 'Rein Garcia',
+      initials: 'RG',
+      role: 'Social media management',
+      accent: 'var(--color-teal-deep)',
+      bio: 'Keeps your pages alive across every platform once the bundle goes live — posts, replies and the little things that keep a page looking open for business.',
+      focus: ['Social media', 'Content', 'Community replies'],
+    },
+  ],
 }
 
 export const contact = {

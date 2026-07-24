@@ -5,8 +5,10 @@ import { SceneCounter } from './components/SceneCounter'
 import { Flight } from './sections/Flight'
 import { StatStrip } from './components/StatStrip'
 import { Problem } from './sections/Problem'
+import { Services } from './sections/Services'
 import { NfcTapDemo } from './sections/NfcTapDemo'
 import { Showcase } from './sections/Showcase'
+import { Team } from './sections/Team'
 import { Testimonials } from './sections/Testimonials'
 import { Pricing } from './sections/Pricing'
 import { Contact } from './sections/Contact'
@@ -37,8 +39,10 @@ export default function App() {
         <Flight />
         <StatStrip />
         <Problem />
+        <Services />
         <NfcTapDemo />
         <Showcase />
+        <Team />
         <Testimonials />
         <Pricing />
         <Contact />

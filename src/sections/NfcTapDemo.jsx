@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { Globe, Phone, ThumbsUp, MapPin } from 'lucide-react'
+import { Globe, Phone, ThumbsUp, MapPin, Nfc } from 'lucide-react'
 import { nfcDemo } from '../content/site'
 
 const ICONS = { globe: Globe, phone: Phone, facebook: ThumbsUp, mapPin: MapPin }
@@ -89,7 +89,7 @@ export function NfcTapDemo() {
             ) : null}
           </AnimatePresence>
 
-          {/* The NFC card — slides to the phone when tapped */}
+          {/* The Khybrio NFC card — slides to the phone when tapped. */}
           <motion.div
             animate={
               tapped
@@ -97,10 +97,32 @@ export function NfcTapDemo() {
                 : { x: 90, y: 90, rotate: 10, scale: 1 }
             }
             transition={{ type: 'spring', stiffness: 220, damping: 20 }}
-            className="absolute flex h-28 w-44 flex-col justify-between rounded-2xl bg-teal-deep p-3.5 shadow-[0_14px_40px_rgba(15,43,41,0.35)]"
+            className="absolute h-28 w-44 overflow-hidden rounded-2xl bg-teal-deep p-3.5 shadow-[0_14px_40px_rgba(15,43,41,0.4)] ring-1 ring-cream/10"
           >
-            <span className="font-display text-2xl font-bold text-cream">K</span>
-            <span className="h-5 w-8 self-end rounded-md bg-coral/90" />
+            {/* Coral sash — echoes Khybi's diagonal accent. */}
+            <span
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(118deg, transparent 58%, rgba(232,98,45,0.95) 58%, rgba(232,98,45,0.95) 70%, transparent 70%)',
+              }}
+            />
+            <div className="relative flex h-full flex-col justify-between">
+              <div className="flex items-center gap-1.5">
+                <span className="grid h-6 w-6 place-items-center rounded-md bg-cream font-display text-sm font-bold text-teal-deep">
+                  K
+                </span>
+                <span className="font-display text-sm font-bold tracking-tight text-cream">
+                  Khybrio
+                </span>
+              </div>
+              <div className="flex items-end justify-between">
+                <span className="text-[0.5rem] font-semibold uppercase tracking-[0.15em] text-cream/70">
+                  Tap to connect
+                </span>
+                <Nfc size={18} color="var(--color-cream)" strokeWidth={2} />
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

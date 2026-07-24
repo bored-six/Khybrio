@@ -15,7 +15,9 @@ export const scenes = {
     id: 'flight',
     mediaType: 'image', // 'video' once A.flightClip exists
     clip: A.flightClip,
-    heroLoop: A.heroLoop, // autoplay loop over zone 0
+    // heroLoop intentionally omitted — the 1080p loop wasn't crisp enough, so
+    // the hero shows the sharp still (01-hero). Re-add A.heroLoop here if a
+    // genuinely HD loop is generated later.
     // Eight zones, in flight order — must line up with content/site.js `flight.zones`.
     stills: [
       A.hero,

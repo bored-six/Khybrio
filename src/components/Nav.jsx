@@ -3,11 +3,17 @@ import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
 import { Magnetic } from './Magnetic'
 import { nav } from '../content/site'
-import { scrollToId, scrollToSceneProgress } from '../lib/smoothScroll'
+import { scrollToId, scrollToSceneProgress, ScrollTrigger } from '../lib/smoothScroll'
+import { subscribeActiveIndex } from '../lib/sceneRegistry'
 
 export function Nav() {
   const [solid, setSolid] = useState(false)
   const [open, setOpen] = useState(false)
+  const [activeZone, setActiveZone] = useState(0)
+  const [atFlight, setAtFlight] = useState(true)
+
+  // Current flight zone drives which nav pill lights up (reference-style).
+  useEffect(() => subscribeActiveIndex(setActiveZone), [])
 
   useEffect(() => {
     // Lenis scrolls the real window, so scrollY stays authoritative.
@@ -17,6 +23,8 @@ export function Nav() {
       frame = requestAnimationFrame(() => {
         frame = 0
         setSolid(window.scrollY > window.innerHeight * 0.35)
+        const st = ScrollTrigger.getById('flight')
+        setAtFlight(st ? window.scrollY < st.end : true)
       })
     }
     onScroll()
@@ -26,6 +34,12 @@ export function Nav() {
       if (frame) cancelAnimationFrame(frame)
     }
   }, [])
+
+  const isZoneActive = (item) =>
+    item.zoneRange &&
+    atFlight &&
+    activeZone >= item.zoneRange[0] &&
+    activeZone <= item.zoneRange[1]
 
   const go = (id) => (e) => {
     e.preventDefault()
@@ -60,7 +74,9 @@ export function Nav() {
               key={item.label}
               href={`#${item.id}`}
               onClick={goItem(item)}
-              className="text-sm font-medium text-cream/75 transition-colors hover:text-cream"
+              className={`text-sm font-medium transition-colors ${
+                isZoneActive(item) ? 'text-coral' : 'text-cream/75 hover:text-cream'
+              }`}
             >
               {item.label}
             </a>
