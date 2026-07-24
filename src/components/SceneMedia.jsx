@@ -36,7 +36,7 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
     const n = stills.length
     if (n < 2) return
 
-    const seg = clamp(p) * (n - 1)
+    const cp = clamp(p)
 
     for (let k = 0; k < n; k++) {
       const el = layerRefs.current[k]
@@ -44,6 +44,7 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
 
       if (transition === 'clip') {
         // Layer 0 is the base; each later layer wipes in left-to-right.
+        const seg = cp * (n - 1)
         if (k === 0) {
           el.style.clipPath = 'inset(0 0 0 0)'
           el.style.opacity = '1'
@@ -53,7 +54,18 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
         el.style.clipPath = `inset(0 ${(1 - r) * 100}% 0 0)`
         el.style.opacity = '1'
       } else {
-        el.style.opacity = String(smooth(clamp(1 - Math.abs(seg - k))))
+        // Hold each image solid across its own zone and crossfade only at the
+        // boundary — the SAME schedule the copy uses (seg = p*n, width W), so
+        // the next zone's image never bleeds in while the current zone is
+        // still on screen. A triangular fade on a p*(n-1) scale, by contrast,
+        // started dissolving to the next image the instant you passed centre.
+        const W = 0.42
+        const seg = cp * n
+        let rise = smooth(clamp((seg - (k - W / 2)) / W))
+        let fall = smooth(clamp((seg - (k + 1 - W / 2)) / W))
+        if (k === 0) rise = 1
+        if (k === n - 1) fall = 0
+        el.style.opacity = String(rise * (1 - fall))
       }
     }
   })
