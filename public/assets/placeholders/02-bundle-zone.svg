@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img" aria-label="02 · BUNDLE ZONE placeholder">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A9C6C3"/>
+      <stop offset="55%" stop-color="#00767F"/>
+      <stop offset="100%" stop-color="#1C4D4A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  
+    <ellipse cx="960" cy="1421.89056" rx="619.0080000000002" ry="102.13632" fill="#1C4D4A" opacity="0.35"/>
+    <path d="M 186.2399999999999 604.8000000000001 L 960 1660.2086400000003 L 1733.7600000000002 604.8000000000001 Z" fill="#1C4D4A"/>
+    <ellipse cx="960" cy="604.8000000000001" rx="773.7600000000001" ry="340.4544" fill="#00767F"/>
+    <ellipse cx="960" cy="563.9454720000001" rx="634.4832" ry="272.36352000000005" fill="#A9C6C3" opacity="0.55"/>
+    <rect x="635.0208" y="94.11840000000007" width="263.07840000000004" height="510.6816" rx="38.68800000000001" fill="#F5F7F6" opacity="0.75"/>
+    <rect x="1037.376" y="247.32288000000005" width="170.2272" height="357.47712" rx="38.68800000000001" fill="#F5F7F6" opacity="0.55"/>
+    <circle cx="921.312" cy="-59.086079999999924" r="102.13632" fill="#E8622D"/>
+    <rect x="913.5744" y="9.004800000000046" width="30.640896" height="595.7952" fill="#F5F7F6" opacity="0.6"/>
+  
+  <ellipse cx="760" cy="724.6" rx="37.400000000000006" ry="9.520000000000001" fill="#1C4D4A" opacity="0.3"/>
+  <rect x="731.1" y="668.5" width="57.8" height="51" rx="20.4" fill="#00767F"/>
+  <rect x="731.1" y="692.3" width="57.8" height="8.84" fill="#E8622D"/>
+  <circle cx="760" cy="651.5" r="34" fill="#00767F"/>
+  <circle cx="748.44" cy="649.8" r="5.1" fill="#1C4D4A"/>
+  <circle cx="771.56" cy="649.8" r="5.1" fill="#1C4D4A"/>
+
+  <ellipse cx="960" cy="764.6" rx="37.400000000000006" ry="9.520000000000001" fill="#1C4D4A" opacity="0.3"/>
+  <rect x="931.1" y="708.5" width="57.8" height="51" rx="20.4" fill="#00767F"/>
+  <rect x="931.1" y="732.3" width="57.8" height="8.84" fill="#E8622D"/>
+  <circle cx="960" cy="691.5" r="34" fill="#00767F"/>
+  <circle cx="948.44" cy="689.8" r="5.1" fill="#1C4D4A"/>
+  <circle cx="971.56" cy="689.8" r="5.1" fill="#1C4D4A"/>
+
+  <ellipse cx="1160" cy="724.6" rx="37.400000000000006" ry="9.520000000000001" fill="#1C4D4A" opacity="0.3"/>
+  <rect x="1131.1" y="668.5" width="57.8" height="51" rx="20.4" fill="#00767F"/>
+  <rect x="1131.1" y="692.3" width="57.8" height="8.84" fill="#E8622D"/>
+  <circle cx="1160" cy="651.5" r="34" fill="#00767F"/>
+  <circle cx="1148.44" cy="649.8" r="5.1" fill="#1C4D4A"/>
+  <circle cx="1171.56" cy="649.8" r="5.1" fill="#1C4D4A"/>
+
+  <text x="960" y="1026" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif" font-size="49"
+        font-weight="700" letter-spacing="2" fill="#F5F7F6" opacity="0.82">02 · BUNDLE ZONE</text>
+  <text x="960" y="1054" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif" font-size="35"
+        fill="#F5F7F6" opacity="0.55">town-centre crop · 16:9</text>
+</svg>

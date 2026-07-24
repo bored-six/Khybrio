@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img" aria-label="01 · HERO ISLAND placeholder">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A9C6C3"/>
+      <stop offset="55%" stop-color="#00767F"/>
+      <stop offset="100%" stop-color="#1C4D4A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  
+    <ellipse cx="960" cy="1131.9552" rx="399.36000000000007" ry="65.8944" fill="#1C4D4A" opacity="0.35"/>
+    <path d="M 460.79999999999995 604.8000000000001 L 960 1285.7088 L 1459.2 604.8000000000001 Z" fill="#1C4D4A"/>
+    <ellipse cx="960" cy="604.8000000000001" rx="499.20000000000005" ry="219.64800000000002" fill="#00767F"/>
+    <ellipse cx="960" cy="578.4422400000001" rx="409.344" ry="175.71840000000003" fill="#A9C6C3" opacity="0.55"/>
+    <rect x="750.336" y="275.32800000000003" width="169.72800000000004" height="329.47200000000004" rx="24.960000000000004" fill="#F5F7F6" opacity="0.75"/>
+    <rect x="1009.92" y="374.16960000000006" width="109.82400000000001" height="230.63040000000004" rx="24.960000000000004" fill="#F5F7F6" opacity="0.55"/>
+    <circle cx="935.04" cy="176.4864" r="65.8944" fill="#E8622D"/>
+    <rect x="930.048" y="220.41600000000005" width="19.768320000000003" height="384.384" fill="#F5F7F6" opacity="0.6"/>
+  
+  <ellipse cx="1180" cy="669.4" rx="28.6" ry="7.280000000000001" fill="#1C4D4A" opacity="0.3"/>
+  <rect x="1157.9" y="626.5" width="44.199999999999996" height="39" rx="15.6" fill="#00767F"/>
+  <rect x="1157.9" y="644.7" width="44.199999999999996" height="6.76" fill="#E8622D"/>
+  <circle cx="1180" cy="613.5" r="26" fill="#00767F"/>
+  <circle cx="1171.16" cy="612.2" r="3.9" fill="#1C4D4A"/>
+  <circle cx="1188.84" cy="612.2" r="3.9" fill="#1C4D4A"/>
+
+  <text x="960" y="1026" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif" font-size="49"
+        font-weight="700" letter-spacing="2" fill="#F5F7F6" opacity="0.82">01 · HERO ISLAND</text>
+  <text x="960" y="1054" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif" font-size="35"
+        fill="#F5F7F6" opacity="0.55">wide establishing shot · 16:9</text>
+</svg>

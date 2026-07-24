@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" role="img" aria-label="SAMPLE 03 placeholder">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A9C6C3"/>
+      <stop offset="55%" stop-color="#00767F"/>
+      <stop offset="100%" stop-color="#1C4D4A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="800" fill="url(#sky)"/>
+  <rect x="76.8" y="128" width="1126.4" height="544" rx="14" fill="#F5F7F6"/>
+     <rect x="76.8" y="128" width="1126.4" height="72" rx="14" fill="#A9C6C3"/>
+     <circle cx="98.8" cy="164" r="6" fill="#E8622D"/>
+     <circle cx="120.8" cy="164" r="6" fill="#F5F7F6" opacity="0.8"/>
+     <circle cx="142.8" cy="164" r="6" fill="#F5F7F6" opacity="0.8"/>
+     <rect x="104.8" y="256" width="495.61600000000004" height="16" rx="8" fill="#1C4D4A" opacity="0.75"/>
+     <rect x="104.8" y="320" width="743.4240000000001" height="10" rx="5" fill="#1C4D4A" opacity="0.28"/>
+     <rect x="104.8" y="368" width="619.5200000000001" height="10" rx="5" fill="#1C4D4A" opacity="0.28"/>
+     <rect x="104.8" y="455.99999999999994" width="120" height="34" rx="17" fill="#E8622D"/>
+  <text x="640" y="746" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif" font-size="36"
+        font-weight="700" letter-spacing="2" fill="#F5F7F6" opacity="0.82">SAMPLE 03</text>
+  <text x="640" y="774" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif" font-size="26"
+        fill="#F5F7F6" opacity="0.55">showcase sample</text>
+</svg>

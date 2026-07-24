@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Khybrio mark placeholder">
+  <rect width="128" height="128" rx="26" fill="#1C4D4A"/>
+  <path d="M44 32 v64 M44 66 l30 -34 M56 66 l22 30" stroke="#F5F7F6" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="90" cy="44" r="6" fill="#E8622D"/>
+  <path d="M99 35 a13 13 0 0 1 0 18" stroke="#E8622D" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.75"/>
+</svg>
