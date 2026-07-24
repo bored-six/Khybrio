@@ -42,6 +42,11 @@ export function initSmoothScroll() {
   lenis = new Lenis({
     duration: 1.05,
     smoothWheel: true,
+    // Each mouse-wheel notch moves less, so the scrubbed flight advances
+    // gradually under fine scroll control instead of jumping a whole zone
+    // per notch. Trackpads already send small deltas; this mainly tames
+    // discrete mouse wheels.
+    wheelMultiplier: 0.65,
     // Native momentum on touch feels better than emulating it.
     syncTouch: false,
   })
