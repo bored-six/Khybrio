@@ -67,9 +67,11 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
           ref={(el) => {
             layerRefs.current[k] = el
           }}
-          loading={k === 0 ? 'eager' : 'lazy'}
-          // First zone wins the network so it paints immediately; later zones
-          // yield so they don't compete with it on load.
+          // All zones load eagerly — the art is ~130KB WebP each, and lazy
+          // loading left later zones blank until scrolled into (they all sit in
+          // the pinned viewport at once). The first zone gets high priority so
+          // it still paints first; the rest yield to it but don't wait.
+          loading="eager"
           fetchPriority={k === 0 ? 'high' : 'low'}
           className="absolute inset-0 h-full w-full object-cover"
           style={{

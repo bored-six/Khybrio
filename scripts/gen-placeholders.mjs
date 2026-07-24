@@ -97,13 +97,17 @@ const mockup = (w, h, label) => {
   )
 }
 
+// Names must match the eight flight zones in src/lib/assets.js — a fallback
+// placeholder only works if it shares the real asset's base name. All 16:9.
 const files = [
-  ['01-hero-island.svg', frame(1920, 1080, '01 · HERO ISLAND', island(1920, 1080) + khybi(1180, 620, 26), 'wide establishing shot · 16:9')],
-  ['02-bundle-zone.svg', frame(1920, 1080, '02 · BUNDLE ZONE', island(1920, 1080, 1.55) + khybi(760, 660, 34) + khybi(960, 700, 34) + khybi(1160, 660, 34), 'town-centre crop · 16:9')],
-  ['03-crew-shiek.svg', frame(768, 1024, '03 · SHIEK', khybi(384, 470, 92), 'desk nook · 3:4')],
-  ['04-crew-dave.svg', frame(768, 1024, '04 · DAVE', khybi(384, 470, 92), 'meeting bench · 3:4')],
-  ['05-crew-haiqal.svg', frame(768, 1024, '05 · HAIQAL', khybi(384, 470, 92), 'meeting bench · 3:4')],
-  ['06-crew-rein.svg', frame(768, 1024, '06 · REIN', khybi(384, 470, 92), 'content corner · 3:4')],
+  ['01-hero.svg', frame(1920, 1080, '01 · HERO ISLAND', island(1920, 1080) + khybi(1180, 620, 26), 'wide establishing shot · 16:9')],
+  ['02-web-desk.svg', frame(1920, 1080, '02 · WEB DESK', island(1920, 1080, 1.55) + khybi(960, 640, 40), 'office corner · 16:9')],
+  ['03-nfc-kiosk.svg', frame(1920, 1080, '03 · NFC KIOSK', island(1920, 1080, 1.55) + khybi(960, 640, 40), 'kiosk corner · 16:9')],
+  ['04-signal-tower.svg', frame(1920, 1080, '04 · SIGNAL TOWER', island(1920, 1080, 1.55) + khybi(960, 640, 40), 'tower corner · 16:9')],
+  ['05-shiek.svg', frame(1920, 1080, '05 · SHIEK', khybi(960, 560, 70), 'desk nook · 16:9')],
+  ['06-dave.svg', frame(1920, 1080, '06 · DAVE', khybi(960, 560, 70), 'meeting bench · 16:9')],
+  ['07-haiqal.svg', frame(1920, 1080, '07 · HAIQAL', khybi(960, 560, 70), 'meeting bench · 16:9')],
+  ['08-rein.svg', frame(1920, 1080, '08 · REIN', khybi(960, 560, 70), 'content corner · 16:9')],
   ['sample-01.svg', mockup(1280, 800, 'SAMPLE 01')],
   ['sample-02.svg', mockup(1280, 800, 'SAMPLE 02')],
   ['sample-03.svg', mockup(1280, 800, 'SAMPLE 03')],
