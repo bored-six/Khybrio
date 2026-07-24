@@ -13,8 +13,11 @@
 // the GitHub Pages build). Without this, images 404 under the repo subpath.
 const BASE = import.meta.env.BASE_URL
 
+// Served as full-resolution WebP (quality 90) — visually identical to the
+// source PNGs but ~1MB total instead of ~34MB, which is what killed load time.
+// The original PNGs stay in the repo as the source of truth.
 const world = (name, alt) => ({
-  src: `${BASE}assets/world/${name}.png`,
+  src: `${BASE}assets/world/${name}.webp`,
   placeholder: `${BASE}assets/placeholders/${name}.svg`,
   alt,
 })
