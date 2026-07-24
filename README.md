@@ -23,16 +23,24 @@ npm run dev
 
 ## The signature interaction
 
-The hero is a **scroll-scrubbed camera flight** through an isometric floating
-island — the technique from [oso95/scroll-world](https://github.com/oso95/scroll-world),
-where scroll position drives video playback time rather than triggering an
-animation.
+The centrepiece is a **scroll-scrubbed camera flight** through an isometric
+floating island — the technique from
+[oso95/scroll-world](https://github.com/oso95/scroll-world), where scroll
+position drives the visuals rather than triggering a one-shot animation.
 
-Higgsfield free-tier credits only cover **one** video generation, so the flight
-covers HERO → THE BUNDLE and nothing else. Every later scrubbed section
-(showcase, crew) gets the same feeling from CSS/GSAP Ken-Burns moves over stills.
-The counter and dot trail run continuously across both, so the handoff between
-the two techniques is invisible.
+One pinned scene scrubs the whole island tour as a single take across **eight
+zones** — hero, the three bundle zones (website / NFC / local presence), and the
+four crew — with a numbered counter (`01/08 … 08/08`) and a dot trail advancing
+zone by zone. Per-zone copy, bundle price hotspots and crew cards are all driven
+off the same scroll-progress value, so nothing can drift out of sync with the
+camera.
+
+It runs today as a **crossfade + camera-push over eight 4K stills**
+(`mediaType: 'image'`) — the closest thing to the planned continuous flight
+without true image-to-video. The seams are ready for the real thing: drop a
+stitched Seedance clip at `A.flightClip`, flip one scene's `mediaType` to
+`'video'`, and the same pin/scrub machinery drives the video instead — no other
+change. The ported video scrub core (below) is what makes that swap a one-liner.
 
 ### What was taken from scroll-world
 
@@ -63,16 +71,15 @@ Every scrubbed section is one primitive, `ScrollScene`, driven from a data array
 in `src/scenes/scenes.config.js`:
 
 ```jsx
-<ScrollScene id="hero" scroll={2.6} milestone={heroMilestone}>
+<ScrollScene id="flight" scroll={12.8} milestone={flightMilestone}>
   {({ progressRef, reduced }) => ( /* … */ )}
 </ScrollScene>
 ```
 
 `ScrollScene` owns pinning and scroll progress and **deliberately nothing else** —
 it never learns whether it's driving a `<video>` or an `<img>`. That's what makes
-the upgrade path cheap: when there's budget for a second flight clip, changing
-that scene's `mediaType` from `'image'` to `'video'` and pointing `clip` at the
-new file is the entire change.
+the upgrade path cheap: swapping the flight from stills to a real video clip is a
+`mediaType: 'image'` → `'video'` change and nothing else.
 
 Progress lives in a ref, not state. A pinned section updates every frame, and
 re-rendering the tree 60×/second to move a transform would be pure waste —
@@ -90,10 +97,9 @@ src/
 │   ├── useScrubbedVideo.js  ← the ported scroll-world core
 │   ├── useKenBurns.js       scrubbed zoom/pan, with a depth multiplier
 │   ├── useProgressEffect.js per-frame subscription + band/smooth/lerp helpers
-│   ├── useMilestone.js      counter milestone for unpinned sections
 │   └── usePrefersReducedMotion.js
 ├── components/  ScrollScene, SceneMedia, AssetImage, Nav, SceneCounter, …
-└── sections/    HeroBundle, Problem, Showcase, People, Testimonials, Pricing, Contact, Footer
+└── sections/    Flight (the 8-zone tour), Problem, Showcase, Testimonials, Pricing, Contact, Footer
 ```
 
 ### Two details worth knowing before you touch `ScrollScene`
