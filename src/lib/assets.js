@@ -13,8 +13,10 @@
 // the GitHub Pages build). Without this, images 404 under the repo subpath.
 const BASE = import.meta.env.BASE_URL
 
+// Island art ships as ~180KB JPEGs (resized to 1920px), not the ~5MB source
+// PNGs — the eight full-size PNGs were ~34MB total and made the flight crawl.
 const world = (name, alt) => ({
-  src: `${BASE}assets/world/${name}.png`,
+  src: `${BASE}assets/world/${name}.jpg`,
   placeholder: `${BASE}assets/placeholders/${name}.svg`,
   alt,
 })
