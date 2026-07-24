@@ -26,7 +26,10 @@ export const scenes = {
       A.haiqal,
       A.rein,
     ],
-    scroll: 7.2, // viewport-heights of scroll the flight stays pinned for
+    // Viewport-heights the flight stays pinned for. ~1.6 per zone across 8
+    // zones, so a single scroll gesture stays within a zone instead of blowing
+    // straight through to the next — each zone gets a deliberate hold.
+    scroll: 12.8,
     zoom: [1, 1.12],
     pan: [0, -3],
     transition: 'crossfade',
