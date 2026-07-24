@@ -13,6 +13,24 @@ const scene = scenes.flight
 const zones = flight.zones
 const N = zones.length
 
+const clamp01 = (v) => Math.min(1, Math.max(0, v))
+
+/**
+ * Opacity for zone `i` at flight position `seg` (0..N). Each zone holds solid
+ * across its own band and does a quick 50/50 crossfade with its neighbour at
+ * the shared boundary — never two solid copies at once. The first zone is
+ * clamped fully on before its centre and the last fully on after, so the
+ * opening and closing copy read at full strength at the very top and bottom.
+ */
+const W = 0.42 // crossfade width, in zone-band units
+function zoneVis(seg, i) {
+  let rise = smooth(clamp01((seg - (i - W / 2)) / W))
+  let fall = smooth(clamp01((seg - (i + 1 - W / 2)) / W))
+  if (i === 0) rise = 1
+  if (i === N - 1) fall = 0
+  return rise * (1 - fall)
+}
+
 /** Milestone (counter zone) from flight progress — one band per zone. */
 const flightMilestone = (p) => Math.min(N - 1, Math.max(0, Math.floor(p * N)))
 
@@ -42,26 +60,22 @@ function FlightOverlay({ progressRef }) {
   useProgressEffect(progressRef, (p) => {
     const seg = p * N // 0..N across the flight
     for (let i = 0; i < N; i++) {
-      // Distance from this zone's band centre, in band-widths. A zone is fully
-      // up across its whole band (|d| <= 0.5) and crossfades with its
-      // neighbour over the next 0.4. The clamp keeps the first zone solid at
-      // the very top (p=0) and the last solid at the very bottom (p=1) —
-      // band-CENTRE fading, by contrast, left the opening copy at half opacity.
-      const d = Math.abs(seg - (i + 0.5))
-      const vis = smooth(Math.min(1, Math.max(0, (0.9 - d) / 0.4)))
-
+      const vis = zoneVis(seg, i)
       const copy = copyRefs.current[i]
       if (copy) {
         copy.style.opacity = String(vis)
-        copy.style.transform = `translate3d(0, ${(1 - vis) * 26}px, 0)`
+        copy.style.transform = `translate3d(0, ${(1 - vis) * 22}px, 0)`
+        // Only the solid zone captures clicks, so faded CTAs behind it stay inert.
         copy.style.pointerEvents = vis > 0.6 ? 'auto' : 'none'
       }
       const card = cardRefs.current[i]
       if (card) {
-        // Cards land only near the zone centre — the "presenting" beat.
-        const cardVis = vis * smooth(Math.min(1, Math.max(0, (0.4 - d) / 0.3)))
+        // Cards ride the zone opacity but only appear near its centre — the
+        // "presenting" beat — so they never linger through a crossfade.
+        const dc = Math.abs(seg - (i + 0.5))
+        const cardVis = vis * smooth(clamp01((0.5 - dc) / 0.3))
         card.style.opacity = String(cardVis)
-        card.style.transform = `translate3d(${(1 - cardVis) * 28}px, 0, 0)`
+        card.style.transform = `translate3d(${(1 - cardVis) * 24}px, 0, 0)`
       }
     }
     if (hintRef.current) {
