@@ -71,3 +71,16 @@ export function scrollToId(id) {
   if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.2 })
   else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
+
+/**
+ * Scroll to a specific progress (0..1) inside a pinned ScrollTrigger scene —
+ * used to jump to a zone within the flight (its bundle or crew section) rather
+ * than to the flight's top. Exact, unlike a percentage anchor.
+ */
+export function scrollToSceneProgress(sceneId, p) {
+  const st = ScrollTrigger.getById(sceneId)
+  if (!st) return
+  const y = st.start + Math.min(1, Math.max(0, p)) * (st.end - st.start)
+  if (lenis) lenis.scrollTo(y, { duration: 1.2 })
+  else window.scrollTo({ top: y, behavior: 'smooth' })
+}

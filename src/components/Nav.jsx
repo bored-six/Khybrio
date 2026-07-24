@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
 import { nav } from '../content/site'
-import { scrollToId } from '../lib/smoothScroll'
+import { scrollToId, scrollToSceneProgress } from '../lib/smoothScroll'
 
 export function Nav() {
   const [solid, setSolid] = useState(false)
@@ -32,6 +32,14 @@ export function Nav() {
     scrollToId(id)
   }
 
+  // Nav item click — jump into the flight at a zone when `flightProgress` is set.
+  const goItem = (item) => (e) => {
+    e.preventDefault()
+    setOpen(false)
+    if (item.flightProgress != null) scrollToSceneProgress(item.id, item.flightProgress)
+    else scrollToId(item.id)
+  }
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
@@ -48,9 +56,9 @@ export function Nav() {
         <nav className="hidden items-center gap-8 md:flex">
           {nav.map((item) => (
             <a
-              key={item.id}
+              key={item.label}
               href={`#${item.id}`}
-              onClick={go(item.id)}
+              onClick={goItem(item)}
               className="text-sm font-medium text-cream/75 transition-colors hover:text-cream"
             >
               {item.label}
@@ -81,9 +89,9 @@ export function Nav() {
           <nav className="flex flex-col gap-1 pt-2">
             {nav.map((item) => (
               <a
-                key={item.id}
+                key={item.label}
                 href={`#${item.id}`}
-                onClick={go(item.id)}
+                onClick={goItem(item)}
                 className="rounded-lg px-2 py-3 text-base font-medium text-cream/80 hover:bg-cream/5 hover:text-cream"
               >
                 {item.label}

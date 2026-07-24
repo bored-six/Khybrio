@@ -40,6 +40,12 @@ export function ScrollScene({
    * frame and the last one mounted always won.
    */
   milestone,
+  /**
+   * Optional GSAP ScrollTrigger snap config. For the flight this snaps to each
+   * zone's centre, so a light scroll settles cleanly on the next zone instead
+   * of needing a precise landing.
+   */
+  snap,
   children,
 }) {
   const rootRef = useRef(null)
@@ -56,6 +62,7 @@ export function ScrollScene({
     progressRef.current = 0
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
+        id,
         trigger: rootRef.current,
         start: 'top top',
         // Resolved in pixels against one viewport height, NOT as a percentage.
@@ -78,6 +85,7 @@ export function ScrollScene({
         pin: pinRef.current,
         pinSpacing: true,
         scrub: true,
+        snap: snap || undefined,
         invalidateOnRefresh: true,
         anticipatePin: 1,
         onUpdate: (self) => {
@@ -91,7 +99,7 @@ export function ScrollScene({
     }, rootRef)
 
     return () => ctx.revert()
-  }, [scroll, reduced, milestone])
+  }, [scroll, reduced, milestone, snap, id])
 
   return (
     <section id={id} ref={rootRef} className={`relative ${className}`}>

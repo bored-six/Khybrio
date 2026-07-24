@@ -5,7 +5,7 @@ import { SceneMedia } from '../components/SceneMedia'
 import { AssetImage } from '../components/AssetImage'
 import { InitialsAvatar } from '../components/InitialsAvatar'
 import { useProgressEffect, band, smooth } from '../hooks/useProgressEffect'
-import { scrollToId } from '../lib/smoothScroll'
+import { scrollToId, scrollToSceneProgress } from '../lib/smoothScroll'
 import { scenes } from '../scenes/scenes.config'
 import { flight } from '../content/site'
 
@@ -14,6 +14,22 @@ const zones = flight.zones
 const N = zones.length
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v))
+
+// Snap the flight to each zone's centre, so a light scroll settles cleanly on
+// the next zone instead of requiring a precise landing.
+const flightSnap = {
+  snapTo: zones.map((_, i) => (i + 0.5) / N),
+  duration: { min: 0.2, max: 0.6 },
+  delay: 0.05,
+  ease: 'power1.inOut',
+}
+
+/** CTA/nav that may jump into the flight at a zone (flightProgress) or to a section. */
+const ctaClick = (cta) => (e) => {
+  e.preventDefault()
+  if (cta.flightProgress != null) scrollToSceneProgress('flight', cta.flightProgress)
+  else scrollToId(cta.href.slice(1))
+}
 
 /**
  * Opacity for zone `i` at flight position `seg` (0..N). Each zone holds solid
@@ -85,46 +101,60 @@ function FlightOverlay({ progressRef }) {
 
   return (
     <>
-      {/* Copy column, left. */}
-      <div className="pointer-events-none absolute inset-0 z-20 flex items-center">
-        <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
+      {/* Copy column. Centred-left on desktop; on mobile it drops to the lower
+          third (over the mobile bottom scrim) so the island stays visible up
+          top instead of everything cramming into the middle. */}
+      <div className="pointer-events-none absolute inset-0 z-20">
+        <div className="relative mx-auto h-full w-full max-w-7xl">
           {zones.map((z, i) => (
             <div
               key={z.key}
               ref={(el) => {
                 copyRefs.current[i] = el
               }}
-              className="absolute inset-x-5 top-1/2 -translate-y-1/2 scene-layer sm:inset-x-8"
+              className="absolute inset-x-5 bottom-[15%] scene-layer sm:inset-x-8 md:top-1/2 md:bottom-auto md:-translate-y-1/2"
               style={{ opacity: i === 0 ? 1 : 0 }}
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-soft">
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-teal-soft sm:text-xs">
                 {z.eyebrow}
               </p>
-              <div className="mt-3 max-w-2xl">
+              <div className="mt-2 max-w-2xl sm:mt-3">
                 <Headline parts={z.title} />
               </div>
-              <p className="mt-4 max-w-lg text-base leading-relaxed text-cream/80 sm:text-lg">
+              <p className="mt-3 max-w-lg text-sm leading-relaxed text-cream/80 sm:mt-4 sm:text-base md:text-lg">
                 {z.sub}
               </p>
+
+              {/* Mobile-only inline info — the desktop right-hand card is hidden
+                  on small screens, so surface the price / crew here instead. */}
+              {z.hotspot ? (
+                <p className="mt-3 font-display text-xl font-bold text-coral md:hidden">
+                  {z.hotspot.price}
+                </p>
+              ) : null}
+              {z.crew ? (
+                <div className="mt-3 flex items-center gap-3 md:hidden">
+                  <InitialsAvatar initials={z.crew.initials} accent={z.crew.accent} size={40} />
+                  <div>
+                    <p className="font-semibold text-cream">{z.crew.name}</p>
+                    <p className="text-sm text-teal-soft">{z.crew.role}</p>
+                  </div>
+                </div>
+              ) : null}
+
               {z.ctas ? (
-                <div className="pointer-events-auto mt-7 flex flex-wrap gap-3">
+                <div className="pointer-events-auto mt-5 flex flex-wrap gap-3 sm:mt-7">
                   <a
-                    href={z.ctas.primary.href}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      scrollToId(z.ctas.primary.href.slice(1))
-                    }}
-                    className="rounded-full bg-coral px-7 py-3.5 font-semibold text-cream transition-transform duration-300 hover:scale-[1.04]"
+                    href={z.ctas.primary.href ?? '#flight'}
+                    onClick={ctaClick(z.ctas.primary)}
+                    className="rounded-full bg-coral px-6 py-3 font-semibold text-cream transition-transform duration-300 hover:scale-[1.04] sm:px-7 sm:py-3.5"
                   >
                     {z.ctas.primary.label}
                   </a>
                   <a
-                    href={z.ctas.secondary.href}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      scrollToId(z.ctas.secondary.href.slice(1))
-                    }}
-                    className="rounded-full border border-cream/30 px-7 py-3.5 font-semibold text-cream transition-colors duration-300 hover:bg-cream/10"
+                    href={z.ctas.secondary.href ?? '#flight'}
+                    onClick={ctaClick(z.ctas.secondary)}
+                    className="rounded-full border border-cream/30 px-6 py-3 font-semibold text-cream transition-colors duration-300 hover:bg-cream/10 sm:px-7 sm:py-3.5"
                   >
                     {z.ctas.secondary.label}
                   </a>
@@ -135,7 +165,7 @@ function FlightOverlay({ progressRef }) {
         </div>
       </div>
 
-      {/* Cards column, right — bundle hotspot or crew card per zone. */}
+      {/* Cards column, right — bundle hotspot or crew card per zone (desktop). */}
       <div className="pointer-events-none absolute inset-0 z-20 hidden items-center md:flex">
         <div className="relative ml-auto mr-8 w-[21rem] lg:mr-16">
           {zones.map((z, i) => {
@@ -237,7 +267,12 @@ function ReducedLayout() {
 
 export function Flight() {
   return (
-    <ScrollScene id="flight" scroll={scene.scroll} milestone={flightMilestone}>
+    <ScrollScene
+      id="flight"
+      scroll={scene.scroll}
+      milestone={flightMilestone}
+      snap={flightSnap}
+    >
       {({ progressRef, reduced }) =>
         reduced ? (
           <ReducedLayout />
@@ -253,20 +288,28 @@ export function Flight() {
               progressRef={progressRef}
               reduced={reduced}
             />
-            {/* Left-anchored scrim: dark on the copy side for white-text
-                contrast, fully clear across the right third so the island art
-                stays visible. Explicit gradient — a broad Tailwind scrim washed
-                this pale art out to flat teal. */}
+            {/* Desktop scrim: dark on the copy side (left), clear across the
+                right third so the island stays visible. Hidden on mobile — a
+                left-heavy gradient darkens the whole narrow screen. */}
             <div
-              className="pointer-events-none absolute inset-0 z-10"
+              className="pointer-events-none absolute inset-0 z-10 hidden md:block"
               style={{
                 background:
                   'linear-gradient(100deg, rgba(28,77,74,0.94) 0%, rgba(28,77,74,0.55) 28%, rgba(28,77,74,0.12) 48%, rgba(28,77,74,0) 62%)',
               }}
             />
-            {/* Whisper of a bottom vignette for a premium, intentional edge. */}
+            {/* Mobile scrim: dark at the bottom (where the copy sits), clear at
+                the top so the island reads. */}
             <div
-              className="pointer-events-none absolute inset-0 z-10"
+              className="pointer-events-none absolute inset-0 z-10 md:hidden"
+              style={{
+                background:
+                  'linear-gradient(to top, rgba(28,77,74,0.96) 0%, rgba(28,77,74,0.78) 24%, rgba(28,77,74,0.25) 52%, rgba(28,77,74,0) 78%)',
+              }}
+            />
+            {/* Whisper of a bottom vignette for a premium edge (desktop). */}
+            <div
+              className="pointer-events-none absolute inset-0 z-10 hidden md:block"
               style={{
                 background:
                   'linear-gradient(to top, rgba(28,77,74,0.45) 0%, rgba(28,77,74,0) 32%)',

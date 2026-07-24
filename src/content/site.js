@@ -31,7 +31,9 @@ export const milestones = [
 
 export const nav = [
   { id: 'problem', label: 'The problem' },
-  { id: 'flight', label: 'The bundle' },
+  // `flightProgress` jumps into the flight at the bundle zones instead of its top.
+  { id: 'flight', label: 'The bundle', flightProgress: 0.1875 },
+  { id: 'flight', label: 'The team', flightProgress: 0.5625 },
   { id: 'showcase', label: 'Work' },
   { id: 'pricing', label: 'Pricing' },
 ]
@@ -52,8 +54,10 @@ export const flight = {
       title: ['One bundle, ', 'no compromises', '.'],
       sub: 'A website, an NFC tap card, and a Google Business Profile — set up together, not one at a time.',
       ctas: {
-        primary: { label: 'See the bundle', href: '#flight' },
-        secondary: { label: 'Meet the team', href: '#flight' },
+        // `flightProgress` scrolls into the flight at a specific zone rather
+        // than to the flight's top. Bundle = zone 1 centre, crew = Shiek's zone.
+        primary: { label: 'See the bundle', flightProgress: 0.1875 },
+        secondary: { label: 'Meet the team', flightProgress: 0.5625 },
       },
     },
     {
