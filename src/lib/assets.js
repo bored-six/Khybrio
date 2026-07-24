@@ -8,15 +8,20 @@
  * with no code change and no layout shift.
  */
 
+// Vite rewrites base into index.html and imported modules, but NOT into string
+// literals like these — so build them off BASE_URL ('/' in dev, '/Khybrio/' in
+// the GitHub Pages build). Without this, images 404 under the repo subpath.
+const BASE = import.meta.env.BASE_URL
+
 const world = (name, alt) => ({
-  src: `/assets/world/${name}.png`,
-  placeholder: `/assets/placeholders/${name}.svg`,
+  src: `${BASE}assets/world/${name}.png`,
+  placeholder: `${BASE}assets/placeholders/${name}.svg`,
   alt,
 })
 
 const showcase = (name, alt) => ({
-  src: `/assets/showcase/${name}.png`,
-  placeholder: `/assets/placeholders/${name}.svg`,
+  src: `${BASE}assets/showcase/${name}.png`,
+  placeholder: `${BASE}assets/placeholders/${name}.svg`,
   alt,
 })
 
@@ -44,16 +49,16 @@ export const A = {
    * which needs no video. Drop a real Seedance/stitched clip here and flip the
    * flight scene's mediaType to 'video' to upgrade to true 3D parallax.
    */
-  flightClip: '/assets/world/island-flight.mp4',
+  flightClip: `${BASE}assets/world/island-flight.mp4`,
 
   mark: {
-    src: '/assets/brand/khybrio-mark.svg',
-    placeholder: '/assets/placeholders/brand-mark.svg',
+    src: `${BASE}assets/brand/khybrio-mark.svg`,
+    placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
   markClean: {
-    src: '/assets/brand/khybrio-mark-clean.svg',
-    placeholder: '/assets/placeholders/brand-mark.svg',
+    src: `${BASE}assets/brand/khybrio-mark-clean.svg`,
+    placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
 }

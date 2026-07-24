@@ -11,9 +11,10 @@
     />
     <meta name="theme-color" content="#1C4D4A" />
 
-    <!-- Swap to the grain-free mark once you generate it (see ASSETS.md). -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/assets/brand/khybrio-mark-clean.svg" />
+    <!-- %BASE_URL% expands to '/' in dev and '/Khybrio/' in the Pages build,
+         so these resolve correctly under the repo subpath. -->
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="apple-touch-icon" href="%BASE_URL%assets/brand/khybrio-mark-clean.svg" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Khybrio — Get found. Get trusted. In one bundle." />
@@ -21,7 +22,7 @@
       property="og:description"
       content="Website, NFC tap card and local presence for businesses in Zamboanga City. One bundle, one setup."
     />
-    <meta property="og:image" content="/assets/world/01-hero-island.png" />
+    <meta property="og:image" content="%BASE_URL%assets/world/01-hero.png" />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
