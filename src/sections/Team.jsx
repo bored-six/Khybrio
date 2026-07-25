@@ -1,13 +1,28 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
+import { AssetImage } from '../components/AssetImage'
 import { InitialsAvatar } from '../components/InitialsAvatar'
+import { A } from '../lib/assets'
 import { team } from '../content/site'
 
 /**
  * Team cards flip in 3D — hover on desktop, tap on mobile — from a compact
- * face-card to a full profile with bio and focus areas. The avatar is a
- * placeholder frame sized for a real headshot to drop straight in.
+ * face-card to a full profile with bio and focus areas.
+ *
+ * Members with a `photo` key get their real headshot; the rest keep the
+ * initials avatar, so the grid reads evenly while photos are still missing.
  */
+function Avatar({ member, size }) {
+  const photo = member.photo ? A.teamPhotos[member.photo] : null
+  if (!photo) return <InitialsAvatar initials={member.initials} accent={member.accent} size={size} />
+  return (
+    <AssetImage
+      asset={photo}
+      className="h-full w-full rounded-full object-cover"
+      style={{ width: size, height: size }}
+    />
+  )
+}
 export function Team() {
   const [flipped, setFlipped] = useState(null)
 
@@ -40,9 +55,8 @@ export function Team() {
               >
                 {/* Front — the face card */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center rounded-[var(--radius-card)] bg-teal-soft/20 p-6 text-center [backface-visibility:hidden]">
-                  {/* Photo frame — swap the avatar for a real headshot, same box. */}
                   <div className="grid h-24 w-24 place-items-center overflow-hidden rounded-full ring-4 ring-cream">
-                    <InitialsAvatar initials={m.initials} accent={m.accent} size={96} />
+                    <Avatar member={m} size={96} />
                   </div>
                   <h3 className="mt-4 font-display text-lg font-bold text-teal-deep">{m.name}</h3>
                   <p className="text-sm font-medium text-teal-bright">{m.role}</p>
@@ -54,7 +68,9 @@ export function Team() {
                 {/* Back — the full profile */}
                 <div className="absolute inset-0 flex flex-col rounded-[var(--radius-card)] bg-teal-deep p-6 text-cream [backface-visibility:hidden] [transform:rotateY(180deg)]">
                   <div className="flex items-center gap-3">
-                    <InitialsAvatar initials={m.initials} accent={m.accent} size={44} />
+                    <span className="shrink-0 overflow-hidden rounded-full">
+                      <Avatar member={m} size={44} />
+                    </span>
                     <div className="min-w-0">
                       <h3 className="truncate font-display text-base font-bold text-cream">
                         {m.name}

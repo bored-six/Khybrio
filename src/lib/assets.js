@@ -86,6 +86,29 @@ export const A = {
     alt: 'Khybrio — local digital presence',
   },
 
+  /**
+   * Real team headshots, keyed by the `photo` field on each member in
+   * content/site.js. Haiqal has no photo yet — that member simply omits the
+   * key and keeps the initials avatar until one lands here.
+   */
+  teamPhotos: {
+    shiek: {
+      src: `${BASE}assets/team/shiek.jpg`,
+      placeholder: `${BASE}assets/placeholders/05-shiek.svg`,
+      alt: 'Shiek Abdurahman',
+    },
+    dave: {
+      src: `${BASE}assets/team/dave.jpg`,
+      placeholder: `${BASE}assets/placeholders/06-dave.svg`,
+      alt: 'Dave Calio',
+    },
+    rein: {
+      src: `${BASE}assets/team/rein.jpg`,
+      placeholder: `${BASE}assets/placeholders/08-rein.svg`,
+      alt: 'Rein Garcia',
+    },
+  },
+
   // Generated Khybi mascot renders (cream background, watermark removed).
   khybiWave: {
     src: `${BASE}assets/brand/khybi-wave.webp`,

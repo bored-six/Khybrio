@@ -54,7 +54,7 @@ export const flight = {
       eyebrow: 'Get found. Get trusted.',
       title: ['One bundle, ', 'no compromises', '.'],
       // The coral phrase cycles through these every few seconds.
-      rotations: ['no compromises', 'no runaround', 'no shortcuts', 'all yours'],
+      rotations: ['no compromises', 'no runaround', 'done together', 'all yours'],
       sub: 'A website, an NFC tap card, and a Google Business Profile — set up together, not one at a time.',
       ctas: {
         // `flightProgress` scrolls into the flight at a specific zone rather
@@ -395,7 +395,7 @@ export const services = {
     },
   ],
   steps: [
-    { n: '01', name: 'Free call', body: 'A quick 15 minutes to understand your business and what’s missing.' },
+    { n: '01', name: 'Free call', body: 'A quick 15 minutes to understand your business and what’s missing. No obligation — you get honest advice either way.' },
     { n: '02', name: 'We build', body: 'Site, card and profiles set up together — usually live within days.' },
     { n: '03', name: 'You go live', body: 'You get found, you get trusted. Optional care plan keeps it growing.' },
   ],
@@ -443,6 +443,9 @@ export const team = {
     {
       name: 'Shiek Abdurahman',
       initials: 'SA',
+      // `photo` keys into A.teamPhotos in lib/assets.js. Anyone without one
+      // falls back to the initials avatar, so the grid stays even.
+      photo: 'shiek',
       role: 'Developer',
       accent: 'var(--color-teal-deep)',
       bio: 'Builds and maintains every site we ship and the technical side of the whole bundle — from the first line of code to hosting and uptime.',
@@ -451,6 +454,7 @@ export const team = {
     {
       name: 'Dave Calio',
       initials: 'DC',
+      photo: 'dave',
       role: 'Cold pitch & client presentations',
       accent: 'var(--color-teal-bright)',
       bio: 'Usually the first person you meet. Walks owners through what the bundle actually changes for their business — in plain terms, no jargon.',
@@ -467,6 +471,7 @@ export const team = {
     {
       name: 'Rein Garcia',
       initials: 'RG',
+      photo: 'rein',
       role: 'Social media management',
       accent: 'var(--color-teal-deep)',
       bio: 'Keeps your pages alive across every platform once the bundle goes live — posts, replies and the little things that keep a page looking open for business.',
