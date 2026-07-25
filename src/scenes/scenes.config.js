@@ -41,7 +41,11 @@ export const scenes = {
     id: 'showcase',
     mediaType: 'image',
     stills: A.samples,
-    scroll: 2.2,
+    // Was 2.2 — over 2 full viewport-heights of scroll for 4 stills read as a
+    // long dead stretch right after the short NFC tap-card demo, before any
+    // of the samples finished wiping in. 1.3 keeps each wipe readable
+    // (~0.43 viewport-heights per still) without the long empty pull.
+    scroll: 1.3,
     zoom: [1.06, 1],
     pan: [0, 0],
     transition: 'clip',
