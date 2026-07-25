@@ -350,6 +350,42 @@ export const services = {
     { n: '02', name: 'We build', body: 'Site, card and profiles set up together — usually live within days.' },
     { n: '03', name: 'You go live', body: 'You get found, you get trusted. Optional care plan keeps it growing.' },
   ],
+  // Standalone Logo & Branding add-on — a natural first step, not a bolt-on.
+  branding: {
+    eyebrow: 'Add-on · Logo & branding',
+    title: 'No logo yet? Start here.',
+    body: 'Most shops we meet have no logo — just a name in a random font, or nothing at all. Since your website and tap card both need one to look credible, a clean mark is the natural first step. Honest heads-up: this is a modern, AI-assisted mark refined into clean vector — not a multi-week brand-agency rebrand. Fast, affordable, and fully yours.',
+    tiers: [
+      {
+        name: 'Logo only',
+        price: '₱3,000',
+        features: [
+          'One fused letterform + icon mark',
+          'SVG + PNG exports',
+          'Grain-free version for favicon & small sizes',
+        ],
+      },
+      {
+        name: 'Logo + mini brand kit',
+        price: '₱6,000',
+        featured: true,
+        features: [
+          'Everything in Logo only',
+          'Locked colour palette (3–4 colours + hex)',
+          'Type pairing — one display + one body face',
+          'One-page usage guide (do’s & don’ts, min size, clear space)',
+        ],
+      },
+      {
+        name: 'With the full bundle',
+        price: 'Free',
+        features: [
+          'Logo + mini brand kit, included',
+          'Because your site & card need it anyway',
+        ],
+      },
+    ],
+  },
 }
 
 // Detailed "Meet the team" — richer than the crew zones in the flight.

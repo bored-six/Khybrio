@@ -52,6 +52,66 @@ export function Services() {
           })}
         </div>
 
+        {/* Logo & branding add-on */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-14 rounded-[var(--radius-card)] bg-teal-deep p-8 sm:p-10"
+        >
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-coral">
+              {services.branding.eyebrow}
+            </p>
+            <h3 className="mt-3 font-display text-[clamp(1.6rem,3.5vw,2.4rem)] font-bold text-cream">
+              {services.branding.title}
+            </h3>
+            <p className="mt-4 leading-relaxed text-cream/75">{services.branding.body}</p>
+          </div>
+
+          <div className="mt-8 grid gap-5 lg:grid-cols-3">
+            {services.branding.tiers.map((tier) => (
+              <div
+                key={tier.name}
+                className={`flex flex-col rounded-[var(--radius-card)] p-6 ${
+                  tier.featured ? 'bg-cream ring-2 ring-coral' : 'bg-cream/8 ring-1 ring-cream/15'
+                }`}
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <h4
+                    className={`font-display text-lg font-bold ${
+                      tier.featured ? 'text-teal-deep' : 'text-cream'
+                    }`}
+                  >
+                    {tier.name}
+                  </h4>
+                  <span className="font-display text-xl font-bold text-coral">{tier.price}</span>
+                </div>
+                <ul className="mt-5 flex flex-1 flex-col gap-2.5">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex gap-2.5">
+                      <Check
+                        size={16}
+                        strokeWidth={2.5}
+                        className="mt-0.5 shrink-0"
+                        color="var(--color-coral)"
+                      />
+                      <span
+                        className={`text-sm leading-snug ${
+                          tier.featured ? 'text-ink' : 'text-cream/85'
+                        }`}
+                      >
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* How we work — three steps */}
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {services.steps.map((step, i) => (
