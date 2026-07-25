@@ -15,12 +15,13 @@ export function MascotIntro() {
             initial={{ y: 0 }}
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="relative overflow-hidden rounded-[2rem] bg-cream shadow-[0_24px_70px_rgba(15,43,41,0.35)]"
+            className="relative"
           >
             <AssetImage
               asset={A.khybiWave}
               loading="eager"
-              className="block w-60 sm:w-72"
+              className="block w-64 sm:w-80"
+              style={{ filter: 'drop-shadow(0 24px 34px rgba(0,0,0,0.38))' }}
             />
           </motion.div>
         </div>
