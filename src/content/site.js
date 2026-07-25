@@ -53,6 +53,8 @@ export const flight = {
       key: 'hero',
       eyebrow: 'Get found. Get trusted.',
       title: ['One bundle, ', 'no compromises', '.'],
+      // The coral phrase cycles through these every few seconds.
+      rotations: ['no compromises', 'no runaround', 'no shortcuts', 'all yours'],
       sub: 'A website, an NFC tap card, and a Google Business Profile — set up together, not one at a time.',
       ctas: {
         // `flightProgress` scrolls into the flight at a specific zone rather
@@ -172,10 +174,11 @@ export const showcase = {
   body: 'Every site ships mobile-first, loads fast on a weak connection, and puts the contact button where a thumb already is.',
   // PLACEHOLDER — swap for real client names once you have sign-off to use them.
   samples: [
-    { name: 'Sample project one', kind: 'Restaurant' },
-    { name: 'Sample project two', kind: 'Dental clinic' },
-    { name: 'Sample project three', kind: 'Auto services' },
-    { name: 'Sample project four', kind: 'Retail shop' },
+    // Placeholder sample projects — swap for real client work when ready.
+    { name: 'Aling Nena’s', kind: 'Sari-sari store' },
+    { name: 'Bright Smile Dental', kind: 'Dental clinic' },
+    { name: 'JR Barbershop', kind: 'Barbershop' },
+    { name: 'Grace Milk Tea', kind: 'Milk tea shop' },
   ],
 }
 
@@ -242,6 +245,14 @@ export const stats = [
   { value: 100, suffix: '%', label: 'yours to keep — nothing locked in' },
 ]
 
+// Mascot intro.
+export const mascot = {
+  eyebrow: 'Meet the guide',
+  title: ['Say hi to ', 'Khybi', '.'],
+  body: 'Our little guide to the whole bundle. Wherever you spot Khybi on this page, he’s pointing at something that helps your business get found and get trusted. Tiny mascot, big job.',
+  points: ['Guides you through the bundle', 'Shows up where it matters', 'Always on your side'],
+}
+
 // Interactive NFC tap demo. Placeholder contact rows.
 export const nfcDemo = {
   eyebrow: 'The tap card',
@@ -249,9 +260,9 @@ export const nfcDemo = {
   body: 'One tap puts your website, socials, number and map pin straight onto their phone — no app, no typing. Hover the card to see it.',
   rows: [
     { icon: 'globe', label: 'yourbusiness.ph' },
-    { icon: 'phone', label: '+63 9XX XXX XXXX' },
+    { icon: 'instagram', label: '@yourbiz' },
     { icon: 'facebook', label: 'facebook.com/yourbiz' },
-    { icon: 'mapPin', label: 'Zamboanga City' },
+    { icon: 'phone', label: '+63 9XX XXX XXXX' },
   ],
 }
 

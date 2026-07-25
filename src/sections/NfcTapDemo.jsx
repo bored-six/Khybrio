@@ -1,9 +1,23 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { Globe, Phone, ThumbsUp, MapPin, Nfc } from 'lucide-react'
+import { Globe, Phone, Nfc } from 'lucide-react'
 import { nfcDemo } from '../content/site'
 
-const ICONS = { globe: Globe, phone: Phone, facebook: ThumbsUp, mapPin: MapPin }
+// Simple, stylised platform glyphs (lucide dropped brand icons).
+const IgIcon = ({ size, color, className }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} className={className} fill="none" stroke={color} strokeWidth="2">
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="1.2" fill={color} stroke="none" />
+  </svg>
+)
+const FbIcon = ({ size, color, className }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} className={className} fill={color}>
+    <path d="M13.5 21v-7h2.4l.4-2.8h-2.8V9.4c0-.8.3-1.4 1.5-1.4h1.4V5.5c-.7-.1-1.5-.2-2.3-.2-2.3 0-3.9 1.4-3.9 4v2H8v2.8h2.6V21h2.9Z" />
+  </svg>
+)
+
+const ICONS = { globe: Globe, phone: Phone, instagram: IgIcon, facebook: FbIcon }
 
 /**
  * Interactive NFC demo: hover (or tap on mobile) the card and it moves to the

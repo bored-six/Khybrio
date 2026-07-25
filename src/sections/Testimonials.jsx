@@ -54,9 +54,12 @@ function Row({ items, reverse = false, duration = '38s' }) {
 }
 
 export function Testimonials() {
-  const half = Math.ceil(testimonials.items.length / 2)
-  const rowA = testimonials.items.slice(0, half)
-  const rowB = testimonials.items.slice(half)
+  // Each row carries every review so the set is always wider than the viewport
+  // — the -50% loop then stays seamless (no gap) at any screen width.
+  const items = testimonials.items
+  const mid = Math.ceil(items.length / 2)
+  const rowA = [...items.slice(0, mid), ...items.slice(mid)]
+  const rowB = [...items.slice(mid), ...items.slice(0, mid)]
 
   return (
     <section id="testimonials" className="relative z-10 overflow-hidden bg-cream py-24 sm:py-32">

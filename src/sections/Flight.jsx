@@ -5,6 +5,7 @@ import { SceneMedia } from '../components/SceneMedia'
 import { AssetImage } from '../components/AssetImage'
 import { InitialsAvatar } from '../components/InitialsAvatar'
 import { Magnetic } from '../components/Magnetic'
+import { RotatingWord } from '../components/RotatingWord'
 import { useProgressEffect, band, smooth } from '../hooks/useProgressEffect'
 import { scrollToId, scrollToSceneProgress } from '../lib/smoothScroll'
 import { scenes } from '../scenes/scenes.config'
@@ -32,14 +33,6 @@ const ctaClick = (cta) => (e) => {
   else scrollToId(cta.href.slice(1))
 }
 
-// Clickable pins overlaid on the wide hero shot — click one to fly to that
-// zone. Positions are tuned to the buildings in 01-hero (desktop framing).
-const bundlePins = [
-  { key: 'website', label: 'The website', at: 0.1875, pos: { top: '40%', left: '42%' } },
-  { key: 'nfc', label: 'NFC tap card', at: 0.3125, pos: { top: '55%', left: '54%' } },
-  { key: 'local', label: 'Local presence', at: 0.4375, pos: { top: '30%', left: '64%' } },
-]
-
 /**
  * Opacity for zone `i` at flight position `seg` (0..N). Each zone holds solid
  * across its own band and does a quick 50/50 crossfade with its neighbour at
@@ -59,12 +52,14 @@ function zoneVis(seg, i) {
 /** Milestone (counter zone) from flight progress — one band per zone. */
 const flightMilestone = (p) => Math.min(N - 1, Math.max(0, Math.floor(p * N)))
 
-/** Headline with exactly one phrase in the coral accent. */
-function Headline({ parts }) {
+/** Headline with one phrase in the coral accent, optionally rotating. */
+function Headline({ parts, rotations }) {
   return (
-    <h2 className="text-[clamp(2.1rem,5.5vw,4rem)] font-bold leading-[1.04] text-cream">
+    <h2 className="text-[clamp(2.1rem,5.5vw,4rem)] font-semibold leading-[1.05] text-cream">
       {parts[0]}
-      <span className="text-coral">{parts[1]}</span>
+      <span className="text-coral">
+        {rotations ? <RotatingWord words={rotations} /> : parts[1]}
+      </span>
       {parts[2]}
     </h2>
   )
@@ -81,17 +76,9 @@ function FlightOverlay({ progressRef }) {
   const copyRefs = useRef([])
   const cardRefs = useRef([])
   const hintRef = useRef(null)
-  const pinsRef = useRef(null)
 
   useProgressEffect(progressRef, (p) => {
     const seg = p * N // 0..N across the flight
-    // Hotspot pins ride the hero zone — visible on the wide shot, gone once
-    // you fly in.
-    if (pinsRef.current) {
-      const zero = zoneVis(seg, 0)
-      pinsRef.current.style.opacity = String(zero)
-      pinsRef.current.style.visibility = zero > 0.05 ? 'visible' : 'hidden'
-    }
     for (let i = 0; i < N; i++) {
       const vis = zoneVis(seg, i)
       const copy = copyRefs.current[i]
@@ -136,7 +123,7 @@ function FlightOverlay({ progressRef }) {
                 {z.eyebrow}
               </p>
               <div className="mt-2 max-w-2xl sm:mt-3">
-                <Headline parts={z.title} />
+                <Headline parts={z.title} rotations={z.rotations} />
               </div>
               <p className="mt-3 max-w-lg text-sm leading-relaxed text-cream/80 sm:mt-4 sm:text-base md:text-lg">
                 {z.sub}
@@ -228,28 +215,6 @@ function FlightOverlay({ progressRef }) {
             )
           })}
         </div>
-      </div>
-
-      {/* Clickable hotspot pins on the wide hero shot (desktop). */}
-      <div ref={pinsRef} className="pointer-events-none absolute inset-0 z-20 hidden md:block">
-        {bundlePins.map((pin) => (
-          <button
-            key={pin.key}
-            type="button"
-            onClick={() => scrollToSceneProgress('flight', pin.at)}
-            aria-label={`Fly to ${pin.label}`}
-            className="group pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2"
-            style={pin.pos}
-          >
-            <span className="relative flex h-4 w-4">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-coral/70" />
-              <span className="relative inline-flex h-4 w-4 rounded-full bg-coral shadow-[0_2px_10px_rgba(15,43,41,0.4)] ring-2 ring-cream" />
-            </span>
-            <span className="pointer-events-none absolute left-1/2 top-6 -translate-x-1/2 whitespace-nowrap rounded-full bg-teal-deep/95 px-3 py-1 text-xs font-semibold text-cream opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
-              {pin.label}
-            </span>
-          </button>
-        ))}
       </div>
 
       {/* Scroll cue, first zone only. */}

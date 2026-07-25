@@ -22,8 +22,10 @@ const world = (name, alt) => ({
   alt,
 })
 
+// Showcase mockups ship as generated SVGs (see scripts/gen-showcase.mjs); swap
+// the .svg for a real .png screenshot per project when they're ready.
 const showcase = (name, alt) => ({
-  src: `${BASE}assets/showcase/${name}.png`,
+  src: `${BASE}assets/showcase/${name}.svg`,
   placeholder: `${BASE}assets/placeholders/${name}.svg`,
   alt,
 })
