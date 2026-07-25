@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { Khybi } from '../components/Khybi'
+import { AssetImage } from '../components/AssetImage'
+import { A } from '../lib/assets'
 import { contact } from '../content/site'
 
 // Stylised messaging-platform glyphs (cream on the teal chip).
@@ -106,8 +107,8 @@ export function Contact() {
           </ul>
 
           {/* Khybi, offering you a way to reach out. */}
-          <div className="mt-10 hidden items-end gap-3 sm:flex">
-            <Khybi pose="phone" size={110} />
+          <div className="mt-8 hidden items-end gap-3 sm:flex">
+            <AssetImage asset={A.khybiPhone} className="w-32" />
             <span className="mb-6 rounded-2xl rounded-bl-none bg-teal-deep px-4 py-2.5 text-sm font-medium text-cream">
               Here — reach us on any of these.
             </span>

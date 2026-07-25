@@ -1,21 +1,27 @@
 import { motion } from 'motion/react'
 import { Check } from 'lucide-react'
-import { Khybi } from '../components/Khybi'
+import { AssetImage } from '../components/AssetImage'
+import { A } from '../lib/assets'
 import { mascot } from '../content/site'
 
 export function MascotIntro() {
   return (
     <section id="khybi" className="relative z-10 overflow-hidden bg-teal-deep px-5 py-24 sm:px-8 sm:py-32">
       <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
-        {/* Khybi, floating gently over a coral glow. */}
+        {/* Khybi, floating gently over a coral glow, framed on a cream card. */}
         <div className="relative order-2 flex justify-center md:order-1">
           <div className="absolute h-64 w-64 rounded-full bg-coral/20 blur-3xl" />
           <motion.div
             initial={{ y: 0 }}
             animate={{ y: [0, -12, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="relative overflow-hidden rounded-[2rem] bg-cream shadow-[0_24px_70px_rgba(15,43,41,0.35)]"
           >
-            <Khybi pose="wave" size={230} />
+            <AssetImage
+              asset={A.khybiWave}
+              loading="eager"
+              className="block w-60 sm:w-72"
+            />
           </motion.div>
         </div>
 

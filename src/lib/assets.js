@@ -75,4 +75,16 @@ export const A = {
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
+
+  // Generated Khybi mascot renders (cream background, watermark removed).
+  khybiWave: {
+    src: `${BASE}assets/brand/khybi-wave.webp`,
+    placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
+    alt: 'Khybi, the Khybrio mascot, waving',
+  },
+  khybiPhone: {
+    src: `${BASE}assets/brand/khybi-phone.webp`,
+    placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
+    alt: 'Khybi offering a phone',
+  },
 }
