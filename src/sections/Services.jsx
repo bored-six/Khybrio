@@ -78,16 +78,13 @@ export function Services() {
                   tier.featured ? 'bg-cream ring-2 ring-coral' : 'bg-cream/8 ring-1 ring-cream/15'
                 }`}
               >
-                <div className="flex items-baseline justify-between gap-3">
-                  <h4
-                    className={`font-display text-lg font-bold ${
-                      tier.featured ? 'text-teal-deep' : 'text-cream'
-                    }`}
-                  >
-                    {tier.name}
-                  </h4>
-                  <span className="font-display text-xl font-bold text-coral">{tier.price}</span>
-                </div>
+                <h4
+                  className={`font-display text-lg font-bold ${
+                    tier.featured ? 'text-teal-deep' : 'text-cream'
+                  }`}
+                >
+                  {tier.name}
+                </h4>
                 <ul className="mt-5 flex flex-1 flex-col gap-2.5">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex gap-2.5">

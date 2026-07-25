@@ -358,7 +358,6 @@ export const services = {
     tiers: [
       {
         name: 'Logo only',
-        price: '₱3,000',
         features: [
           'One fused letterform + icon mark',
           'SVG + PNG exports',
@@ -367,7 +366,6 @@ export const services = {
       },
       {
         name: 'Logo + mini brand kit',
-        price: '₱6,000',
         featured: true,
         features: [
           'Everything in Logo only',
@@ -378,7 +376,6 @@ export const services = {
       },
       {
         name: 'With the full bundle',
-        price: 'Free',
         features: [
           'Logo + mini brand kit, included',
           'Because your site & card need it anyway',
