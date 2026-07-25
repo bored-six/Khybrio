@@ -49,7 +49,6 @@ export function HotspotCards({ progressRef, appearAt = 0.8, reduced }) {
               {spot.title}
             </h3>
             <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{spot.body}</p>
-            <p className="mt-3 font-display text-sm font-bold text-coral">{spot.price}</p>
           </article>
         ))}
       </div>

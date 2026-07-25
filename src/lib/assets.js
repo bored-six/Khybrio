@@ -75,6 +75,16 @@ export const A = {
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
+  /**
+   * Full supplied lockup — symbol + KHYBRIO wordmark + "Local digital presence"
+   * descriptor. Transparent cream, so it only goes on the deep-teal surfaces
+   * (footer). Use `mark` for the small nav lockup; this one needs room to read.
+   */
+  logoFull: {
+    src: `${BASE}assets/brand/khybrio-logo-full-transparent.png`,
+    placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
+    alt: 'Khybrio — local digital presence',
+  },
 
   // Generated Khybi mascot renders (cream background, watermark removed).
   khybiWave: {

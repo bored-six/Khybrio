@@ -1,5 +1,4 @@
 import { AssetImage } from '../components/AssetImage'
-import { Logo } from '../components/Logo'
 import { A } from '../lib/assets'
 import { brand, nav, footer } from '../content/site'
 import { scrollToId } from '../lib/smoothScroll'
@@ -23,7 +22,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
         <div className="grid gap-10 border-b border-cream/10 pb-10 md:grid-cols-[1.5fr_1fr]">
           <div>
-            <Logo markSize={40} />
+            {/* The full supplied lockup, not the nav's mark-plus-text version —
+                the footer is the one place with room for the descriptor. */}
+            <AssetImage asset={A.logoFull} className="w-40 sm:w-44" />
             <p className="mt-4 max-w-sm leading-relaxed text-cream/65">{footer.blurb}</p>
             <p className="mt-4 text-sm text-cream/45">{brand.location}</p>
           </div>

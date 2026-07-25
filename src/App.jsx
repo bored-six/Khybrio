@@ -10,7 +10,9 @@ import { Services } from './sections/Services'
 import { NfcTapDemo } from './sections/NfcTapDemo'
 import { Showcase } from './sections/Showcase'
 import { Team } from './sections/Team'
+import { About } from './sections/About'
 import { Testimonials } from './sections/Testimonials'
+import { Faq } from './sections/Faq'
 import { Pricing } from './sections/Pricing'
 import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
@@ -45,7 +47,9 @@ export default function App() {
         <NfcTapDemo />
         <Showcase />
         <Team />
+        <About />
         <Testimonials />
+        <Faq />
         <Pricing />
         <Contact />
       </main>

@@ -130,7 +130,7 @@ function FlightOverlay({ progressRef }) {
               </p>
 
               {/* Mobile-only inline info — the desktop right-hand card is hidden
-                  on small screens, so surface the price / crew here instead. */}
+                  on small screens, so surface the benefit / crew here instead. */}
               {z.hotspot ? (
                 <p className="mt-3 inline-flex rounded-full bg-cream/15 px-3.5 py-1.5 text-sm font-semibold text-cream md:hidden">
                   {z.hotspot.benefit}
@@ -252,8 +252,8 @@ function ReducedLayout() {
               </div>
               <p className="mt-3 leading-relaxed text-cream/80">{z.sub}</p>
               {z.hotspot ? (
-                <p className="mt-3 font-display text-lg font-bold text-coral">
-                  {z.hotspot.price}
+                <p className="mt-3 inline-flex rounded-full bg-cream/15 px-3.5 py-1.5 text-sm font-semibold text-cream">
+                  {z.hotspot.benefit}
                 </p>
               ) : null}
               {z.crew ? (

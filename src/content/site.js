@@ -80,9 +80,9 @@ export const flight = {
     {
       key: 'local',
       eyebrow: 'Local presence',
-      title: ['Turn up when they ', 'search', '.'],
-      sub: 'Google Business Profile and Facebook Page claimed, filled out and optimized for local search.',
-      hotspot: { benefit: 'So you turn up on Google Maps' },
+      title: ['Show up when they ', 'search nearby', '.'],
+      sub: 'Google Business Profile and Facebook Page claimed, filled out and set up to help you rank in local search.',
+      hotspot: { benefit: 'Built to help you show up on Google Maps' },
     },
     {
       key: 'shiek',
@@ -142,27 +142,25 @@ export const bundle = {
   eyebrow: 'One package, three fixes',
   title: 'The bundle',
   body: 'We don’t sell these separately. They only work as a set — the card points at the site, the site feeds the profile, the profile brings the search traffic.',
-  // PLACEHOLDER — set your real rates. These are structural stand-ins only.
+  // No prices here on purpose: pricing is quoted on a call, not posted publicly.
+  // See `pricing` below for the reasoning shown to the visitor.
   hotspots: [
     {
       id: 'website',
       title: 'A website that converts',
       body: 'Fast, mobile-first, built around one goal: getting the visitor to contact you.',
-      price: '₱12,000 – ₱25,000',
       position: { top: '24%', left: '12%' },
     },
     {
       id: 'nfc',
       title: 'NFC tap card',
       body: 'Tap it on any phone. Your site, socials and number land instantly. Reprogrammable any time.',
-      price: '₱1,500 – ₱3,500',
       position: { top: '52%', left: '44%' },
     },
     {
       id: 'local',
       title: 'Local presence',
-      body: 'Google Business Profile and Facebook Page claimed, filled out and optimized so you turn up in local search.',
-      price: '₱4,000 – ₱8,000',
+      body: 'Google Business Profile and Facebook Page claimed, filled out and set up to help you rank in local search.',
       position: { top: '30%', left: '72%' },
     },
   ],
@@ -222,17 +220,19 @@ export const people = {
 // showcase, with a little Tagalog mixed in. Replace with genuine, permissioned
 // quotes before treating these as real client testimonials.
 export const testimonials = {
-  eyebrow: 'What owners say',
+  eyebrow: 'Sample reviews — real ones coming soon',
   title: 'Straight from the shop floor',
+  // Every item carries `sample: true`, which renders a "Sample" tag on the card
+  // so nothing here reads as a real, attributed endorsement.
   items: [
-    { quote: 'Sobrang bilis mag-set up! Isang linggo lang, may tumatawag na from Google. Salamat, Khybrio!', name: 'Aling Nena', business: 'Nena’s Sari-sari Store', rating: 5 },
-    { quote: 'Ang galing ng tap card. Isang tap lang, nasa phone na nila lahat — website, FB, number. Astig!', name: 'Kuya Jun', business: 'JR Barbershop', rating: 5 },
-    { quote: 'Buhay na buhay na ang Facebook page namin ngayon. Nasasagot na agad ang mga message. Solid.', name: 'Ate Grace', business: 'Grace Milk Tea', rating: 5 },
-    { quote: 'From invisible to number one sa search sa area namin. Sulit na sulit, promise.', name: 'Mark', business: 'MJ Auto Repair', rating: 5 },
-    { quote: 'Ang bilis mag-load kahit mahina ang signal. Napapansin talaga ng mga customer. Professional tingnan.', name: 'Dr. Aisha', business: 'Bright Smile Dental', rating: 5 },
-    { quote: 'Very patient sila mag-explain, walang arte, walang masyadong technical terms. Madaling kausap.', name: 'Tita Beth', business: 'Beth’s Catering', rating: 4 },
-    { quote: 'Isang bayad, kumpleto na — website, card, at Google. Hindi na ako naghahabol ng tatlong tao.', name: 'Paolo', business: 'Paolo Films', rating: 5 },
-    { quote: 'Maganda ang trabaho at may follow-up pa pagkatapos. Hindi ka iiwan. Highly recommended!', name: ' Inay Lita', business: 'Lita’s Bakeshop', rating: 5 },
+    { quote: 'Sobrang bilis mag-set up! Isang linggo lang, may tumatawag na from Google. Salamat, Khybrio!', name: 'Aling Nena', business: 'Nena’s Sari-sari Store', rating: 5, sample: true },
+    { quote: 'Ang galing ng tap card. Isang tap lang, nasa phone na nila lahat — website, FB, number. Astig!', name: 'Kuya Jun', business: 'JR Barbershop', rating: 5, sample: true },
+    { quote: 'Buhay na buhay na ang Facebook page namin ngayon. Nasasagot na agad ang mga message. Solid.', name: 'Ate Grace', business: 'Grace Milk Tea', rating: 5, sample: true },
+    { quote: 'From invisible to number one sa search sa area namin. Sulit na sulit, promise.', name: 'Mark', business: 'MJ Auto Repair', rating: 5, sample: true },
+    { quote: 'Ang bilis mag-load kahit mahina ang signal. Napapansin talaga ng mga customer. Professional tingnan.', name: 'Dr. Aisha', business: 'Bright Smile Dental', rating: 5, sample: true },
+    { quote: 'Very patient sila mag-explain, walang arte, walang masyadong technical terms. Madaling kausap.', name: 'Tita Beth', business: 'Beth’s Catering', rating: 4, sample: true },
+    { quote: 'Isang bayad, kumpleto na — website, card, at Google. Hindi na ako naghahabol ng tatlong tao.', name: 'Paolo', business: 'Paolo Films', rating: 5, sample: true },
+    { quote: 'Maganda ang trabaho at may follow-up pa pagkatapos. Hindi ka iiwan. Highly recommended!', name: 'Inay Lita', business: 'Lita’s Bakeshop', rating: 5, sample: true },
   ],
 }
 
@@ -240,7 +240,7 @@ export const testimonials = {
 // three services in one bundle, typical setup time, one tap, full ownership.
 export const stats = [
   { value: 3, suffix: '-in-1', label: 'website, NFC card & local presence' },
-  { value: 48, suffix: 'h', label: 'typical setup, start to live' },
+  { value: 48, suffix: 'h', label: 'typical setup — days, not weeks' },
   { value: 1, suffix: ' tap', label: 'to share everything you do' },
   { value: 100, suffix: '%', label: 'yours to keep — nothing locked in' },
 ]
@@ -272,7 +272,11 @@ export const pricing = {
   // of numbers, each plan sells the outcome and points to a free call.
   title: 'Pick the fit. We size the rest.',
   body: 'You own everything we build — no lock-in, nothing held hostage if you leave. We tailor each plan to your business, so the price comes on a quick call, not a generic sticker.',
-  reassurances: ['You own everything', 'No lock-in contracts', 'Free 15-minute call first'],
+  reassurances: [
+    'You own everything',
+    'No lock-in contracts',
+    'Free call, no obligation — honest advice even if you don’t buy',
+  ],
   tiers: [
     {
       name: 'Essential',
@@ -294,7 +298,7 @@ export const pricing = {
       features: [
         'Up to 8-page website with contact forms',
         '5 NFC tap cards, programmed',
-        'Google Business Profile optimized for local ranking',
+        'Google Business Profile set up to help you rank locally',
         'Facebook Page rebuild + 2 weeks of starter posts',
         'Photo & copy pass across all three',
         'Analytics wired up',
@@ -317,7 +321,52 @@ export const pricing = {
   ],
   cta: { label: 'Get your quote', href: '#contact' },
   footnote:
-    'Every plan starts with a free 15-minute call. You get a clear, itemised quote before anything begins.',
+    'Every plan starts with a free 15-minute call — no obligation, and we’ll tell you honestly if you don’t need all three. You get a clear, itemised quote before anything begins.',
+}
+
+// Short origin story. Trust with local SMEs is personal, so this says plainly
+// who we are and why we started, without inflating the track record.
+export const about = {
+  eyebrow: 'Who you’re dealing with',
+  title: 'Four people from Zamboanga who got tired of watching good shops stay invisible.',
+  body: 'We kept seeing the same thing around the city — a barbershop with a queue out the door and no map pin, a bakery whose Facebook Page had been dead for two years, a clinic losing patients to a competitor with a worse service but a better website. The tools to fix it aren’t expensive or complicated. They were just never packaged for a small local business, in plain language, by someone you can actually reach. So we packaged them.',
+  points: [
+    { label: 'Based here', value: 'Zamboanga City — we work with businesses across Mindanao.' },
+    { label: 'Small on purpose', value: 'Four of us. No account managers, no handoffs, no runaround.' },
+    { label: 'Plain language', value: 'We explain what we’re doing and why, without the jargon.' },
+  ],
+}
+
+// Objection-handling FAQ — the questions owners actually ask on the first call.
+export const faq = {
+  eyebrow: 'Before you ask',
+  title: 'The questions we get every time',
+  items: [
+    {
+      q: 'How much does it cost?',
+      a: 'It depends on how many pages you need and what state your profiles are in, so we quote after a quick look rather than posting a number that would be wrong for half the businesses who read it. The free 15-minute call ends with a clear, itemised quote — no pressure to take it.',
+    },
+    {
+      q: 'How long does it take?',
+      a: 'Most bundles go live within days, not weeks. The main thing that slows it down is waiting on photos, your logo, or Google’s verification postcard — none of which we control, and all of which we’ll chase for you.',
+    },
+    {
+      q: 'I already have a Facebook Page. Do I still need this?',
+      a: 'Probably — but not all of it. A Page on its own doesn’t show up on Google Maps and can’t be found by someone searching for what you sell. We’ll often clean up the Page you have rather than rebuild it, and tell you on the call which parts you genuinely don’t need.',
+    },
+    {
+      q: 'Who owns the website and the profiles?',
+      a: 'You do, completely. The domain, the site, the Google Business Profile, the Facebook Page — all registered in your name and handed over. If you ever leave us, nothing gets held hostage and nothing switches off.',
+    },
+    {
+      q: 'What if I don’t have a logo?',
+      a: 'Most shops we meet don’t. We offer a logo and mini brand kit as an add-on, and it’s included with the full bundle — your site and tap card both need one to look credible.',
+    },
+    {
+      q: 'What happens after it goes live?',
+      a: 'Nothing breaks if you do nothing. The optional care plan keeps the site updated, the pages posting and the hosting handled — but it’s a monthly add-on you can cancel anytime, not a condition of the build.',
+    },
+  ],
 }
 
 // "What we do" — the three services in depth, plus how we work.
@@ -335,14 +384,14 @@ export const services = {
     {
       icon: 'nfc',
       name: 'NFC tap card',
-      body: 'A premium card that shares your whole presence with one tap — website, socials, number, map pin. No app, reprogrammable anytime, perfect for events and walk-ins.',
-      points: ['One tap to share', 'No app needed', 'Reprogrammable', 'Premium, on-brand card'],
+      body: 'A custom tap card that shares your whole presence with one tap — website, socials, number, map pin. No app, reprogrammable anytime, made for events and walk-ins.',
+      points: ['One tap to share', 'No app needed', 'Reprogrammable', 'Custom, on-brand card'],
     },
     {
       icon: 'pin',
       name: 'Local presence',
-      body: 'We claim, fill out and optimize your Google Business Profile and Facebook Page so you actually turn up when people nearby search for what you sell.',
-      points: ['Google Business Profile', 'Facebook Page rebuild', 'Optimized for local search', 'Reviews & posts set up'],
+      body: 'We claim, fill out and optimize your Google Business Profile and Facebook Page so you’re far more likely to show up when people nearby search for what you sell.',
+      points: ['Google Business Profile', 'Facebook Page rebuild', 'Built for local search', 'Reviews & posts set up'],
     },
   ],
   steps: [
@@ -434,11 +483,27 @@ export const contact = {
   // Forms, your own handler). Until this is set the form tells the visitor it
   // isn't connected instead of quietly dropping their message.
   formEndpoint: null,
-  // PLACEHOLDER — drop in real handles.
+  // Live channels. A phone number is deliberately not listed yet — add one here
+  // with icon 'whatsapp' or 'viber' once there's a line someone actually answers.
   channels: [
-    { label: 'Messenger', handle: 'm.me/khybrio', href: '#', icon: 'messenger' },
-    { label: 'WhatsApp', handle: '+63 XXX XXX XXXX', href: '#', icon: 'whatsapp' },
-    { label: 'Viber', handle: '+63 XXX XXX XXXX', href: '#', icon: 'viber' },
+    {
+      label: 'Email',
+      handle: 'khybrio.org@gmail.com',
+      href: 'mailto:khybrio.org@gmail.com',
+      icon: 'email',
+    },
+    {
+      label: 'Facebook',
+      handle: 'facebook.com/khybrio',
+      href: 'https://www.facebook.com/khybrio',
+      icon: 'facebook',
+    },
+    {
+      label: 'Instagram',
+      handle: '@khybrio',
+      href: 'https://www.instagram.com/khybrio',
+      icon: 'instagram',
+    },
   ],
 }
 
