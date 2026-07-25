@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { Globe, Phone, Nfc } from 'lucide-react'
+import { AssetImage } from '../components/AssetImage'
+import { A } from '../lib/assets'
 import { nfcDemo } from '../content/site'
 
 // Simple, stylised platform glyphs (lucide dropped brand icons).
@@ -123,9 +125,7 @@ export function NfcTapDemo() {
             />
             <div className="relative flex h-full flex-col justify-between">
               <div className="flex items-center gap-1.5">
-                <span className="grid h-6 w-6 place-items-center rounded-md bg-cream font-display text-sm font-bold text-teal-deep">
-                  K
-                </span>
+                <AssetImage asset={A.markGlyph} className="h-6 w-6" />
                 <span className="font-display text-sm font-bold tracking-tight text-cream">
                   Khybrio
                 </span>

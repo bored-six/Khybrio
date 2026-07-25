@@ -3,6 +3,25 @@ import { ArrowUpRight } from 'lucide-react'
 import { Khybi } from '../components/Khybi'
 import { contact } from '../content/site'
 
+// Stylised messaging-platform glyphs (cream on the teal chip).
+const cream = 'var(--color-cream)'
+const Messenger = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill={cream}>
+    <path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.8 1.4 5.3 3.6 7v3.3l3.3-1.8c.9.3 1.9.4 3 .4 5.5 0 10-4.1 10-9.3S17.5 2 12 2Zm1 12.4-2.5-2.7-4.9 2.7 5.4-5.7 2.6 2.7 4.8-2.7-5.4 5.7Z" />
+  </svg>
+)
+const Whatsapp = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill={cream}>
+    <path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2Zm5.3 13.6c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .3-3.3-.7-2.8-1.2-4.5-4-4.6-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.1.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.1.1.3 0 .4l-.4.6c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.2.1.4.1.5-.1l.9-1c.2-.2.4-.2.5-.1l1.9.9c.3.2.5.2.5.4.1.1.1.9-.1 1.4Z" />
+  </svg>
+)
+const Viber = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill={cream}>
+    <path d="M12 2C7 2 3 5.6 3 10c0 2.4 1.2 4.6 3.1 6v3.5L9 17.6c.9.2 2 .4 3 .4 5 0 9-3.6 9-8s-4-8-9-8Zm-1 4.2c.3 0 .5.1.7.3.5.4.9 1 1.2 1.6.1.2.1.4 0 .6l-.5.6c-.1.1-.1.2 0 .4.3.6.8 1.1 1.4 1.4.2.1.3.1.4 0l.5-.5c.2-.2.4-.2.6-.1.6.3 1.2.7 1.6 1.3.2.3.2.6-.1.9-.3.3-.7.6-1.1.6-.2 0-3.7-.3-5.5-3.6-.4-.7-.6-1.4-.6-2.1 0-.5.2-.9.5-1.2.2-.2.5-.3.7-.3Z" />
+  </svg>
+)
+const CHANNEL_ICONS = { messenger: Messenger, whatsapp: Whatsapp, viber: Viber }
+
 /**
  * The form posts to `contact.formEndpoint` (Formspree, Netlify Forms, your own
  * handler — anything that accepts a JSON POST). Until that's configured there
@@ -62,11 +81,19 @@ export function Contact() {
                   rel="noreferrer noopener"
                   className="group flex items-center justify-between rounded-[var(--radius-card)] bg-teal-soft/25 px-5 py-4 transition-colors hover:bg-teal-soft/45"
                 >
-                  <span>
-                    <span className="block font-semibold text-teal-deep">
-                      {channel.label}
+                  <span className="flex items-center gap-3.5">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-teal-deep">
+                      {(() => {
+                        const Icon = CHANNEL_ICONS[channel.icon]
+                        return Icon ? <Icon /> : null
+                      })()}
                     </span>
-                    <span className="block text-sm text-ink-muted">{channel.handle}</span>
+                    <span>
+                      <span className="block font-semibold text-teal-deep">
+                        {channel.label}
+                      </span>
+                      <span className="block text-sm text-ink-muted">{channel.handle}</span>
+                    </span>
                   </span>
                   <ArrowUpRight
                     size={20}

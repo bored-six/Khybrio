@@ -74,6 +74,8 @@ function svg({ grain, tile = true, size = 128 }) {
 mkdirSync(brandDir, { recursive: true })
 writeFileSync(resolve(brandDir, 'khybrio-mark.svg'), svg({ grain: true }))
 writeFileSync(resolve(brandDir, 'khybrio-mark-clean.svg'), svg({ grain: false }))
+// Glyph only — cream mark, no teal tile — for use on coloured surfaces.
+writeFileSync(resolve(brandDir, 'khybrio-glyph.svg'), svg({ grain: false, tile: false }))
 // Favicon: clean, no grain (texture just reads as noise at 16px).
 writeFileSync(resolve(publicDir, 'favicon.svg'), svg({ grain: false, size: 64 }))
 

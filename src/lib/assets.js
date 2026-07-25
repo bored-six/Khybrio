@@ -69,4 +69,10 @@ export const A = {
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
+  // Cream glyph, no tile — for placing on coloured surfaces (e.g. the NFC card).
+  markGlyph: {
+    src: `${BASE}assets/brand/khybrio-glyph.svg`,
+    placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
+    alt: 'Khybrio',
+  },
 }

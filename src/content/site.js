@@ -403,9 +403,9 @@ export const contact = {
   formEndpoint: null,
   // PLACEHOLDER — drop in real handles.
   channels: [
-    { label: 'Messenger', handle: 'm.me/khybrio', href: '#' },
-    { label: 'WhatsApp', handle: '+63 XXX XXX XXXX', href: '#' },
-    { label: 'Viber', handle: '+63 XXX XXX XXXX', href: '#' },
+    { label: 'Messenger', handle: 'm.me/khybrio', href: '#', icon: 'messenger' },
+    { label: 'WhatsApp', handle: '+63 XXX XXX XXXX', href: '#', icon: 'whatsapp' },
+    { label: 'Viber', handle: '+63 XXX XXX XXXX', href: '#', icon: 'viber' },
   ],
 }
 
