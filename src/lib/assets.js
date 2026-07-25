@@ -60,18 +60,18 @@ export const A = {
   heroLoop: `${BASE}assets/world/hero-loop.mp4`,
 
   mark: {
-    src: `${BASE}assets/brand/khybrio-mark.svg`,
+    src: `${BASE}assets/brand/khybrio-mark.png`,
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
   markClean: {
-    src: `${BASE}assets/brand/khybrio-mark-clean.svg`,
+    src: `${BASE}assets/brand/khybrio-mark.png`,
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
   // Cream glyph, no tile — for placing on coloured surfaces (e.g. the NFC card).
   markGlyph: {
-    src: `${BASE}assets/brand/khybrio-glyph.svg`,
+    src: `${BASE}assets/brand/khybrio-glyph.png`,
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
     alt: 'Khybrio',
   },
