@@ -58,8 +58,11 @@ Model: **GPT Image 2** for stills.
 | `public/assets/world/03-crew-shiek.png` | 3:4 | 1536×2048 | Small desk nook elsewhere on the same island. Khybi with a floating laptop showing code brackets, calm focused stance. |
 | `public/assets/world/04-crew-dave.png` | 3:4 | 1536×2048 | Small meeting-bench area. Khybi holding a briefcase, one arm out mid-handshake. |
 | `public/assets/world/05-crew-haiqal.png` | 3:4 | 1536×2048 | Same meeting-bench area. Khybi holding a tablet / pitch deck, **visibly different pose from #4**. |
-| `public/assets/world/06-crew-rein.png` | 3:4 | 1536×2048 | Small content corner, tiny ring light or camera prop nearby. Khybi holding a phone with small floating heart/like bubbles. |
 | `public/assets/showcase/sample-01…04.png` | 16:10 | 1600×1000 | Real client project mockups. Not generated — screenshots of actual work. |
+
+The crew renders track the team. `08-rein.webp` is still on disk but no longer
+in the flight — that zone was retired when Rein left, taking the flight from
+eight zones to seven. Delete it if the team stays at three.
 
 The footer reuses a CSS-zoomed crop of `01-hero-island.png` centred on the waving
 Khybi. No separate generation. Testimonial ratings are Lucide SVG stars — no

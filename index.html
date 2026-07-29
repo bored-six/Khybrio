@@ -31,13 +31,15 @@
       property="og:description"
       content="Website, NFC tap card and local presence for businesses in Zamboanga City. One bundle, one setup."
     />
-    <!-- PNG on purpose, not the .webp the browser preloads above: link
-         scrapers (LinkedIn, Viber, some Messenger clients) still handle WebP
-         inconsistently. TODO: this file is ~4MB — export a 1200x630 crop under
-         300KB so previews aren't slow to appear. -->
-    <meta property="og:image" content="%BASE_URL%assets/world/01-hero.png" />
-    <meta property="og:image:width" content="2752" />
-    <meta property="og:image:height" content="1536" />
+    <!-- A purpose-built 1200x630 JPEG (~70KB), not the 4MB hero PNG this used
+         to point at — Messenger and Viber time out fetching a file that size
+         and show no preview at all. JPEG on purpose, not the .webp the browser
+         preloads above: link scrapers still handle WebP inconsistently. -->
+    <meta property="og:image" content="%BASE_URL%assets/brand/og-cover.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Khybrio island — website, tap card and map pin in one place" />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>

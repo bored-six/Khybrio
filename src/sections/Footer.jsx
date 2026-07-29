@@ -32,7 +32,9 @@ export function Footer() {
           <nav className="flex flex-col gap-3">
             {nav.map((item) => (
               <a
-                key={item.id}
+                // Not item.id — two nav entries share the 'flight' id (they
+                // jump to different zones of the same scene), so ids collide.
+                key={item.label}
                 href={`#${item.id}`}
                 onClick={(e) => {
                   e.preventDefault()

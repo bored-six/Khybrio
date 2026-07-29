@@ -74,7 +74,7 @@ export const flight = {
       key: 'nfc',
       eyebrow: 'The tap card',
       title: ['One tap, ', 'everything shared', '.'],
-      sub: 'Your site, socials and number land on any phone in about a second. Reprogrammable any time.',
+      sub: 'Your site, socials and number land on almost any modern phone in about a second. Reprogrammable any time.',
       hotspot: { benefit: 'Tap-to-share, no app needed' },
     },
     {
@@ -96,7 +96,7 @@ export const flight = {
       eyebrow: 'Behind the bundle',
       title: ['Dave ', 'opens', ' the door.'],
       sub: 'First contact — walks owners through what the bundle changes for their business.',
-      crew: { name: 'Dave Calio', role: 'Cold pitch & client presentations', initials: 'DC', accent: 'var(--color-teal-bright)' },
+      crew: { name: 'Dave Calio', role: 'First contact & onboarding', initials: 'DC', accent: 'var(--color-teal-bright)' },
     },
     {
       key: 'haiqal',
@@ -148,7 +148,7 @@ export const bundle = {
     {
       id: 'nfc',
       title: 'NFC tap card',
-      body: 'Tap it on any phone. Your site, socials and number land instantly. Reprogrammable any time.',
+      body: 'Tap it on almost any modern phone. Your site, socials and number land in about a second. Reprogrammable any time.',
       position: { top: '52%', left: '44%' },
     },
     {
@@ -198,7 +198,9 @@ export const testimonials = {
 // three services in one bundle, typical setup time, one tap, full ownership.
 export const stats = [
   { value: 3, suffix: '-in-1', label: 'website, NFC card & local presence' },
-  { value: 48, suffix: 'h', label: 'typical setup — days, not weeks' },
+  // A week, not 48h. The old figure was a promise we'd have had to break the
+  // first time a client was slow with photos or Google sat on a verification.
+  { value: 7, suffix: ' days', label: 'target build time, once your photos are in' },
   { value: 1, suffix: ' tap', label: 'to share everything you do' },
   { value: 100, suffix: '%', label: 'yours to keep — nothing locked in' },
 ]
@@ -267,10 +269,13 @@ export const pricing = {
       name: 'Care plan',
       label: 'Optional add-on',
       body: 'Keep it all fed and growing after launch. Add to either plan, cancel anytime.',
+      // Scoped down from open-ended "social media management across
+      // platforms" — that was a full-time promise with nobody behind it once
+      // Rein left. A fixed monthly post count is something three people can
+      // actually deliver every month without it quietly slipping.
       features: [
-        'Social media management across platforms',
+        'Monthly posts on your Facebook Page and Google profile',
         'Monthly site updates & edits',
-        'Google Business Profile posts',
         'Hosting, domain & uptime handled',
         'Monthly one-page report',
       ],
@@ -279,7 +284,7 @@ export const pricing = {
   ],
   cta: { label: 'Get your quote', href: '#contact' },
   footnote:
-    'Every plan starts with a free 15-minute call — no obligation, and we’ll tell you honestly if you don’t need all three. You get a clear, itemised quote before anything begins.',
+    'Every plan starts with a free 15-minute call — no obligation, and we’ll tell you honestly if you don’t need all three. You get a clear, itemized quote before anything begins.',
 }
 
 // Short origin story. Trust with local SMEs is personal, so this says plainly
@@ -289,7 +294,7 @@ export const about = {
   title: 'Three people from Zamboanga who got tired of watching good shops stay invisible.',
   body: 'We kept seeing the same thing around the city — a barbershop with a queue out the door and no map pin, a bakery whose Facebook Page had been dead for two years, a clinic losing patients to a competitor with a worse service but a better website. The tools to fix it aren’t expensive or complicated. They were just never packaged for a small local business, in plain language, by someone you can actually reach. So we packaged them.',
   points: [
-    { label: 'Based here', value: 'Zamboanga City — we work with businesses across Mindanao.' },
+    { label: 'Based here', value: 'Zamboanga City — and we take on work anywhere in Mindanao.' },
     { label: 'Small on purpose', value: 'Three of us. No account managers, no handoffs, no runaround.' },
     { label: 'Plain language', value: 'We explain what we’re doing and why, without the jargon.' },
   ],
@@ -302,11 +307,11 @@ export const faq = {
   items: [
     {
       q: 'How much does it cost?',
-      a: 'It depends on how many pages you need and what state your profiles are in, so we quote after a quick look rather than posting a number that would be wrong for half the businesses who read it. The free 15-minute call ends with a clear, itemised quote — no pressure to take it.',
+      a: 'It depends on how many pages you need and what state your profiles are in, so we quote after a quick look rather than posting a number that would be wrong for half the businesses who read it. The free 15-minute call ends with a clear, itemized quote — no pressure to take it.',
     },
     {
       q: 'How long does it take?',
-      a: 'Most bundles go live within days, not weeks. The main thing that slows it down is waiting on photos, your logo, or Google’s verification postcard — none of which we control, and all of which we’ll chase for you.',
+      a: 'We aim for about a week to build your side of it — site, card and profiles — once we have your photos and details. The honest caveat is Google’s verification, which can take a week or two on its own and is entirely on their end. So: about a week for the build, and we’ll tell you where the Google side stands rather than leave you guessing.',
     },
     {
       q: 'I already have a Facebook Page. Do I still need this?',
@@ -348,13 +353,13 @@ export const services = {
     {
       icon: 'pin',
       name: 'Local presence',
-      body: 'We claim, fill out and optimize your Google Business Profile and Facebook Page so you’re far more likely to show up when people nearby search for what you sell.',
+      body: 'We claim, verify and properly fill out your Google Business Profile — categories, hours, service areas, photos — so you can turn up when someone nearby searches for what you sell instead of being invisible on the map.',
       points: ['Google Business Profile', 'Facebook Page rebuild', 'Built for local search', 'Reviews & posts set up'],
     },
   ],
   steps: [
     { n: '01', name: 'Free call', body: 'A quick 15 minutes to understand your business and what’s missing. No obligation — you get honest advice either way.' },
-    { n: '02', name: 'We build', body: 'Site, card and profiles set up together — usually live within days.' },
+    { n: '02', name: 'We build', body: 'Site, card and profiles set up together — about a week once we have your photos.' },
     { n: '03', name: 'You go live', body: 'You get found, you get trusted. Optional care plan keeps it growing.' },
   ],
   // Standalone Logo & Branding add-on — a natural first step, not a bolt-on.
@@ -376,7 +381,7 @@ export const services = {
         featured: true,
         features: [
           'Everything in Logo only',
-          'Locked colour palette (3–4 colours + hex)',
+          'Locked color palette (3–4 colors + hex)',
           'Type pairing — one display + one body face',
           'One-page usage guide (do’s & don’ts, min size, clear space)',
         ],
@@ -413,7 +418,7 @@ export const team = {
       name: 'Dave Calio',
       initials: 'DC',
       photo: 'dave',
-      role: 'Cold pitch & client presentations',
+      role: 'First contact & onboarding',
       accent: 'var(--color-teal-bright)',
       bio: 'Usually the first person you meet. Walks owners through what the bundle actually changes for their business — in plain terms, no jargon.',
       focus: ['First contact', 'Client presentations', 'Onboarding'],
