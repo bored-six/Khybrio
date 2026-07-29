@@ -22,14 +22,6 @@ const world = (name, alt) => ({
   alt,
 })
 
-// Showcase mockups ship as generated SVGs (see scripts/gen-showcase.mjs); swap
-// the .svg for a real .png screenshot per project when they're ready.
-const showcase = (name, alt) => ({
-  src: `${BASE}assets/showcase/${name}.svg`,
-  placeholder: `${BASE}assets/placeholders/${name}.svg`,
-  alt,
-})
-
 export const A = {
   // The seven island zones, in flight order. 08-rein is still on disk but no
   // longer in the flight — that crew zone was retired with the team change.
@@ -41,12 +33,9 @@ export const A = {
   dave: world('06-dave', 'Khybi with a briefcase, mid-handshake'),
   haiqal: world('07-haiqal', 'Khybi presenting a tablet pitch deck'),
 
-  samples: [
-    showcase('sample-01', 'Client website mockup'),
-    showcase('sample-02', 'Client website mockup'),
-    showcase('sample-03', 'Client website mockup'),
-    showcase('sample-04', 'Client website mockup'),
-  ],
+  // `samples` is gone with the showcase section — it fed four invented client
+  // projects under a "Recent work" heading. The generated SVGs are still in
+  // public/assets/showcase/ if a real portfolio section comes back.
 
   /**
    * Optional: the one continuous flight clip. Absent by default — the flight

@@ -1,6 +1,6 @@
 import { AssetImage } from '../components/AssetImage'
 import { A } from '../lib/assets'
-import { brand, nav, footer } from '../content/site'
+import { useContent } from '../content/context'
 import { scrollToId } from '../lib/smoothScroll'
 
 /**
@@ -8,6 +8,7 @@ import { scrollToId } from '../lib/smoothScroll'
  * Khybi figure — a crop, not a new generation.
  */
 export function Footer() {
+  const { brand, nav, footer } = useContent()
   return (
     <footer className="relative z-10 overflow-hidden bg-teal-deep">
       <div className="relative h-52 overflow-hidden sm:h-64">

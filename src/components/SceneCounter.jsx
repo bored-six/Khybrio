@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { subscribeActiveIndex } from '../lib/sceneRegistry'
+import { subscribeActiveIndex, subscribeSceneVisible } from '../lib/sceneRegistry'
 import { milestones } from '../content/site'
 import { scrollToId } from '../lib/smoothScroll'
 
@@ -15,11 +15,17 @@ const pad = (n) => String(n).padStart(2, '0')
  */
 export function SceneCounter() {
   const [active, setActive] = useState(0)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => subscribeActiveIndex(setActive), [])
+  useEffect(() => subscribeSceneVisible(setVisible), [])
 
   return (
-    <div className="pointer-events-none fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-4 sm:right-7 sm:flex">
+    <div
+      className="pointer-events-none fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-4 transition-opacity duration-300 sm:right-7 sm:flex"
+      style={{ opacity: visible ? 1 : 0 }}
+      aria-hidden={!visible}
+    >
       <span className="font-display text-xs font-semibold tabular-nums tracking-widest text-teal-deep/70 mix-blend-multiply">
         {pad(active + 1)} / {pad(milestones.length)}
       </span>

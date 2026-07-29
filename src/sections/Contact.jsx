@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { AssetImage } from '../components/AssetImage'
 import { A } from '../lib/assets'
-import { contact } from '../content/site'
+import { useContent } from '../content/context'
 
 // Stylised platform glyphs (cream on the teal chip). Messaging-app glyphs are
 // kept below so a WhatsApp/Viber row can be switched on from content/site.js
@@ -58,6 +58,8 @@ const CHANNEL_ICONS = {
  * today.
  */
 export function Contact() {
+  const { contact } = useContent()
+  const f = contact.fields
   const [status, setStatus] = useState('idle')
 
   const onSubmit = async (e) => {
@@ -149,30 +151,33 @@ export function Contact() {
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-teal-deep">Your name</span>
-              <input name="name" required className={field} placeholder="Juan Dela Cruz" />
+              <span className="text-sm font-medium text-teal-deep">{f.name.label}</span>
+              <input name="name" required className={field} placeholder={f.name.placeholder} />
             </label>
             <label className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-teal-deep">Business name</span>
-              <input name="business" required className={field} placeholder="Your shop" />
+              <span className="text-sm font-medium text-teal-deep">{f.business.label}</span>
+              <input
+                name="business"
+                required
+                className={field}
+                placeholder={f.business.placeholder}
+              />
             </label>
           </div>
 
           <label className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-teal-deep">
-              Email or mobile number
-            </span>
-            <input name="contact" required className={field} placeholder="09XX XXX XXXX" />
+            <span className="text-sm font-medium text-teal-deep">{f.contact.label}</span>
+            <input name="contact" required className={field} placeholder={f.contact.placeholder} />
           </label>
 
           <label className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-teal-deep">What do you sell?</span>
+            <span className="text-sm font-medium text-teal-deep">{f.message.label}</span>
             <textarea
               name="message"
               rows={5}
               required
               className={`${field} resize-y`}
-              placeholder="A couple of sentences is plenty."
+              placeholder={f.message.placeholder}
             />
           </label>
 
@@ -181,7 +186,7 @@ export function Contact() {
             disabled={status === 'sending'}
             className="mt-2 self-start rounded-full bg-coral px-8 py-3.5 font-semibold text-cream transition-transform duration-300 hover:scale-[1.03] disabled:opacity-60"
           >
-            {status === 'sending' ? 'Sending…' : 'Send message'}
+            {status === 'sending' ? 'Sending…' : contact.submitLabel}
           </button>
 
           {status === 'sent' ? (

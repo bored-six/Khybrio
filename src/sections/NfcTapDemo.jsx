@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { Globe, Phone, Nfc } from 'lucide-react'
 import { AssetImage } from '../components/AssetImage'
 import { A } from '../lib/assets'
-import { nfcDemo } from '../content/site'
+import { nfcDemo } from '../content/ph'
 
 // Simple, stylised platform glyphs (lucide dropped brand icons).
 const IgIcon = ({ size, color, className }) => (

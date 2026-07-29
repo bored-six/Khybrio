@@ -4,32 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Khybrio — Get found. Get trusted. In one bundle.</title>
+    <title>Khybrio — We automate the work that eats your week</title>
     <meta
       name="description"
-      content="Khybrio builds local businesses in Zamboanga City a professional website, an NFC tap card, and an optimized Google Business Profile and Facebook Page — as one bundle."
+      content="We find the repetitive work in your business — the copy-pasting, re-typing and chasing — and make it run itself. Fixed price from $900."
     />
     <meta name="theme-color" content="#1C4D4A" />
 
     <!-- %BASE_URL% expands to '/' in dev and '/Khybrio/' in the Pages build,
          so these resolve correctly under the repo subpath. -->
-    <!-- Start the hero image downloading before the JS bundle even parses, so
-         the first island frame paints as fast as possible. -->
-    <link
-      rel="preload"
-      as="image"
-      href="%BASE_URL%assets/world/01-hero.webp"
-      fetchpriority="high"
-    />
+    <!-- The hero is the run log now, not an image — but the island still opens
+         the flight a screen further down, so it is still worth an early fetch.
+         Low priority on purpose: the run log must paint first. -->
+    <link rel="preload" as="image" href="%BASE_URL%assets/world/01-hero.webp" />
 
     <link rel="icon" type="image/png" href="%BASE_URL%favicon.png" />
     <link rel="apple-touch-icon" href="%BASE_URL%favicon.png" />
 
+    <!-- The Philippine offering is a separate page in pesos. Overseas visitors
+         should not be routed there, but search engines should know it exists. -->
+    <link rel="alternate" hreflang="en-PH" href="%BASE_URL%ph/" />
+
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Khybrio — Get found. Get trusted. In one bundle." />
+    <meta property="og:title" content="Khybrio — We automate the work that eats your week" />
     <meta
       property="og:description"
-      content="Website, NFC tap card and local presence for businesses in Zamboanga City. One bundle, one setup."
+      content="Your team is doing a computer's job. We find the repetitive work, make it run itself, and hand it over documented and in your name."
     />
     <!-- A purpose-built 1200x630 JPEG (~70KB), not the 4MB hero PNG this used
          to point at — Messenger and Viber time out fetching a file that size
@@ -39,7 +39,7 @@
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="The Khybrio island — website, tap card and map pin in one place" />
+    <meta property="og:image:alt" content="The Khybrio island — the work running by itself" />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>

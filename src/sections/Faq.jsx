@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Plus } from 'lucide-react'
-import { faq } from '../content/site'
+import { useContent } from '../content/context'
 
 /**
  * Objection-handling accordion. Native <button> rows with aria-expanded so it
@@ -44,6 +44,7 @@ function Item({ item, open, onToggle, id }) {
 }
 
 export function Faq() {
+  const { faq } = useContent()
   const [openIndex, setOpenIndex] = useState(0)
 
   return (

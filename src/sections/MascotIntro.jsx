@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 import { Check } from 'lucide-react'
 import { AssetImage } from '../components/AssetImage'
 import { A } from '../lib/assets'
-import { mascot } from '../content/site'
+import { mascot } from '../content/ph'
 
 export function MascotIntro() {
   return (

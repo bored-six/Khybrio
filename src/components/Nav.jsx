@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
 import { Magnetic } from './Magnetic'
-import { nav } from '../content/site'
+import { useContent } from '../content/context'
 import { scrollToId, scrollToSceneProgress, ScrollTrigger } from '../lib/smoothScroll'
 import { subscribeActiveIndex } from '../lib/sceneRegistry'
 
 export function Nav() {
+  const { nav } = useContent()
   const [solid, setSolid] = useState(false)
   const [open, setOpen] = useState(false)
   const [activeZone, setActiveZone] = useState(0)

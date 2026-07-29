@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap, ScrollTrigger } from '../lib/smoothScroll'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
-import { setActiveIndex } from '../lib/sceneRegistry'
+import { setActiveIndex, setSceneVisible } from '../lib/sceneRegistry'
 
 /**
  * The one scrubbed-section primitive. It owns pinning and scroll progress and
@@ -88,6 +88,12 @@ export function ScrollScene({
         snap: snap || undefined,
         invalidateOnRefresh: true,
         anticipatePin: 1,
+        onToggle: (self) => {
+          // Drives whether the counter and dot trail are shown at all. Only
+          // scenes that own a milestone claim it — a scene with no counter
+          // entry has no business hiding another scene's trail.
+          if (milestone !== undefined) setSceneVisible(self.isActive)
+        },
         onUpdate: (self) => {
           progressRef.current = self.progress
           if (milestone === undefined) return

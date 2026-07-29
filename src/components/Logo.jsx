@@ -1,6 +1,6 @@
 import { AssetImage } from './AssetImage'
 import { A } from '../lib/assets'
-import { brand } from '../content/site'
+import { useContent } from '../content/context'
 
 /**
  * Nav / footer lockup. The mark itself is an SVG you supply (see ASSETS.md) —
@@ -8,6 +8,7 @@ import { brand } from '../content/site'
  * when the real one lands.
  */
 export function Logo({ className = '', markSize = 34, showWordmark = true, tone = 'cream' }) {
+  const { brand } = useContent()
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <AssetImage

@@ -1,14 +1,19 @@
 /**
- * Every word, price and link on the site lives here. Components import from
- * this file and nothing else, so copy edits never mean touching JSX.
+ * Copy for the MAIN page (/) — workflow automation, sold internationally, USD.
  *
- * Items marked PLACEHOLDER need real values before this goes anywhere near a
- * customer.
+ * The local Philippine offering (websites, Google Business Profile, NFC cards,
+ * peso pricing) lives on its own page: see content/ph.js. Nothing in this file
+ * should mention NFC cards, bundles, or the city — an overseas buyer weighing a
+ * $2,900 package reads those as a novelty vendor. Location is disclosed in the
+ * FAQ and the contact block, where someone actually looks for it.
+ *
+ * Components import from this file and nothing else, so copy edits never mean
+ * touching JSX.
  */
 
 export const brand = {
   name: 'Khybrio',
-  tagline: 'Get found. Get trusted. In one bundle.',
+  tagline: 'We automate the work that eats your week',
   location: 'Zamboanga City, Philippines',
 }
 
@@ -16,435 +21,420 @@ export const brand = {
  * The counter and dot trail run off this list — one entry per island zone in
  * the continuous flight. It stays flat and independent of the animation so the
  * counter can advance zone-by-zone as the single scrubbed flight moves through
- * the whole tour, exactly like the reference reel.
+ * the whole tour.
  */
 export const milestones = [
-  { id: 'flight', label: 'The island' },
-  { id: 'flight', label: 'Website' },
-  { id: 'flight', label: 'NFC card' },
+  { id: 'flight', label: 'The workshop' },
+  { id: 'flight', label: 'Automation' },
+  { id: 'flight', label: 'Sites & booking' },
   { id: 'flight', label: 'Local presence' },
-  { id: 'flight', label: 'Shiek' },
-  { id: 'flight', label: 'Dave' },
-  { id: 'flight', label: 'Haiqal' },
+  { id: 'flight', label: 'The audit' },
+  { id: 'flight', label: 'Built in parallel' },
+  { id: 'flight', label: 'Handover' },
 ]
 
 export const nav = [
   // `flightProgress` jumps into the flight at a zone; `zoneRange` lights the
   // pill coral while that zone band is the one on screen. The fractions are
-  // zone-centres over the seven zones: 1.5/7 for the bundle, 4.5/7 for the crew.
-  { id: 'flight', label: 'The bundle', flightProgress: 0.2143, zoneRange: [1, 3] },
-  { id: 'flight', label: 'The team', flightProgress: 0.6429, zoneRange: [4, 6] },
-  { id: 'services', label: 'What we do' },
-  { id: 'showcase', label: 'Work' },
+  // zone-centres over the seven zones: 1.5/7 for the work, 4.5/7 for the process.
+  { id: 'flight', label: 'What we build', flightProgress: 0.2143, zoneRange: [1, 3] },
+  { id: 'flight', label: 'How it works', flightProgress: 0.6429, zoneRange: [4, 6] },
+  { id: 'automate', label: 'What we automate' },
   { id: 'pricing', label: 'Pricing' },
+  { id: 'faq', label: 'FAQ' },
 ]
 
 /**
- * The continuous flight: seven island zones scrubbed as one take. Each zone
- * carries an all-caps eyebrow, a headline with exactly one phrase in the coral
- * accent, and a one-line subhead — the reference's per-scene copy pattern.
- * Bundle zones (2–4) add a service hotspot with a PHP price; crew zones (5–7)
- * add a name/role card. `hint` shows the scroll cue only on the first zone.
+ * Hero — a static section above the flight. The visual is the run log, not the
+ * island: the first thing an automation buyer should see is work executing.
+ */
+export const hero = {
+  eyebrow: 'Automation for small businesses',
+  title: ['Your team is doing a ', "computer's job", '.'],
+  sub: 'We find the repetitive work eating your week — the copy-pasting, the re-typing, the chasing — and make it run itself. Then we hand it over, documented, in your name.',
+  ctas: {
+    primary: { label: 'Get a free workflow audit', href: '#contact' },
+    secondary: { label: 'See what we automate', href: '#automate' },
+  },
+  trust: ['Fixed price', 'Built in weeks, not quarters', 'You own everything'],
+}
+
+/**
+ * The animated run log behind the hero. Rows execute one at a time on scroll.
+ *
+ * `EXAMPLE` badge is not decoration and must not be removed: these are
+ * illustrative workflows with illustrative hand-timings, and without the badge
+ * the panel reads as measured statistics from real clients.
+ */
+export const runLog = {
+  badge: 'Example',
+  columns: { flow: 'Flow', time: 'Automated', byHand: 'By hand' },
+  rows: [
+    {
+      flow: 'Order arrives in Messenger → added to sheet → confirmation sent',
+      time: '1.8s',
+      byHand: '6 min, ~40× a day',
+    },
+    {
+      flow: 'Invoice hits 14 days overdue → reminder emailed → logged',
+      time: '0.9s',
+      byHand: '12 min, every week',
+    },
+    {
+      flow: 'Enquiry form submitted → contact created → team notified',
+      time: '1.2s',
+      byHand: '8 min, per enquiry',
+    },
+    {
+      flow: 'Booking confirmed → calendar updated → reminder scheduled',
+      time: '1.4s',
+      byHand: '5 min, per booking',
+    },
+    {
+      flow: 'Receipts collected → expenses categorized → report built',
+      time: '2.1s',
+      byHand: '45 min, every month-end',
+    },
+  ],
+}
+
+/**
+ * The continuous flight: seven island zones scrubbed as one take, re-cut from
+ * the old bundle-and-crew tour to the automation story. Zones 2–4 are the three
+ * lines of work; zones 5–7 are the process beats. Each zone carries an all-caps
+ * eyebrow, a headline with exactly one phrase in the coral accent, and a
+ * one-line subhead. `hint` shows the scroll cue only on the first zone.
  */
 export const flight = {
   hint: 'Scroll to fly in',
   zones: [
     {
-      key: 'hero',
-      eyebrow: 'Get found. Get trusted.',
-      title: ['One bundle, ', 'no compromises', '.'],
-      // The coral phrase cycles through these every few seconds.
-      rotations: ['no compromises', 'no runaround', 'done together', 'all yours'],
-      sub: 'A website, an NFC tap card, and a Google Business Profile — set up together, not one at a time.',
-      ctas: {
-        // `flightProgress` scrolls into the flight at a specific zone rather
-        // than to the flight's top. Bundle = zone 1 centre, crew = Shiek's zone.
-        primary: { label: 'See the bundle', flightProgress: 0.2143 },
-        secondary: { label: 'Meet the team', flightProgress: 0.6429 },
-      },
+      key: 'open',
+      eyebrow: 'What we build',
+      title: ['Three lines of work. ', 'One workshop', '.'],
+      rotations: ['One workshop', 'One team', 'One invoice', 'No handoffs'],
+      sub: 'Automation leads, because it is the part that pays for itself. The other two exist to feed it.',
     },
     {
-      key: 'website',
-      eyebrow: 'The website',
-      title: ['A site that actually ', 'converts', '.'],
-      sub: 'Fast, mobile-first, built around one goal: getting the visitor to contact you.',
-      hotspot: { benefit: 'Turns visitors into messages' },
+      key: 'automation',
+      eyebrow: '01 · Workflow automation',
+      title: ['The work that ', 'runs itself', '.'],
+      sub: 'Tool-to-tool connections, automated messaging, scheduled reports — and data entry removed at the source rather than sped up.',
+      hotspot: { benefit: 'Tool to tool, no copy-paste' },
     },
     {
-      key: 'nfc',
-      eyebrow: 'The tap card',
-      title: ['One tap, ', 'everything shared', '.'],
-      sub: 'Your site, socials and number land on almost any modern phone in about a second. Reprogrammable any time.',
-      hotspot: { benefit: 'Tap-to-share, no app needed' },
+      key: 'sites',
+      eyebrow: '02 · Websites & booking',
+      title: ['A site that ', 'does something', '.'],
+      sub: 'Booking and enquiry systems, forms and intake, payments and confirmations — feeding the automations behind it. Not a brochure.',
+      hotspot: { benefit: 'Takes bookings, not compliments' },
     },
     {
       key: 'local',
-      eyebrow: 'Local presence',
-      title: ['Show up when they ', 'search nearby', '.'],
-      sub: 'Google Business Profile and Facebook Page claimed, filled out and set up to help you rank in local search.',
-      hotspot: { benefit: 'Built to help you show up on Google Maps' },
+      eyebrow: '03 · Local presence',
+      title: ['Found where they ', 'search', '.'],
+      sub: 'Google Business Profile set up properly, map and hours and categories fixed, a review flow that runs on its own.',
+      hotspot: { benefit: 'Right pin, right hours, real reviews' },
     },
     {
-      key: 'shiek',
-      eyebrow: 'Behind the bundle',
-      title: ['Shiek ', 'builds', ' it all.'],
-      sub: 'Every site we ship, plus the technical side of the whole bundle.',
-      crew: { name: 'Shiek Abdurahman', role: 'Developer', initials: 'SA', accent: 'var(--color-teal-deep)' },
+      key: 'audit',
+      eyebrow: 'Day 0 · The audit',
+      title: ['Name your ', 'three tasks', '.'],
+      sub: 'You tell us the three things you do most often. We send back a short video showing what we would automate. Free, and no call to sit through.',
+      hotspot: { benefit: 'Free · No call required' },
     },
     {
-      key: 'dave',
-      eyebrow: 'Behind the bundle',
-      title: ['Dave ', 'opens', ' the door.'],
-      sub: 'First contact — walks owners through what the bundle changes for their business.',
-      crew: { name: 'Dave Calio', role: 'First contact & onboarding', initials: 'DC', accent: 'var(--color-teal-bright)' },
+      key: 'parallel',
+      eyebrow: 'Week 1–3 · Build',
+      title: ['Nothing switches off until it is ', 'proven', '.'],
+      sub: 'The automation runs alongside your current process, on real data, until it has earned the right to replace it.',
+      hotspot: { benefit: 'Runs in parallel, on real data' },
     },
     {
-      key: 'haiqal',
-      eyebrow: 'Behind the bundle',
-      title: ['Haiqal ', 'makes the case', '.'],
-      sub: 'Runs presentations and follow-through, from first pitch to signed scope.',
-      crew: { name: 'Haiqal Munjalin', role: 'Marketing & sales', initials: 'HM', accent: 'var(--color-coral)' },
-      // Last zone of the flight, so it carries the exit CTAs.
+      key: 'handover',
+      eyebrow: 'Week 3–4 · Handover',
+      title: ['Documented, and ', 'in your name', '.'],
+      sub: 'Every account, every automation, a written walkthrough. If you never speak to us again, it keeps running.',
+      hotspot: { benefit: 'Every account in your name' },
       ctas: {
         primary: { label: 'See pricing', href: '#pricing' },
-        secondary: { label: 'Talk to us', href: '#contact' },
+        secondary: { label: 'Get your free audit', href: '#contact' },
       },
     },
   ],
 }
 
-export const problem = {
-  eyebrow: 'Why customers pick someone else',
-  title: 'Three quiet leaks, all of them fixable',
-  items: [
-    {
-      title: 'They search. You don’t show up.',
-      body: 'Someone looks for what you sell and finds nothing — no site, no map pin, no hours. So they call the shop that does show up.',
-    },
-    {
-      title: 'Your Facebook Page went quiet.',
-      body: 'Last post two years ago, messages unread, no address on file. To a first-time customer, that reads as closed.',
-    },
-    {
-      title: 'Cards nobody scans.',
-      body: 'Paper cards get pocketed and lost. A tap card puts your site, socials and number straight onto their phone in about a second.',
-    },
-  ],
-}
-
-export const bundle = {
-  eyebrow: 'One package, three fixes',
-  title: 'The bundle',
-  body: 'We don’t sell these separately. They only work as a set — the card points at the site, the site feeds the profile, the profile brings the search traffic.',
-  // No prices here on purpose: pricing is quoted on a call, not posted publicly.
-  // See `pricing` below for the reasoning shown to the visitor.
-  hotspots: [
-    {
-      id: 'website',
-      title: 'A website that converts',
-      body: 'Fast, mobile-first, built around one goal: getting the visitor to contact you.',
-      position: { top: '24%', left: '12%' },
-    },
-    {
-      id: 'nfc',
-      title: 'NFC tap card',
-      body: 'Tap it on almost any modern phone. Your site, socials and number land in about a second. Reprogrammable any time.',
-      position: { top: '52%', left: '44%' },
-    },
-    {
-      id: 'local',
-      title: 'Local presence',
-      body: 'Google Business Profile and Facebook Page claimed, filled out and set up to help you rank in local search.',
-      position: { top: '30%', left: '72%' },
-    },
-  ],
-}
-
-export const showcase = {
-  eyebrow: 'Recent work',
-  title: 'Built for businesses like yours',
-  body: 'Every site ships mobile-first, loads fast on a weak connection, and puts the contact button where a thumb already is.',
-  // PLACEHOLDER — swap for real client names once you have sign-off to use them.
-  samples: [
-    // Placeholder sample projects — swap for real client work when ready.
-    { name: 'Aling Nena’s', kind: 'Sari-sari store' },
-    { name: 'Bright Smile Dental', kind: 'Dental clinic' },
-    { name: 'JR Barbershop', kind: 'Barbershop' },
-    { name: 'Grace Milk Tea', kind: 'Milk tea shop' },
-  ],
-}
-
-// PLACEHOLDER reviews — realistic Filipino-flavoured demo content for the
-// showcase, with a little Tagalog mixed in. Replace with genuine, permissioned
-// quotes before treating these as real client testimonials.
-export const testimonials = {
-  eyebrow: 'Sample reviews — real ones coming soon',
-  title: 'Straight from the shop floor',
-  // Every item carries `sample: true`, which renders a "Sample" tag on the card
-  // so nothing here reads as a real, attributed endorsement.
-  items: [
-    { quote: 'Sobrang bilis mag-set up! Isang linggo lang, may tumatawag na from Google. Salamat, Khybrio!', name: 'Aling Nena', business: 'Nena’s Sari-sari Store', rating: 5, sample: true },
-    { quote: 'Ang galing ng tap card. Isang tap lang, nasa phone na nila lahat — website, FB, number. Astig!', name: 'Kuya Jun', business: 'JR Barbershop', rating: 5, sample: true },
-    { quote: 'Buhay na buhay na ang Facebook page namin ngayon. Nasasagot na agad ang mga message. Solid.', name: 'Ate Grace', business: 'Grace Milk Tea', rating: 5, sample: true },
-    { quote: 'From invisible to number one sa search sa area namin. Sulit na sulit, promise.', name: 'Mark', business: 'MJ Auto Repair', rating: 5, sample: true },
-    { quote: 'Ang bilis mag-load kahit mahina ang signal. Napapansin talaga ng mga customer. Professional tingnan.', name: 'Dr. Aisha', business: 'Bright Smile Dental', rating: 5, sample: true },
-    { quote: 'Very patient sila mag-explain, walang arte, walang masyadong technical terms. Madaling kausap.', name: 'Tita Beth', business: 'Beth’s Catering', rating: 4, sample: true },
-    { quote: 'Isang bayad, kumpleto na — website, card, at Google. Hindi na ako naghahabol ng tatlong tao.', name: 'Paolo', business: 'Paolo Films', rating: 5, sample: true },
-    { quote: 'Maganda ang trabaho at may follow-up pa pagkatapos. Hindi ka iiwan. Highly recommended!', name: 'Inay Lita', business: 'Lita’s Bakeshop', rating: 5, sample: true },
-  ],
-}
-
-// Count-up strip. Deliberately honest facts (not fabricated business counts):
-// three services in one bundle, typical setup time, one tap, full ownership.
+// Count-up strip. Every figure here is a term of the offer — something we
+// control and can be held to — not a performance statistic we would have to
+// have measured on clients we do not have yet.
 export const stats = [
-  { value: 3, suffix: '-in-1', label: 'website, NFC card & local presence' },
-  // A week, not 48h. The old figure was a promise we'd have had to break the
-  // first time a client was slow with photos or Google sat on a verification.
-  { value: 7, suffix: ' days', label: 'target build time, once your photos are in' },
-  { value: 1, suffix: ' tap', label: 'to share everything you do' },
-  { value: 100, suffix: '%', label: 'yours to keep — nothing locked in' },
+  { value: 900, prefix: '$', label: 'fixed price for your first workflow' },
+  { value: 4, suffix: ' weeks', label: 'first call to handover, at the outside' },
+  { value: 3, suffix: ' tasks', label: 'all we need to start — name your most repeated' },
+  { value: 100, suffix: '%', label: 'yours — accounts, docs and automations' },
 ]
 
-// Mascot intro.
-export const mascot = {
-  eyebrow: 'Meet the guide',
-  title: ['Say hi to ', 'Khybi', '.'],
-  body: 'Our little guide to the whole bundle. Wherever you spot Khybi on this page, he’s pointing at something that helps your business get found and get trusted. Tiny mascot, big job.',
-  points: ['Guides you through the bundle', 'Shows up where it matters', 'Always on your side'],
+export const problem = {
+  eyebrow: 'Where the week goes',
+  title: 'Three places the hours quietly disappear',
+  items: [
+    {
+      title: 'The same message, again',
+      body: 'Price, hours, availability, directions — typed out by hand forty times a day, and typed slightly differently every time.',
+    },
+    {
+      title: 'The copy-paste tax',
+      body: 'Information re-typed from one tool into another. Every re-type is a chance to get a digit wrong, and nobody finds out until it matters.',
+    },
+    {
+      title: 'The chasing',
+      body: 'Unpaid invoices, unconfirmed bookings, follow-ups that only happen when somebody remembers to remember.',
+    },
+  ],
 }
 
-// Interactive NFC tap demo. Placeholder contact rows.
-export const nfcDemo = {
-  eyebrow: 'The tap card',
-  title: 'Tap it. Everything’s shared.',
-  body: 'One tap puts your website, socials, number and map pin straight onto their phone — no app, no typing. Hover the card to see it.',
-  rows: [
-    { icon: 'globe', label: 'yourbusiness.ph' },
-    { icon: 'instagram', label: '@yourbiz' },
-    { icon: 'facebook', label: 'facebook.com/yourbiz' },
-    { icon: 'phone', label: '+63 9XX XXX XXXX' },
+export const services = {
+  eyebrow: 'What we do',
+  title: 'Three lines of work. Automation leads.',
+  body: 'Automation comes first because it is the part that pays for itself. A site that captures the work and a profile that brings it in are what keep it fed.',
+  items: [
+    {
+      n: '01',
+      icon: 'workflow',
+      name: 'Workflow automation',
+      body: 'We map what your team actually repeats, then build it away — so the work happens whether or not anyone remembers to do it.',
+      points: [
+        'Tool-to-tool connections',
+        'Automated messaging and replies',
+        'Scheduled reports and reminders',
+        'Data entry removed at the source',
+      ],
+    },
+    {
+      n: '02',
+      icon: 'globe',
+      name: 'Websites & booking',
+      body: 'A site that does something — takes bookings, captures enquiries, feeds the automations behind it. Not a brochure.',
+      points: [
+        'Booking and enquiry systems',
+        'Online forms and intake',
+        'Payments and confirmations',
+        'Fast on mobile data',
+      ],
+    },
+    {
+      n: '03',
+      icon: 'pin',
+      name: 'Local presence',
+      body: 'The listing people actually find you through, set up the way Google expects, with a review flow that keeps running.',
+      points: [
+        'Google Business Profile setup',
+        'Map, hours and category fixes',
+        'Review collection flow',
+        'Listing consistency',
+      ],
+    },
+  ],
+}
+
+/**
+ * Named workflows. This section is the difference between "we do automation"
+ * reading as a specialism and reading as vague — so every entry has to be a
+ * job somebody recognises as their own, not a capability.
+ */
+export const automate = {
+  eyebrow: 'What we automate',
+  title: 'Six workflows we build most often',
+  body: 'Named, not vague. If yours is not on this list it is usually a variation of one that is — which is what the free audit is for.',
+  items: [
+    { label: 'Retail & e-commerce', workflow: 'Orders out of DMs and into a system' },
+    { label: 'Services & trades', workflow: 'Quotes and job scheduling' },
+    { label: 'Any business with invoices', workflow: 'Getting paid without chasing' },
+    { label: 'Clinics & appointments', workflow: 'Bookings, forms and reminders' },
+    { label: 'Offices & admin', workflow: 'Reports that build themselves' },
+    { label: 'Customer-facing teams', workflow: 'The first reply, instantly' },
+  ],
+}
+
+export const process = {
+  eyebrow: 'How it works',
+  title: 'Four steps — and you can stop after the first.',
+  body: 'The audit is free and self-contained. If you take the video and build it yourself, that is a fine outcome.',
+  steps: [
+    {
+      n: '01',
+      when: 'Day 0',
+      name: 'The audit',
+      body: 'You name your three most repeated tasks. We send back a short video showing what we would automate and roughly what it would give you back. Free, and there is no call to sit through.',
+    },
+    {
+      n: '02',
+      when: 'Day 1–3',
+      name: 'Map the work',
+      body: 'One call where we watch how the task actually happens — not how the process document says it happens. The gap between those two is usually where the time goes.',
+    },
+    {
+      n: '03',
+      when: 'Week 1–3',
+      name: 'Build and run in parallel',
+      body: 'The automation runs alongside your current process on real data. Nothing switches off until it has been proven on your own work, not on a demo.',
+    },
+    {
+      n: '04',
+      when: 'Week 3–4',
+      name: 'Hand over',
+      body: 'Documentation, a recorded walkthrough, and every account in your name. If you never speak to us again, it keeps running.',
+    },
   ],
 }
 
 export const pricing = {
-  eyebrow: 'What you get',
-  // Prices are shared privately with clients, not on the public site. Instead
-  // of numbers, each plan sells the outcome and points to a free call.
-  title: 'Pick the fit. We size the rest.',
-  body: 'You own everything we build — no lock-in, nothing held hostage if you leave. We tailor each plan to your business, so the price comes on a quick call, not a generic sticker.',
+  eyebrow: 'Pricing',
+  title: 'Published, so you know before you call.',
+  body: 'Fixed price per package, agreed before anything starts. No hourly billing, and no scope that quietly grows once you have committed.',
   reassurances: [
-    'You own everything',
-    'No lock-in contracts',
-    'Free call, no obligation — honest advice even if you don’t buy',
+    'Fixed price, agreed up front',
+    'You own every account and automation',
+    'Managed plan cancels anytime',
   ],
   tiers: [
     {
-      name: 'Essential',
-      label: 'For a fresh start',
-      body: 'For a business that needs to exist online, properly, this month.',
+      name: 'One workflow',
+      price: '$900',
+      unit: 'USD · one-time',
+      label: 'Start here',
+      body: 'Pick the task that annoys you most. We automate that one thing, end to end.',
       features: [
-        'Up to 4-page website',
-        '1 NFC tap card, programmed',
-        'Google Business Profile claimed & filled',
-        'Facebook Page cleanup',
-        'Mobile-first, fast on weak signal',
+        'One workflow, fully built',
+        'Runs in parallel until proven',
+        'Documentation and walkthrough',
+        'Accounts in your name',
+        '30 days of fixes included',
       ],
       featured: false,
     },
     {
-      name: 'Complete',
-      label: 'Most picked',
-      body: 'The full bundle, tuned for businesses that live on local search.',
+      name: 'Operations package',
+      price: '$2,900',
+      unit: 'USD · one-time',
+      label: 'Most scope',
+      body: 'When admin has quietly become a full-time job that nobody was hired for.',
       features: [
-        'Up to 8-page website with contact forms',
-        '5 NFC tap cards, programmed',
-        'Google Business Profile set up to help you rank locally',
-        'Facebook Page rebuild + 2 weeks of starter posts',
-        'Photo & copy pass across all three',
-        'Analytics wired up',
+        'Up to five connected workflows',
+        'Tools wired together end to end',
+        'Scheduled reports and reminders',
+        'Documentation and walkthrough',
+        'Accounts in your name',
+        '60 days of fixes included',
       ],
       featured: true,
     },
     {
-      name: 'Care plan',
-      label: 'Optional add-on',
-      body: 'Keep it all fed and growing after launch. Add to either plan, cancel anytime.',
-      // Scoped down from open-ended "social media management across
-      // platforms" — that was a full-time promise with nobody behind it once
-      // Rein left. A fixed monthly post count is something three people can
-      // actually deliver every month without it quietly slipping.
+      name: 'Site + automation',
+      price: '$4,200',
+      unit: 'USD · one-time',
+      label: 'Front door too',
+      body: 'When the front door needs rebuilding as well as the back office.',
       features: [
-        'Monthly posts on your Facebook Page and Google profile',
-        'Monthly site updates & edits',
-        'Hosting, domain & uptime handled',
-        'Monthly one-page report',
+        'Everything in the operations package',
+        'Booking or enquiry site, built to feed it',
+        'Payments and confirmations wired up',
+        'Google Business Profile set up',
+        'Accounts in your name',
       ],
       featured: false,
     },
   ],
-  cta: { label: 'Get your quote', href: '#contact' },
+  managed: {
+    name: 'Managed plan',
+    price: '$250',
+    unit: 'USD / month · optional',
+    body: 'Optional, and never a condition of the build. Add it to any package or leave it — what we hand over keeps running either way.',
+    features: [
+      'Monitoring and fixes',
+      'Small changes as you need them',
+      'One new workflow per quarter',
+      'Cancel anytime',
+    ],
+  },
+  /**
+   * Says plainly that the offer is new. This converts better than implying a
+   * track record we do not have, and unlike an implied one it cannot come apart
+   * later when a client asks for references.
+   */
+  founding: {
+    label: 'Founding clients',
+    title: 'Five spots, 35% off',
+    body: 'This offer is new, and pretending otherwise would show. The first five clients get 35% off any package, in exchange for a case study and a testimonial once it is working. That is the whole trade — and if it does not work, you owe us neither.',
+  },
+  cta: { label: 'Get your free audit', href: '#contact' },
   footnote:
-    'Every plan starts with a free 15-minute call — no obligation, and we’ll tell you honestly if you don’t need all three. You get a clear, itemized quote before anything begins.',
+    'Every engagement starts with the free audit — three tasks, a short video back, no call. You get a fixed quote before anything begins.',
 }
 
-// Short origin story. Trust with local SMEs is personal, so this says plainly
-// who we are and why we started, without inflating the track record.
 export const about = {
   eyebrow: 'Who you’re dealing with',
-  title: 'Three people from Zamboanga who got tired of watching good shops stay invisible.',
-  body: 'We kept seeing the same thing around the city — a barbershop with a queue out the door and no map pin, a bakery whose Facebook Page had been dead for two years, a clinic losing patients to a competitor with a worse service but a better website. The tools to fix it aren’t expensive or complicated. They were just never packaged for a small local business, in plain language, by someone you can actually reach. So we packaged them.',
+  title: 'Three people. You talk to the one building it.',
+  body: 'No account managers, no handoffs between a salesperson who promised it and a builder who never heard about it. The person who maps your workflow is the person who builds it and the person who hands it over. That is the entire advantage of being small, and we would rather keep it than grow out of it.',
   points: [
-    { label: 'Based here', value: 'Zamboanga City — and we take on work anywhere in Mindanao.' },
-    { label: 'Small on purpose', value: 'Three of us. No account managers, no handoffs, no runaround.' },
-    { label: 'Plain language', value: 'We explain what we’re doing and why, without the jargon.' },
+    { label: 'Small on purpose', value: 'Three of us. You always know exactly who you are talking to.' },
+    { label: 'You own it', value: 'Every account, automation and document is registered in your name.' },
+    { label: 'Plain language', value: 'We explain what we are doing and why, without the jargon.' },
   ],
 }
 
-// Objection-handling FAQ — the questions owners actually ask on the first call.
 export const faq = {
   eyebrow: 'Before you ask',
   title: 'The questions we get every time',
   items: [
     {
-      q: 'How much does it cost?',
-      a: 'It depends on how many pages you need and what state your profiles are in, so we quote after a quick look rather than posting a number that would be wrong for half the businesses who read it. The free 15-minute call ends with a clear, itemized quote — no pressure to take it.',
+      q: 'Who are you and where are you based?',
+      a: 'We are a three-person team based in Zamboanga City, Philippines, working with small businesses in Australia, New Zealand, the US, Canada and the UK. We work in your time zone for calls and we are reachable by email and message the rest of the time. Being remote is why the pricing is what it is.',
     },
     {
-      q: 'How long does it take?',
-      a: 'We aim for about a week to build your side of it — site, card and profiles — once we have your photos and details. The honest caveat is Google’s verification, which can take a week or two on its own and is entirely on their end. So: about a week for the build, and we’ll tell you where the Google side stands rather than leave you guessing.',
+      q: 'Do we have to change the software we use?',
+      a: 'Almost never, and we would push back if you suggested it. The whole point is to connect what you already use — your inbox, your spreadsheet, your booking tool, your accounting software. Migrating you to something new is a different project with a much worse risk profile, and we will say so if someone proposes it.',
     },
     {
-      q: 'I already have a Facebook Page. Do I still need this?',
-      a: 'Probably — but not all of it. A Page on its own doesn’t show up on Google Maps and can’t be found by someone searching for what you sell. We’ll often clean up the Page you have rather than rebuild it, and tell you on the call which parts you genuinely don’t need.',
+      q: 'What if it breaks when you’re not around?',
+      a: 'You get documentation and a recorded walkthrough, and every account is in your name — so any competent person can pick it up, including one who is not us. Automations also fail loudly rather than silently: if something stops, you get told rather than finding out from a customer. The managed plan covers monitoring and fixes if you would rather not think about it, but nothing is built so that you need us.',
     },
     {
-      q: 'Who owns the website and the profiles?',
-      a: 'You do, completely. The domain, the site, the Google Business Profile, the Facebook Page — all registered in your name and handed over. If you ever leave us, nothing gets held hostage and nothing switches off.',
+      q: 'Will this replace our staff?',
+      a: 'Not in our experience, and it is not what we are selling. What it replaces is the part of their day spent re-typing things a computer could have moved. Most owners use the time back for work that was already being neglected — the follow-ups, the quotes, the customers who got a slow reply. If your goal is a headcount cut, we are probably the wrong people.',
     },
     {
-      q: 'What if I don’t have a logo?',
-      a: 'Most shops we meet don’t. We offer a logo and mini brand kit as an add-on, and it’s included with the full bundle — your site and tap card both need one to look credible.',
+      q: 'How do payments work?',
+      a: 'Fixed price, agreed in writing before anything starts. Half up front, half on handover. Bank transfer or Wise, invoiced in USD. The managed plan is billed monthly and can be cancelled whenever you like — it is not a lock-in and it is not a condition of the build.',
     },
     {
-      q: 'What happens after it goes live?',
-      a: 'Nothing breaks if you do nothing. The optional care plan keeps the site updated, the pages posting and the hosting handled — but it’s a monthly add-on you can cancel anytime, not a condition of the build.',
-    },
-  ],
-}
-
-// "What we do" — the three services in depth, plus how we work.
-export const services = {
-  eyebrow: 'What we do',
-  title: 'Three things every local business needs — done right, done together.',
-  body: 'Most shops are missing all three and stitching them from different people. We build them as one so they actually point at each other.',
-  items: [
-    {
-      icon: 'globe',
-      name: 'A website that converts',
-      body: 'A fast, mobile-first site built around one job: turning a visitor into a message or a call. Clean design, your photos and words, loads even on weak data.',
-      points: ['Mobile-first & fast', 'Contact-focused layout', 'Your branding & copy', 'Analytics built in'],
-    },
-    {
-      icon: 'nfc',
-      name: 'NFC tap card',
-      body: 'A custom tap card that shares your whole presence with one tap — website, socials, number, map pin. No app, reprogrammable anytime, made for events and walk-ins.',
-      points: ['One tap to share', 'No app needed', 'Reprogrammable', 'Custom, on-brand card'],
-    },
-    {
-      icon: 'pin',
-      name: 'Local presence',
-      body: 'We claim, verify and properly fill out your Google Business Profile — categories, hours, service areas, photos — so you can turn up when someone nearby searches for what you sell instead of being invisible on the map.',
-      points: ['Google Business Profile', 'Facebook Page rebuild', 'Built for local search', 'Reviews & posts set up'],
-    },
-  ],
-  steps: [
-    { n: '01', name: 'Free call', body: 'A quick 15 minutes to understand your business and what’s missing. No obligation — you get honest advice either way.' },
-    { n: '02', name: 'We build', body: 'Site, card and profiles set up together — about a week once we have your photos.' },
-    { n: '03', name: 'You go live', body: 'You get found, you get trusted. Optional care plan keeps it growing.' },
-  ],
-  // Standalone Logo & Branding add-on — a natural first step, not a bolt-on.
-  branding: {
-    eyebrow: 'Add-on · Logo & branding',
-    title: 'No logo yet? Start here.',
-    body: 'Most shops we meet have no logo — just a name in a random font, or nothing at all. Since your website and tap card both need one to look credible, a clean mark is the natural first step. Honest heads-up: this is a modern, AI-assisted mark refined into clean vector — not a multi-week brand-agency rebrand. Fast, affordable, and fully yours.',
-    tiers: [
-      {
-        name: 'Logo only',
-        features: [
-          'One fused letterform + icon mark',
-          'SVG + PNG exports',
-          'Grain-free version for favicon & small sizes',
-        ],
-      },
-      {
-        name: 'Logo + mini brand kit',
-        featured: true,
-        features: [
-          'Everything in Logo only',
-          'Locked color palette (3–4 colors + hex)',
-          'Type pairing — one display + one body face',
-          'One-page usage guide (do’s & don’ts, min size, clear space)',
-        ],
-      },
-      {
-        name: 'With the full bundle',
-        features: [
-          'Logo + mini brand kit, included',
-          'Because your site & card need it anyway',
-        ],
-      },
-    ],
-  },
-}
-
-// Detailed "Meet the team" — richer than the crew zones in the flight.
-export const team = {
-  eyebrow: 'Behind the bundle',
-  title: 'Meet the team',
-  body: 'Small on purpose. You always know exactly who you’re talking to — no account managers, no runaround.',
-  members: [
-    {
-      name: 'Shiek Abdurahman',
-      initials: 'SA',
-      // `photo` keys into A.teamPhotos in lib/assets.js. Anyone without one
-      // falls back to the initials avatar, so the grid stays even.
-      photo: 'shiek',
-      role: 'Developer',
-      accent: 'var(--color-teal-deep)',
-      bio: 'Builds and maintains every site we ship and the technical side of the whole bundle — from the first line of code to hosting and uptime.',
-      focus: ['Web development', 'NFC setup', 'Hosting & uptime'],
-    },
-    {
-      name: 'Dave Calio',
-      initials: 'DC',
-      photo: 'dave',
-      role: 'First contact & onboarding',
-      accent: 'var(--color-teal-bright)',
-      bio: 'Usually the first person you meet. Walks owners through what the bundle actually changes for their business — in plain terms, no jargon.',
-      focus: ['First contact', 'Client presentations', 'Onboarding'],
-    },
-    {
-      name: 'Haiqal Munjalin',
-      initials: 'HM',
-      photo: 'haiqal',
-      role: 'Marketing & sales',
-      accent: 'var(--color-coral)',
-      bio: 'Runs presentations and follow-through, from the first pitch all the way to a signed, clearly-scoped agreement.',
-      focus: ['Pitching', 'Scoping', 'Follow-through'],
+      q: 'What do you need from us?',
+      a: 'To start: the three tasks you repeat most. After that, one call where we watch the work happen, and access to the tools involved. Roughly two to three hours of your time across the whole build — most of the delay in a project like this is waiting on access, so the faster that arrives the faster it ships.',
     },
   ],
 }
 
 export const contact = {
   eyebrow: 'Get started',
-  title: 'Tell us what you sell. We’ll tell you what’s missing.',
-  body: 'A short message is enough. We reply on whichever of these you already use.',
-  // PLACEHOLDER — any endpoint accepting a JSON POST (Formspree, Netlify
-  // Forms, your own handler). Until this is set the form tells the visitor it
-  // isn't connected instead of quietly dropping their message.
+  title: 'Tell us the three things you do most often.',
+  body: 'That is the whole audit. Send your three most repeated tasks and we send back a short video showing what we would automate — free, no call, no obligation.',
+  submitLabel: 'Send us your three',
+  /**
+   * PLACEHOLDER — paste the Formspree endpoint here (it looks like
+   * 'https://formspree.io/f/xxxxxxxx') and both pages start submitting. Until
+   * it is set the form tells the visitor it is not connected rather than
+   * quietly dropping their message.
+   */
   formEndpoint: null,
-  // Live channels. A phone number is deliberately not listed yet — add one here
-  // with icon 'whatsapp' or 'viber' once there's a line someone actually answers.
+  fields: {
+    name: { label: 'Your name', placeholder: 'Alex Chen' },
+    business: { label: 'Business name', placeholder: 'Your business' },
+    contact: { label: 'Email', placeholder: 'you@yourbusiness.com' },
+    message: {
+      label: 'The three things you do most often',
+      placeholder: 'e.g. re-typing orders from Messenger into a spreadsheet, chasing unpaid invoices, sending booking reminders.',
+    },
+  },
   channels: [
     {
       label: 'Email',
@@ -467,6 +457,48 @@ export const contact = {
   ],
 }
 
+export const team = {
+  eyebrow: 'Behind the work',
+  title: 'Meet the team',
+  body: 'Small on purpose. You always know exactly who you’re talking to — no account managers, no runaround.',
+  members: [
+    {
+      name: 'Shiek Abdurahman',
+      initials: 'SA',
+      // `photo` keys into A.teamPhotos in lib/assets.js. Anyone without one
+      // falls back to the initials avatar, so the grid stays even.
+      photo: 'shiek',
+      role: 'Developer',
+      accent: 'var(--color-teal-deep)',
+      bio: 'Builds every automation and site we ship, plus the technical side of the handover — from the first mapped workflow to the documentation you keep.',
+      focus: ['Automation', 'Web development', 'Handover & docs'],
+    },
+    {
+      name: 'Dave Calio',
+      initials: 'DC',
+      photo: 'dave',
+      role: 'First contact & onboarding',
+      accent: 'var(--color-teal-bright)',
+      bio: 'Usually the first person you meet. Walks owners through what the audit found and what it would actually change — in plain terms, no jargon.',
+      focus: ['First contact', 'Workflow audits', 'Onboarding'],
+    },
+    {
+      name: 'Haiqal Munjalin',
+      initials: 'HM',
+      photo: 'haiqal',
+      role: 'Marketing & sales',
+      accent: 'var(--color-coral)',
+      bio: 'Runs proposals and follow-through, from the first conversation all the way to a signed, clearly-scoped agreement.',
+      focus: ['Proposals', 'Scoping', 'Follow-through'],
+    },
+  ],
+}
+
 export const footer = {
-  blurb: 'Websites, NFC tap cards and local presence for businesses in Zamboanga City and across Mindanao.',
+  blurb:
+    'Workflow automation, booking systems and local presence for small businesses in Australia, New Zealand, the US, Canada and the UK.',
+  // Discreet on purpose. Overseas visitors should not be routed to the peso
+  // page, but an entirely unlinked page is invisible to search and impossible
+  // to find. Remove this if you would rather /ph stay strictly link-only.
+  altPage: { label: 'Philippines — websites, Google & tap cards', href: 'ph/' },
 }

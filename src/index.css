@@ -71,16 +71,31 @@
   transform: translateZ(0);
 }
 
-/* Testimonial marquee. The track holds the cards twice, so shifting by exactly
-   half its width lands the second copy where the first began — a seamless loop.
-   Trailing space rides on each card's margin, not a flex gap, so 50% stays exact. */
-@keyframes marquee-x {
+/* Hero entrance.
+
+   CSS, not a JS-driven animation, and deliberately so: the headline and the run
+   log are the two things a visitor must see, and a JS entrance that starts at
+   opacity 0 leaves both invisible in any environment where the animation frame
+   loop is throttled — a tab opened in the background, a busy main thread. The
+   `both` fill keeps the end state applied regardless of when it runs. Every
+   animation below the fold can stay on Motion, where a stall costs nothing. */
+@keyframes rise-in {
   from {
-    transform: translateX(0);
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
   }
   to {
-    transform: translateX(-50%);
+    opacity: 1;
+    transform: none;
   }
+}
+
+@utility rise-in {
+  animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@utility rise-in-late {
+  animation: rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
 @media (prefers-reduced-motion: reduce) {

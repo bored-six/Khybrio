@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import { AssetImage } from '../components/AssetImage'
 import { InitialsAvatar } from '../components/InitialsAvatar'
 import { A } from '../lib/assets'
-import { team } from '../content/site'
+import { useContent } from '../content/context'
 
 /**
  * Team cards flip in 3D — hover on desktop, tap on mobile — from a compact
@@ -24,6 +24,7 @@ function Avatar({ member, size }) {
   )
 }
 export function Team() {
+  const { team } = useContent()
   const [flipped, setFlipped] = useState(null)
 
   return (

@@ -1,10 +1,11 @@
 import { motion } from 'motion/react'
 import { SearchX, MessageSquareOff, ScanLine } from 'lucide-react'
-import { problem } from '../content/site'
+import { useContent } from '../content/context'
 
 const icons = [SearchX, MessageSquareOff, ScanLine]
 
 export function Problem() {
+  const { problem } = useContent()
   return (
     <section
       id="problem"

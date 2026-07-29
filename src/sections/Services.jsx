@@ -1,10 +1,11 @@
 import { motion } from 'motion/react'
-import { Globe, Nfc, MapPin, Check } from 'lucide-react'
-import { services } from '../content/site'
+import { Globe, MapPin, Check, Workflow, Star } from 'lucide-react'
+import { useContent } from '../content/context'
 
-const ICONS = { globe: Globe, nfc: Nfc, pin: MapPin }
+const ICONS = { globe: Globe, pin: MapPin, workflow: Workflow, star: Star }
 
 export function Services() {
+  const { services } = useContent()
   return (
     <section id="services" className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32">
       <div className="mx-auto max-w-7xl">
@@ -16,7 +17,7 @@ export function Services() {
         </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-muted">{services.body}</p>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <div className={`mt-12 grid gap-5 md:grid-cols-2 ${services.items.length > 3 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
           {services.items.map((item, i) => {
             const Icon = ICONS[item.icon] ?? Globe
             return (
@@ -31,9 +32,12 @@ export function Services() {
               >
                 {/* coral accent bar reveals on hover */}
                 <span className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-coral transition-transform duration-500 ease-out group-hover:scale-x-100" />
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-deep transition-transform duration-500 ease-out group-hover:-rotate-6 group-hover:scale-110">
-                  <Icon size={22} color="var(--color-cream)" strokeWidth={1.9} />
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-deep transition-transform duration-500 ease-out group-hover:-rotate-6 group-hover:scale-110">
+                    <Icon size={22} color="var(--color-cream)" strokeWidth={1.9} />
+                  </span>
+                  <span className="font-display text-sm font-bold text-coral">{item.n}</span>
+                </div>
                 <h3 className="mt-5 font-display text-xl font-bold text-teal-deep">{item.name}</h3>
                 <p className="mt-2.5 leading-relaxed text-ink-muted">{item.body}</p>
                 <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5">
@@ -52,80 +56,6 @@ export function Services() {
           })}
         </div>
 
-        {/* Logo & branding add-on */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-14 rounded-[var(--radius-card)] bg-teal-deep p-8 sm:p-10"
-        >
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-coral">
-              {services.branding.eyebrow}
-            </p>
-            <h3 className="mt-3 font-display text-[clamp(1.6rem,3.5vw,2.4rem)] font-bold text-cream">
-              {services.branding.title}
-            </h3>
-            <p className="mt-4 leading-relaxed text-cream/75">{services.branding.body}</p>
-          </div>
-
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {services.branding.tiers.map((tier) => (
-              <div
-                key={tier.name}
-                className={`flex flex-col rounded-[var(--radius-card)] p-6 ${
-                  tier.featured ? 'bg-cream ring-2 ring-coral' : 'bg-cream/8 ring-1 ring-cream/15'
-                }`}
-              >
-                <h4
-                  className={`font-display text-lg font-bold ${
-                    tier.featured ? 'text-teal-deep' : 'text-cream'
-                  }`}
-                >
-                  {tier.name}
-                </h4>
-                <ul className="mt-5 flex flex-1 flex-col gap-2.5">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex gap-2.5">
-                      <Check
-                        size={16}
-                        strokeWidth={2.5}
-                        className="mt-0.5 shrink-0"
-                        color="var(--color-coral)"
-                      />
-                      <span
-                        className={`text-sm leading-snug ${
-                          tier.featured ? 'text-ink' : 'text-cream/85'
-                        }`}
-                      >
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* How we work — three steps */}
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
-          {services.steps.map((step, i) => (
-            <motion.div
-              key={step.n}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-[var(--radius-card)] border border-teal-soft/60 p-6"
-            >
-              <span className="font-display text-2xl font-bold text-coral">{step.n}</span>
-              <h4 className="mt-3 font-display text-lg font-bold text-teal-deep">{step.name}</h4>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{step.body}</p>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   )

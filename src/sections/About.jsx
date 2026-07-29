@@ -1,10 +1,11 @@
-import { about } from '../content/site'
+import { useContent } from '../content/context'
 
 /**
  * Short origin story. Sits between the team and the reviews so a visitor meets
  * the people, hears why they started, and only then reads what others say.
  */
 export function About() {
+  const { about } = useContent()
   return (
     <section id="about" className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">

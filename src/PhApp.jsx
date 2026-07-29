@@ -1,14 +1,13 @@
 import { useEffect } from 'react'
 import { initSmoothScroll, ScrollTrigger } from './lib/smoothScroll'
 import { Nav } from './components/Nav'
-import { SceneCounter } from './components/SceneCounter'
-import { Hero } from './sections/Hero'
+import { PhHero } from './sections/PhHero'
 import { Problem } from './sections/Problem'
-import { Flight } from './sections/Flight'
-import { StatStrip } from './components/StatStrip'
 import { Services } from './sections/Services'
-import { Automate } from './sections/Automate'
+import { Reviews } from './sections/Reviews'
+import { NfcTapDemo } from './sections/NfcTapDemo'
 import { Process } from './sections/Process'
+import { MascotIntro } from './sections/MascotIntro'
 import { Pricing } from './sections/Pricing'
 import { Team } from './sections/Team'
 import { About } from './sections/About'
@@ -17,19 +16,15 @@ import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
 
 /**
- * The international page (/) — workflow automation, USD, no local offering.
+ * The local page (/ph) — Philippine market, pesos, Google Maps first.
  *
- * Order is deliberate: the run log shows work executing before any claim is
- * made about it, the pain lands next, and only then do the three lines of work
- * appear. Pricing sits after the process so a reader meets the number knowing
- * what the four weeks contain.
+ * No scrubbed flight here: this page gets opened on a phone in a shop, often
+ * on mobile data, straight after the Maps demo. It needs to load and answer
+ * the question, not perform. The island tour stays on the main page.
  */
-export default function App() {
+export default function PhApp() {
   useEffect(() => {
     const destroy = initSmoothScroll()
-
-    // Fonts and lazily-swapped images change layout heights after first paint,
-    // which would otherwise leave every pin measured against stale positions.
     const refresh = () => ScrollTrigger.refresh()
     if (document.fonts?.ready) document.fonts.ready.then(refresh)
     window.addEventListener('load', refresh)
@@ -43,16 +38,14 @@ export default function App() {
   return (
     <>
       <Nav />
-      <SceneCounter />
       <main>
-        <Hero />
+        <PhHero />
         <Problem />
-        {/* The island tour, re-cut: three lines of work, then the process. */}
-        <Flight />
-        <StatStrip />
         <Services />
-        <Automate />
+        <Reviews />
+        <NfcTapDemo />
         <Process />
+        <MascotIntro />
         <Pricing />
         <Team />
         <About />

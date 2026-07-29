@@ -18,14 +18,18 @@ export const scenes = {
     // heroLoop intentionally omitted — the 1080p loop wasn't crisp enough, so
     // the hero shows the sharp still (01-hero). Re-add A.heroLoop here if a
     // genuinely HD loop is generated later.
-    // Seven zones, in flight order — must line up with content/site.js `flight.zones`.
+    // Seven zones, in flight order — must line up with content/site.js
+    // `flight.zones`. Re-ordered for the automation cut: the code-brackets nook
+    // opens the three lines of work, and the crew scenes now carry the process
+    // beats (handshake = the audit, phone = running in parallel, tablet =
+    // handover) rather than one person each.
     stills: [
       A.hero,
-      A.webDesk,
-      A.nfcKiosk,
-      A.signalTower,
       A.shiek,
+      A.webDesk,
+      A.signalTower,
       A.dave,
+      A.nfcKiosk,
       A.haiqal,
     ],
     // Viewport-heights the flight stays pinned for. ~1.6 per zone across 7
@@ -36,17 +40,7 @@ export const scenes = {
     pan: [0, -3],
     transition: 'crossfade',
   },
-  showcase: {
-    id: 'showcase',
-    mediaType: 'image',
-    stills: A.samples,
-    // Was 2.2 — over 2 full viewport-heights of scroll for 4 stills read as a
-    // long dead stretch right after the short NFC tap-card demo, before any
-    // of the samples finished wiping in. 1.3 keeps each wipe readable
-    // (~0.43 viewport-heights per still) without the long empty pull.
-    scroll: 1.3,
-    zoom: [1.06, 1],
-    pan: [0, 0],
-    transition: 'clip',
-  },
+  // The showcase scene is gone with its section — it scrubbed four invented
+  // client projects under a "Recent work" heading. Real work goes back in here
+  // when there is some to show.
 }
