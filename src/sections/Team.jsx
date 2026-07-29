@@ -37,7 +37,7 @@ export function Team() {
         </h2>
         <p className="mt-4 max-w-xl leading-relaxed text-ink-muted">{team.body}</p>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {team.members.map((m, i) => (
             <motion.div
               key={m.name}

@@ -31,7 +31,8 @@ const showcase = (name, alt) => ({
 })
 
 export const A = {
-  // The eight island zones, in flight order.
+  // The seven island zones, in flight order. 08-rein is still on disk but no
+  // longer in the flight — that crew zone was retired with the team change.
   hero: world('01-hero', 'Wide isometric view of the Khybrio island'),
   webDesk: world('02-web-desk', 'Khybi at the web desk with a floating browser'),
   nfcKiosk: world('03-nfc-kiosk', 'Khybi tapping an NFC card to a phone'),
@@ -39,7 +40,6 @@ export const A = {
   shiek: world('05-shiek', 'Khybi at a desk nook with floating code brackets'),
   dave: world('06-dave', 'Khybi with a briefcase, mid-handshake'),
   haiqal: world('07-haiqal', 'Khybi presenting a tablet pitch deck'),
-  rein: world('08-rein', 'Khybi with a phone and floating like bubbles'),
 
   samples: [
     showcase('sample-01', 'Client website mockup'),
@@ -88,8 +88,8 @@ export const A = {
 
   /**
    * Real team headshots, keyed by the `photo` field on each member in
-   * content/site.js. Haiqal has no photo yet — that member simply omits the
-   * key and keeps the initials avatar until one lands here.
+   * content/site.js. A member who omits the key falls back to the initials
+   * avatar, so the grid stays even.
    */
   teamPhotos: {
     shiek: {
@@ -102,10 +102,10 @@ export const A = {
       placeholder: `${BASE}assets/placeholders/06-dave.svg`,
       alt: 'Dave Calio',
     },
-    rein: {
-      src: `${BASE}assets/team/rein.jpg`,
-      placeholder: `${BASE}assets/placeholders/08-rein.svg`,
-      alt: 'Rein Garcia',
+    haiqal: {
+      src: `${BASE}assets/team/haiqal.jpg`,
+      placeholder: `${BASE}assets/placeholders/07-haiqal.svg`,
+      alt: 'Haiqal Munjalin',
     },
   },
 

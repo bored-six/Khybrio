@@ -18,7 +18,7 @@ export const scenes = {
     // heroLoop intentionally omitted — the 1080p loop wasn't crisp enough, so
     // the hero shows the sharp still (01-hero). Re-add A.heroLoop here if a
     // genuinely HD loop is generated later.
-    // Eight zones, in flight order — must line up with content/site.js `flight.zones`.
+    // Seven zones, in flight order — must line up with content/site.js `flight.zones`.
     stills: [
       A.hero,
       A.webDesk,
@@ -27,12 +27,11 @@ export const scenes = {
       A.shiek,
       A.dave,
       A.haiqal,
-      A.rein,
     ],
-    // Viewport-heights the flight stays pinned for. ~1.6 per zone across 8
+    // Viewport-heights the flight stays pinned for. ~1.6 per zone across 7
     // zones, so a single scroll gesture stays within a zone instead of blowing
     // straight through to the next — each zone gets a deliberate hold.
-    scroll: 12.8,
+    scroll: 11.2,
     zoom: [1, 1.12],
     pan: [0, -3],
     transition: 'crossfade',

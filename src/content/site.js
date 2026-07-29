@@ -26,24 +26,24 @@ export const milestones = [
   { id: 'flight', label: 'Shiek' },
   { id: 'flight', label: 'Dave' },
   { id: 'flight', label: 'Haiqal' },
-  { id: 'flight', label: 'Rein' },
 ]
 
 export const nav = [
   // `flightProgress` jumps into the flight at a zone; `zoneRange` lights the
-  // pill coral while that zone band is the one on screen.
-  { id: 'flight', label: 'The bundle', flightProgress: 0.1875, zoneRange: [1, 3] },
-  { id: 'flight', label: 'The team', flightProgress: 0.5625, zoneRange: [4, 7] },
+  // pill coral while that zone band is the one on screen. The fractions are
+  // zone-centres over the seven zones: 1.5/7 for the bundle, 4.5/7 for the crew.
+  { id: 'flight', label: 'The bundle', flightProgress: 0.2143, zoneRange: [1, 3] },
+  { id: 'flight', label: 'The team', flightProgress: 0.6429, zoneRange: [4, 6] },
   { id: 'services', label: 'What we do' },
   { id: 'showcase', label: 'Work' },
   { id: 'pricing', label: 'Pricing' },
 ]
 
 /**
- * The continuous flight: eight island zones scrubbed as one take. Each zone
+ * The continuous flight: seven island zones scrubbed as one take. Each zone
  * carries an all-caps eyebrow, a headline with exactly one phrase in the coral
  * accent, and a one-line subhead — the reference's per-scene copy pattern.
- * Bundle zones (2–4) add a service hotspot with a PHP price; crew zones (5–8)
+ * Bundle zones (2–4) add a service hotspot with a PHP price; crew zones (5–7)
  * add a name/role card. `hint` shows the scroll cue only on the first zone.
  */
 export const flight = {
@@ -59,8 +59,8 @@ export const flight = {
       ctas: {
         // `flightProgress` scrolls into the flight at a specific zone rather
         // than to the flight's top. Bundle = zone 1 centre, crew = Shiek's zone.
-        primary: { label: 'See the bundle', flightProgress: 0.1875 },
-        secondary: { label: 'Meet the team', flightProgress: 0.5625 },
+        primary: { label: 'See the bundle', flightProgress: 0.2143 },
+        secondary: { label: 'Meet the team', flightProgress: 0.6429 },
       },
     },
     {
@@ -103,14 +103,8 @@ export const flight = {
       eyebrow: 'Behind the bundle',
       title: ['Haiqal ', 'makes the case', '.'],
       sub: 'Runs presentations and follow-through, from first pitch to signed scope.',
-      crew: { name: 'Haiqal Munjalin', role: 'Cold pitch & client presentations', initials: 'HM', accent: 'var(--color-coral)' },
-    },
-    {
-      key: 'rein',
-      eyebrow: 'Behind the bundle',
-      title: ['Rein keeps it ', 'alive', '.'],
-      sub: 'Social media management across every platform once the bundle goes live.',
-      crew: { name: 'Rein Garcia', role: 'Social media management', initials: 'RG', accent: 'var(--color-teal-deep)' },
+      crew: { name: 'Haiqal Munjalin', role: 'Marketing & sales', initials: 'HM', accent: 'var(--color-coral)' },
+      // Last zone of the flight, so it carries the exit CTAs.
       ctas: {
         primary: { label: 'See pricing', href: '#pricing' },
         secondary: { label: 'Talk to us', href: '#contact' },
@@ -177,42 +171,6 @@ export const showcase = {
     { name: 'Bright Smile Dental', kind: 'Dental clinic' },
     { name: 'JR Barbershop', kind: 'Barbershop' },
     { name: 'Grace Milk Tea', kind: 'Milk tea shop' },
-  ],
-}
-
-export const people = {
-  eyebrow: 'Behind the bundle',
-  title: 'The People',
-  body: 'Four of us. Small enough that you always know who you are talking to.',
-  members: [
-    {
-      name: 'Shiek Abdurahman',
-      initials: 'SA',
-      role: 'Developer',
-      blurb: 'Builds and maintains every site we ship, plus the technical side of the whole bundle.',
-      accent: 'var(--color-teal-deep)',
-    },
-    {
-      name: 'Dave Calio',
-      initials: 'DC',
-      role: 'Cold pitch & client presentations',
-      blurb: 'First contact. Walks owners through what the bundle actually changes for their business.',
-      accent: 'var(--color-teal-bright)',
-    },
-    {
-      name: 'Haiqal Munjalin',
-      initials: 'HM',
-      role: 'Cold pitch & client presentations',
-      blurb: 'Runs presentations and follow-through, from first pitch to signed scope.',
-      accent: 'var(--color-coral)',
-    },
-    {
-      name: 'Rein Garcia',
-      initials: 'RG',
-      role: 'Social media management',
-      blurb: 'Keeps the pages alive across every platform once the bundle goes live.',
-      accent: 'var(--color-teal-deep)',
-    },
   ],
 }
 
@@ -328,11 +286,11 @@ export const pricing = {
 // who we are and why we started, without inflating the track record.
 export const about = {
   eyebrow: 'Who you’re dealing with',
-  title: 'Four people from Zamboanga who got tired of watching good shops stay invisible.',
+  title: 'Three people from Zamboanga who got tired of watching good shops stay invisible.',
   body: 'We kept seeing the same thing around the city — a barbershop with a queue out the door and no map pin, a bakery whose Facebook Page had been dead for two years, a clinic losing patients to a competitor with a worse service but a better website. The tools to fix it aren’t expensive or complicated. They were just never packaged for a small local business, in plain language, by someone you can actually reach. So we packaged them.',
   points: [
     { label: 'Based here', value: 'Zamboanga City — we work with businesses across Mindanao.' },
-    { label: 'Small on purpose', value: 'Four of us. No account managers, no handoffs, no runaround.' },
+    { label: 'Small on purpose', value: 'Three of us. No account managers, no handoffs, no runaround.' },
     { label: 'Plain language', value: 'We explain what we’re doing and why, without the jargon.' },
   ],
 }
@@ -463,19 +421,11 @@ export const team = {
     {
       name: 'Haiqal Munjalin',
       initials: 'HM',
-      role: 'Cold pitch & client presentations',
+      photo: 'haiqal',
+      role: 'Marketing & sales',
       accent: 'var(--color-coral)',
       bio: 'Runs presentations and follow-through, from the first pitch all the way to a signed, clearly-scoped agreement.',
       focus: ['Pitching', 'Scoping', 'Follow-through'],
-    },
-    {
-      name: 'Rein Garcia',
-      initials: 'RG',
-      photo: 'rein',
-      role: 'Social media management',
-      accent: 'var(--color-teal-deep)',
-      bio: 'Keeps your pages alive across every platform once the bundle goes live — posts, replies and the little things that keep a page looking open for business.',
-      focus: ['Social media', 'Content', 'Community replies'],
     },
   ],
 }
