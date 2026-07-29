@@ -17,7 +17,6 @@ export function StatStrip() {
         {stats.map((s) => (
           <div key={s.label} className="text-center">
             <p className="font-display text-4xl font-bold text-cream sm:text-5xl">
-              {s.prefix ? <span className="text-coral">{s.prefix}</span> : null}
               {/* The resting state is the real figure, not 0 — before this
                   strip scrolls into view the panel read "0-in-1 / 0 tap". */}
               {inView ? <AnimatedNumber value={s.value} from={0} /> : s.value}

@@ -60,38 +60,59 @@ export const hero = {
 }
 
 /**
- * The animated run log behind the hero. Rows execute one at a time on scroll.
+ * The hero's interactive panel: pick a job, watch it run.
  *
- * `EXAMPLE` badge is not decoration and must not be removed: these are
- * illustrative workflows with illustrative hand-timings, and without the badge
- * the panel reads as measured statistics from real clients.
+ * The visitor choosing which task to watch is the point — it rehearses the ask
+ * the whole page builds to ("name your three tasks") before anyone has to fill
+ * in a form. It auto-cycles until the first click, then follows the visitor.
+ *
+ * The `Example` badge is not decoration and must not be removed: these are
+ * illustrative flows with illustrative hand-timings, and without the badge the
+ * panel reads as measured results from real clients.
  */
 export const runLog = {
   badge: 'Example',
-  columns: { flow: 'Flow', time: 'Automated', byHand: 'By hand' },
-  rows: [
+  hint: 'Pick the one that sounds like your week',
+  automatedLabel: 'Runs in',
+  byHandLabel: 'By hand',
+  flows: [
     {
-      flow: 'Order arrives in Messenger → added to sheet → confirmation sent',
+      key: 'orders',
+      label: 'Orders',
+      trigger: 'An order arrives in Messenger',
+      steps: ['Read the message', 'Add the row to your sheet', 'Send the confirmation'],
       time: '1.8s',
-      byHand: '6 min, ~40× a day',
+      byHand: '6 min, about 40 times a day',
     },
     {
-      flow: 'Invoice hits 14 days overdue → reminder emailed → logged',
+      key: 'invoices',
+      label: 'Invoices',
+      trigger: 'An invoice hits 14 days overdue',
+      steps: ['Spot the unpaid one', 'Email the reminder', 'Log that it went out'],
       time: '0.9s',
       byHand: '12 min, every week',
     },
     {
-      flow: 'Enquiry form submitted → contact created → team notified',
+      key: 'enquiries',
+      label: 'Enquiries',
+      trigger: 'Someone submits your enquiry form',
+      steps: ['Create the contact', 'File it where you look', 'Notify whoever replies'],
       time: '1.2s',
       byHand: '8 min, per enquiry',
     },
     {
-      flow: 'Booking confirmed → calendar updated → reminder scheduled',
+      key: 'bookings',
+      label: 'Bookings',
+      trigger: 'A booking gets confirmed',
+      steps: ['Update the calendar', 'Schedule the reminder', 'Send the details over'],
       time: '1.4s',
       byHand: '5 min, per booking',
     },
     {
-      flow: 'Receipts collected → expenses categorized → report built',
+      key: 'reports',
+      label: 'Month-end',
+      trigger: 'The month closes',
+      steps: ['Collect the receipts', 'Categorize the expenses', 'Build the report'],
       time: '2.1s',
       byHand: '45 min, every month-end',
     },
@@ -168,7 +189,7 @@ export const flight = {
 // control and can be held to — not a performance statistic we would have to
 // have measured on clients we do not have yet.
 export const stats = [
-  { value: 900, prefix: '$', label: 'fixed price for your first workflow' },
+  { value: 1, suffix: ' workflow', label: 'the smallest thing we build — start with the worst task' },
   { value: 4, suffix: ' weeks', label: 'first call to handover, at the outside' },
   { value: 3, suffix: ' tasks', label: 'all we need to start — name your most repeated' },
   { value: 100, suffix: '%', label: 'yours — accounts, docs and automations' },
@@ -289,9 +310,9 @@ export const process = {
 }
 
 export const pricing = {
-  eyebrow: 'Pricing',
-  title: 'Published, so you know before you call.',
-  body: 'Fixed price per package, agreed before anything starts. No hourly billing, and no scope that quietly grows once you have committed.',
+  eyebrow: 'What you get',
+  title: 'Three packages. You pick the shape.',
+  body: 'What each one costs depends on how many tools your work touches and what state they are in, so the number comes on the call rather than off a poster. It is a fixed price either way — agreed in writing before anything starts, with no hourly billing and no scope that quietly grows once you have committed.',
   reassurances: [
     'Fixed price, agreed up front',
     'You own every account and automation',
@@ -300,8 +321,6 @@ export const pricing = {
   tiers: [
     {
       name: 'One workflow',
-      price: '$900',
-      unit: 'USD · one-time',
       label: 'Start here',
       body: 'Pick the task that annoys you most. We automate that one thing, end to end.',
       features: [
@@ -315,8 +334,6 @@ export const pricing = {
     },
     {
       name: 'Operations package',
-      price: '$2,900',
-      unit: 'USD · one-time',
       label: 'Most scope',
       body: 'When admin has quietly become a full-time job that nobody was hired for.',
       features: [
@@ -331,8 +348,6 @@ export const pricing = {
     },
     {
       name: 'Site + automation',
-      price: '$4,200',
-      unit: 'USD · one-time',
       label: 'Front door too',
       body: 'When the front door needs rebuilding as well as the back office.',
       features: [
@@ -347,8 +362,7 @@ export const pricing = {
   ],
   managed: {
     name: 'Managed plan',
-    price: '$250',
-    unit: 'USD / month · optional',
+    unit: 'Optional · monthly · cancel anytime',
     body: 'Optional, and never a condition of the build. Add it to any package or leave it — what we hand over keeps running either way.',
     features: [
       'Monitoring and fixes',
@@ -369,7 +383,7 @@ export const pricing = {
   },
   cta: { label: 'Get your free audit', href: '#contact' },
   footnote:
-    'Every engagement starts with the free audit — three tasks, a short video back, no call. You get a fixed quote before anything begins.',
+    'Every engagement starts with the free audit — three tasks, a short video back, no call. You get a fixed, itemized quote before anything begins, and we will tell you honestly if the smallest package is all you need.',
 }
 
 export const about = {

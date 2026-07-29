@@ -39,7 +39,7 @@ export const A = {
 
   /**
    * Optional: the one continuous flight clip. Absent by default — the flight
-   * runs as a scroll-scrubbed crossfade + camera push over the eight stills,
+   * runs as a scroll-scrubbed crossfade + camera push over the seven stills,
    * which needs no video. Drop a real Seedance/stitched clip here and flip the
    * flight scene's mediaType to 'video' to upgrade to true 3D parallax.
    */

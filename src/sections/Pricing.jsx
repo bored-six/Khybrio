@@ -54,26 +54,6 @@ export function Pricing() {
                 {tier.name}
               </h3>
 
-              {/* Absent on the local page, where pricing is quoted on a call. */}
-              {tier.price ? (
-                <p className="mt-2 flex items-baseline gap-2">
-                  <span
-                    className={`font-display text-3xl font-bold ${
-                      tier.featured ? 'text-teal-deep' : 'text-cream'
-                    }`}
-                  >
-                    {tier.price}
-                  </span>
-                  <span
-                    className={`text-[0.7rem] font-semibold uppercase tracking-widest ${
-                      tier.featured ? 'text-ink-muted/70' : 'text-cream/45'
-                    }`}
-                  >
-                    {tier.unit}
-                  </span>
-                </p>
-              ) : null}
-
               <p
                 className={`mt-2 text-sm leading-relaxed ${
                   tier.featured ? 'text-ink-muted' : 'text-cream/70'
@@ -130,14 +110,11 @@ export function Pricing() {
             className="mt-5 flex flex-col gap-6 rounded-[var(--radius-card)] bg-cream/8 p-7 ring-1 ring-cream/15 lg:flex-row lg:items-center"
           >
             <div className="lg:w-[26rem] lg:shrink-0">
-              <div className="flex items-baseline gap-2">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                 <h3 className="font-display text-xl font-bold text-cream">
                   {pricing.managed.name}
                 </h3>
-                <span className="font-display text-2xl font-bold text-coral">
-                  {pricing.managed.price}
-                </span>
-                <span className="text-[0.7rem] font-semibold uppercase tracking-widest text-cream/45">
+                <span className="rounded-full bg-cream/12 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-cream/70">
                   {pricing.managed.unit}
                 </span>
               </div>
