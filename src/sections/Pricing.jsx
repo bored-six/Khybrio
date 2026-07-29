@@ -30,10 +30,10 @@ export function Pricing() {
           {pricing.tiers.map((tier, i) => (
             <motion.article
               key={tier.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 64, rotate: i === 1 ? 0 : i === 0 ? -3 : 3 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.75, delay: i * 0.13, ease: [0.16, 1, 0.3, 1] }}
               className={`flex flex-col rounded-[var(--radius-card)] p-7 ${
                 tier.featured ? 'bg-cream ring-2 ring-coral' : 'bg-cream/8 ring-1 ring-cream/15'
               }`}

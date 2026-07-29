@@ -26,15 +26,22 @@ export function Process() {
           {process.steps.map((step, i) => (
             <motion.li
               key={step.n}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, scale: 0.94 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-70px' }}
-              transition={{ duration: 0.6, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.65, delay: i * 0.14, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
-              {/* Connector, desktop only — stops before the last step. */}
+              {/* Connector, desktop only — draws itself toward the next step. */}
               {i < process.steps.length - 1 ? (
-                <span className="absolute left-12 right-0 top-5 hidden h-px bg-cream/15 lg:block" />
+                <motion.span
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true, margin: '-70px' }}
+                  transition={{ duration: 0.9, delay: i * 0.14 + 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ transformOrigin: 'left center' }}
+                  className="absolute left-12 right-0 top-5 hidden h-px bg-cream/25 lg:block"
+                />
               ) : null}
 
               <div className="flex items-center gap-3">

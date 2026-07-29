@@ -52,8 +52,12 @@ export default function App() {
         <StatStrip />
         <Services />
         <Automate />
-        <Process />
-        <Pricing />
+        {/* Process and Pricing are both dark — fused into one rounded chamber
+            so they read as a single velvet room set into the cream page. */}
+        <div className="mx-2 overflow-clip rounded-[40px] sm:mx-4 sm:rounded-[64px]">
+          <Process />
+          <Pricing />
+        </div>
         <Team />
         <About />
         <Faq />

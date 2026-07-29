@@ -24,10 +24,14 @@ export function Automate() {
           {automate.items.map((item, i) => (
             <motion.article
               key={item.workflow}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.8, y: 18 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, margin: '-70px' }}
-              transition={{ duration: 0.55, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.55,
+                delay: (i % 3) * 0.09 + Math.floor(i / 3) * 0.16,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="group flex flex-col rounded-[var(--radius-card)] bg-teal-soft/20 p-6 ring-1 ring-transparent transition-all duration-300 hover:bg-teal-deep hover:ring-coral/40"
             >
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-teal-bright transition-colors duration-300 group-hover:text-teal-soft">

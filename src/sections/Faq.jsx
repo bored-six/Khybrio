@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import { Plus } from 'lucide-react'
 import { useContent } from '../content/context'
 
@@ -59,13 +60,20 @@ export function Faq() {
 
         <div className="mt-10">
           {faq.items.map((item, i) => (
-            <Item
+            <motion.div
               key={item.q}
-              id={`faq-${i}`}
-              item={item}
-              open={openIndex === i}
-              onToggle={() => setOpenIndex(openIndex === i ? -1 : i)}
-            />
+              initial={{ opacity: 0, x: -36 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Item
+                id={`faq-${i}`}
+                item={item}
+                open={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? -1 : i)}
+              />
+            </motion.div>
           ))}
         </div>
       </div>

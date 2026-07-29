@@ -98,6 +98,139 @@
   animation: rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
+/* The flow machine — the hero's centrepiece.
+
+   Tasks feed into the engine, the engine churns, done rows pop out the other
+   side. Everything is CSS keyframes on state classes; JS only flips the phase,
+   so a throttled tab degrades to a static-but-visible machine, never a blank
+   one. No animation here ever rests at opacity 0.
+
+   The editorial hero borrows Wispr Flow's structure — cream broadsheet, 2px
+   ink borders, serif that commands through scale at regular weight — but every
+   token is Khybrio's own. Structure borrowed; skin ours. */
+@keyframes machine-feed {
+  0% {
+    transform: none;
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 46%) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  @keyframes machine-feed {
+    0% {
+      transform: none;
+      opacity: 1;
+    }
+    100% {
+      transform: translate(48%, 0) scale(0.5);
+      opacity: 0;
+    }
+  }
+}
+
+.machine-feed {
+  animation: machine-feed 0.82s cubic-bezier(0.5, 0, 0.75, 0.4) both;
+}
+
+/* The queue advancing behind a consumed card. Starts partially visible on
+   purpose — if the animation never runs, the card still reads. */
+@keyframes machine-next {
+  from {
+    transform: translateY(10px) scale(0.97);
+    opacity: 0.35;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.machine-next {
+  animation: machine-next 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes machine-pop {
+  from {
+    transform: translateY(-8px) scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.machine-pop {
+  animation: machine-pop 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Engine waveform — the audio-bars homage, recast as work being processed. */
+@keyframes eng-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.eng-bar {
+  animation: eng-bar 1.15s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes churn-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.machine-churn {
+  animation: churn-pulse 0.5s ease-in-out infinite;
+}
+
+.machine-churn .eng-bar {
+  animation-duration: 0.42s;
+}
+
+/* Hand-drawn underline beneath the headline accent, drawn in on load. */
+@keyframes squiggle-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.squiggle path {
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+  animation: squiggle-draw 0.9s cubic-bezier(0.5, 0, 0.2, 1) 0.55s forwards;
+}
+
+/* Decorative task chips drifting at the hero's edges. `--tilt` keeps each
+   chip's rotation while the float only moves it vertically. */
+@keyframes float-drift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--tilt, 0deg));
+  }
+}
+
+.float-drift {
+  animation: float-drift 6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

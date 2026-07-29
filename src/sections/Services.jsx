@@ -23,10 +23,10 @@ export function Services() {
             return (
               <motion.article
                 key={item.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: i % 2 ? 64 : -64 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.75, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{ y: -8 }}
                 className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-teal-soft/20 p-7 ring-1 ring-transparent transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(15,43,41,0.15)] hover:ring-coral/40"
               >

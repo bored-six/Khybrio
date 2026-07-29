@@ -42,10 +42,10 @@ export function Team() {
           {team.members.map((m, i) => (
             <motion.div
               key={m.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, rotateY: -35, y: 18, transformPerspective: 1200 }}
+              whileInView={{ opacity: 1, rotateY: 0, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="group h-80 cursor-pointer [perspective:1400px]"
               onClick={() => setFlipped(flipped === i ? null : i)}
             >

@@ -25,10 +25,10 @@ export function Problem() {
             return (
               <motion.article
                 key={item.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 44, rotate: i === 1 ? 0 : i === 0 ? -4 : 4 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
                 className="rounded-[var(--radius-card)] bg-teal-soft/25 p-6 sm:p-7"
               >
                 <Icon size={26} strokeWidth={1.75} color="var(--color-coral)" />

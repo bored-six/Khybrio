@@ -75,6 +75,9 @@ export const runLog = {
   hint: 'Pick the one that sounds like your week',
   automatedLabel: 'Runs in',
   byHandLabel: 'By hand',
+  inLabel: 'The work coming in',
+  outLabel: 'Out the other side',
+  engineLabel: 'the Khybrio engine',
   flows: [
     {
       key: 'orders',
