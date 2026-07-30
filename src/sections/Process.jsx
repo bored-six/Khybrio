@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { Words } from '../components/Words'
 import { useContent } from '../content/context'
 
 /**
@@ -18,7 +19,7 @@ export function Process() {
           {process.eyebrow}
         </p>
         <h2 className="mt-3 max-w-2xl text-[clamp(1.9rem,4.5vw,3rem)] font-bold text-cream">
-          {process.title}
+          <Words text={process.title} />
         </h2>
         <p className="mt-4 max-w-xl leading-relaxed text-cream/75">{process.body}</p>
 
@@ -32,16 +33,20 @@ export function Process() {
               transition={{ duration: 0.65, delay: i * 0.14, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
-              {/* Connector, desktop only — draws itself toward the next step. */}
+              {/* Connector, desktop only. A dashed rail that is always fully
+                  drawn — the old scaleX draw looked like a cut line mid-way —
+                  with a coral runner travelling it toward the next step. */}
               {i < process.steps.length - 1 ? (
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true, margin: '-70px' }}
-                  transition={{ duration: 0.9, delay: i * 0.14 + 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ transformOrigin: 'left center' }}
-                  className="absolute left-12 right-0 top-5 hidden h-px bg-cream/25 lg:block"
-                />
+                <span
+                  aria-hidden="true"
+                  className="absolute left-12 right-2 top-5 hidden lg:block"
+                >
+                  <span className="block h-px w-full [background:repeating-linear-gradient(90deg,rgba(245,247,246,0.35)_0_6px,transparent_6px_14px)]" />
+                  <span
+                    className="rail-dot absolute -top-[3px] h-[7px] w-[7px] rounded-full bg-coral"
+                    style={{ animationDelay: `${i * 0.45}s` }}
+                  />
+                </span>
               ) : null}
 
               <div className="flex items-center gap-3">

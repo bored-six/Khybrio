@@ -168,20 +168,73 @@
   animation: machine-pop 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Engine waveform — the audio-bars homage, recast as work being processed. */
-@keyframes eng-bar {
-  0%,
-  100% {
-    transform: scaleY(0.35);
+/* The engine is a little computer doing the job. Its screen has three states
+   driven by the machine's phase: idle (rows resting, cursor blinking), loading
+   (rows type on, the progress bar fills), done (the check flashes over it).
+   Resting states are all fully visible — a stalled timer shows a working
+   monitor, never a dark screen. */
+.eng-row {
+  height: 5px;
+  border-radius: 2px;
+  background: rgba(245, 247, 246, 0.28);
+  transform-origin: left center;
+}
+
+@keyframes eng-type {
+  from {
+    transform: scaleX(0);
   }
-  50% {
-    transform: scaleY(1);
+  to {
+    transform: scaleX(1);
   }
 }
 
-.eng-bar {
-  animation: eng-bar 1.15s ease-in-out infinite;
-  transform-origin: center;
+.screen-load .eng-row {
+  animation: eng-type 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.eng-progress {
+  width: 18%;
+}
+
+@keyframes eng-fill {
+  from {
+    width: 18%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.screen-load .eng-progress {
+  animation: eng-fill 0.6s linear 0.05s both;
+}
+
+.screen-done .eng-progress {
+  width: 100%;
+}
+
+@keyframes eng-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.eng-cursor {
+  animation: eng-blink 1.1s steps(2, start) infinite;
+}
+
+.eng-check {
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.screen-done .eng-check {
+  opacity: 1;
+  transform: scale(1);
 }
 
 @keyframes churn-pulse {
@@ -190,7 +243,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.06);
+    transform: scale(1.05);
   }
 }
 
@@ -198,8 +251,64 @@
   animation: churn-pulse 0.5s ease-in-out infinite;
 }
 
-.machine-churn .eng-bar {
-  animation-duration: 0.42s;
+/* The process rail: a dashed line with a coral runner travelling it, always
+   fully drawn — the old scaleX draw read as a cut line mid-animation. */
+@keyframes rail-run {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 7px);
+    opacity: 0;
+  }
+}
+
+.rail-dot {
+  animation: rail-run 2.6s ease-in-out infinite;
+}
+
+/* The signature animated border: a slow conic sweep behind the element,
+   showing as a 3px travelling ring. Falls back to a static gradient ring
+   where @property is unsupported, and the global reduced-motion rule stops
+   the rotation. Put it on a wrapper that carries the border-radius. */
+@property --bf-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes bf-spin {
+  to {
+    --bf-angle: 360deg;
+  }
+}
+
+.border-flow {
+  position: relative;
+  isolation: isolate;
+}
+
+.border-flow::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--bf-angle),
+    var(--color-coral),
+    var(--color-teal-bright),
+    var(--color-teal-soft),
+    var(--color-coral)
+  );
+  animation: bf-spin 7s linear infinite;
 }
 
 /* Hand-drawn underline beneath the headline accent, drawn in on load. */

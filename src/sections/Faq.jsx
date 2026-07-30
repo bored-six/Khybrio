@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'motion/react'
 import { Plus } from 'lucide-react'
+import { Words } from '../components/Words'
 import { useContent } from '../content/context'
 
 /**
@@ -55,7 +56,7 @@ export function Faq() {
           {faq.eyebrow}
         </p>
         <h2 className="mt-3 text-[clamp(1.9rem,4.5vw,3rem)] font-bold text-teal-deep">
-          {faq.title}
+          <Words text={faq.title} />
         </h2>
 
         <div className="mt-10">

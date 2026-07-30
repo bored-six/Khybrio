@@ -53,8 +53,10 @@ export default function App() {
         <Services />
         <Automate />
         {/* Process and Pricing are both dark — fused into one rounded chamber
-            so they read as a single velvet room set into the cream page. */}
-        <div className="mx-2 overflow-clip rounded-[40px] sm:mx-4 sm:rounded-[64px]">
+            set into the cream page. The wrapper carries its own teal fill so
+            any subpixel seam between the two sections shows teal, not the
+            cream body behind — that was the "cut" hairline. */}
+        <div className="mx-2 overflow-clip rounded-[40px] bg-teal-deep sm:mx-4 sm:rounded-[64px]">
           <Process />
           <Pricing />
         </div>

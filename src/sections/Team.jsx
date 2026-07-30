@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import { AssetImage } from '../components/AssetImage'
 import { InitialsAvatar } from '../components/InitialsAvatar'
 import { A } from '../lib/assets'
+import { Words } from '../components/Words'
 import { useContent } from '../content/context'
 
 /**
@@ -34,7 +35,7 @@ export function Team() {
           {team.eyebrow}
         </p>
         <h2 className="mt-3 text-[clamp(1.9rem,4.5vw,3rem)] font-semibold text-teal-deep">
-          {team.title}
+          <Words text={team.title} />
         </h2>
         <p className="mt-4 max-w-xl leading-relaxed text-ink-muted">{team.body}</p>
 
@@ -42,10 +43,10 @@ export function Team() {
           {team.members.map((m, i) => (
             <motion.div
               key={m.name}
-              initial={{ opacity: 0, rotateY: -35, y: 18, transformPerspective: 1200 }}
+              initial={{ opacity: 0, rotateY: -55, y: 34, transformPerspective: 1100 }}
               whileInView={{ opacity: 1, rotateY: 0, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ type: 'spring', stiffness: 80, damping: 15, delay: i * 0.14 }}
               className="group h-80 cursor-pointer [perspective:1400px]"
               onClick={() => setFlipped(flipped === i ? null : i)}
             >

@@ -40,7 +40,7 @@ export const nav = [
   { id: 'flight', label: 'What we build', flightProgress: 0.2143, zoneRange: [1, 3] },
   { id: 'flight', label: 'How it works', flightProgress: 0.6429, zoneRange: [4, 6] },
   { id: 'automate', label: 'What we automate' },
-  { id: 'pricing', label: 'Pricing' },
+  { id: 'pricing', label: 'Packages' },
   { id: 'faq', label: 'FAQ' },
 ]
 
@@ -269,14 +269,47 @@ export const services = {
 export const automate = {
   eyebrow: 'What we automate',
   title: 'Six workflows we build most often',
-  body: 'Named, not vague. If yours is not on this list it is usually a variation of one that is — which is what the free audit is for.',
+  body: 'Named, not vague. Pick one in the demo below — if yours is not on the list it is usually a variation of one that is, which is what the free audit is for.',
+  // The laptop chrome around the demo. `badge` is load-bearing: the screens
+  // are illustrative builds, and unlabelled they would read as a shipped
+  // product with real activity in it.
+  lab: {
+    window: 'What a build looks like',
+    badge: 'Example',
+    menu: 'Pick a workflow',
+    status: 'Runs quietly in the background',
+  },
   items: [
-    { label: 'Retail & e-commerce', workflow: 'Orders out of DMs and into a system' },
-    { label: 'Services & trades', workflow: 'Quotes and job scheduling' },
-    { label: 'Any business with invoices', workflow: 'Getting paid without chasing' },
-    { label: 'Clinics & appointments', workflow: 'Bookings, forms and reminders' },
-    { label: 'Offices & admin', workflow: 'Reports that build themselves' },
-    { label: 'Customer-facing teams', workflow: 'The first reply, instantly' },
+    {
+      label: 'Retail & e-commerce',
+      workflow: 'Orders out of DMs and into a system',
+      steps: ['New DM spotted', 'Order added to your sheet', 'Confirmation sent back'],
+    },
+    {
+      label: 'Services & trades',
+      workflow: 'Quotes and job scheduling',
+      steps: ['Request comes in', 'Quote drafted from your rates', 'Job lands on the calendar'],
+    },
+    {
+      label: 'Any business with invoices',
+      workflow: 'Getting paid without chasing',
+      steps: ['Due date passes', 'Polite reminder goes out', 'Payment logged when it lands'],
+    },
+    {
+      label: 'Clinics & appointments',
+      workflow: 'Bookings, forms and reminders',
+      steps: ['Booking confirmed', 'Intake form sent over', 'Reminder the day before'],
+    },
+    {
+      label: 'Offices & admin',
+      workflow: 'Reports that build themselves',
+      steps: ['Data pulled from your tools', 'Numbers tallied and checked', 'Report waiting on Monday'],
+    },
+    {
+      label: 'Customer-facing teams',
+      workflow: 'The first reply, instantly',
+      steps: ['Message arrives', 'Instant acknowledgement', 'Handed over with context'],
+    },
   ],
 }
 
@@ -313,7 +346,7 @@ export const process = {
 }
 
 export const pricing = {
-  eyebrow: 'What you get',
+  eyebrow: 'The packages',
   title: 'Three packages. You pick the shape.',
   body: 'What each one costs depends on how many tools your work touches and what state they are in, so the number comes on the call rather than off a poster. It is a fixed price either way — agreed in writing before anything starts, with no hourly billing and no scope that quietly grows once you have committed.',
   reassurances: [
@@ -406,7 +439,7 @@ export const faq = {
   items: [
     {
       q: 'Who are you and where are you based?',
-      a: 'We are a three-person team based in Zamboanga City, Philippines, working with small businesses in Australia, New Zealand, the US, Canada and the UK. We work in your time zone for calls and we are reachable by email and message the rest of the time. Being remote is why the pricing is what it is.',
+      a: 'We are a three-person team based in Zamboanga City, Philippines, taking on work from small businesses anywhere — Australia, New Zealand, the US, Canada, the UK and beyond. We work in your time zone for calls and we are reachable by email and message the rest of the time. Being remote is why the pricing is what it is.',
     },
     {
       q: 'Do we have to change the software we use?',
@@ -513,7 +546,7 @@ export const team = {
 
 export const footer = {
   blurb:
-    'Workflow automation, booking systems and local presence for small businesses in Australia, New Zealand, the US, Canada and the UK.',
+    'Workflow automation, booking systems and local presence for small businesses everywhere.',
   // Discreet on purpose. Overseas visitors should not be routed to the peso
   // page, but an entirely unlinked page is invisible to search and impossible
   // to find. Remove this if you would rather /ph stay strictly link-only.

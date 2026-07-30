@@ -70,7 +70,9 @@ export function FlowMachine() {
   }
 
   return (
-    <div className="overflow-hidden rounded-[32px] border-2 border-teal-deep bg-cream text-left">
+    // The 2px static border is gone — the hero wraps this in the animated
+    // `border-flow` ring, which is the card's edge now.
+    <div className="overflow-hidden rounded-[32px] bg-cream text-left">
       {/* Header band */}
       <div className="flex items-center justify-between gap-3 border-b-2 border-teal-deep/15 px-5 py-3.5 sm:px-7">
         <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-teal-bright">
@@ -113,27 +115,44 @@ export function FlowMachine() {
           </div>
         </div>
 
-        {/* ENGINE — the waveform, recast: work being processed */}
-        <div className="flex flex-col items-center gap-2 justify-self-center">
+        {/* ENGINE — a little computer doing the job. Rows type on, the bar
+            fills while it churns, and the check flashes when the work clears. */}
+        <div className="flex flex-col items-center justify-self-center">
           <div
-            className={`flex h-16 items-center gap-1.5 rounded-full border-2 border-teal-deep bg-teal-deep px-6 ${
+            className={`w-36 rounded-2xl bg-teal-deep p-2 ${
               phase === 'process' && !reduced ? 'machine-churn' : ''
             }`}
           >
-            <AssetImage
-              asset={A.markGlyph}
-              className="mr-1.5 h-6 w-6 shrink-0 opacity-90"
-              loading="eager"
-            />
-            {[0, 1, 2, 3, 4].map((i) => (
-              <span
-                key={i}
-                className="eng-bar block w-1.5 rounded-full bg-coral"
-                style={{ height: [14, 26, 34, 22, 16][i], animationDelay: `${i * 120}ms` }}
+            <div
+              className={`relative h-[4.9rem] overflow-hidden rounded-xl bg-[#0f2b29] px-3 py-2.5 ${
+                reduced || phase === 'out'
+                  ? 'screen-done'
+                  : phase === 'process'
+                    ? 'screen-load'
+                    : ''
+              }`}
+            >
+              <AssetImage
+                asset={A.markGlyph}
+                className="absolute right-2 top-2 h-3.5 w-3.5 opacity-60"
+                loading="eager"
               />
-            ))}
+              <span className="eng-row block w-[68%]" />
+              <span className="eng-row mt-1.5 block w-[44%]" style={{ animationDelay: '110ms' }} />
+              <span className="eng-row mt-1.5 block w-[56%]" style={{ animationDelay: '220ms' }} />
+              <span className="eng-cursor mt-1.5 block h-[5px] w-2 rounded-[2px] bg-coral/80" />
+              <span className="absolute inset-x-3 bottom-2.5 block h-[5px] overflow-hidden rounded-full bg-cream/10">
+                <span className="eng-progress block h-full rounded-full bg-coral" />
+              </span>
+              <span className="eng-check absolute inset-0 grid place-items-center bg-teal-bright/95">
+                <Check size={24} strokeWidth={3.4} color="var(--color-cream)" />
+              </span>
+            </div>
           </div>
-          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-ink-muted/60">
+          {/* the stand */}
+          <span aria-hidden="true" className="h-2.5 w-7 bg-teal-deep" />
+          <span aria-hidden="true" className="h-1.5 w-16 rounded-full bg-teal-deep" />
+          <p className="mt-2 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-ink-muted/60">
             {runLog.engineLabel}
           </p>
         </div>

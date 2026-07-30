@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { SearchX, MessageSquareOff, ScanLine } from 'lucide-react'
+import { Words } from '../components/Words'
 import { useContent } from '../content/context'
 
 const icons = [SearchX, MessageSquareOff, ScanLine]
@@ -16,22 +17,32 @@ export function Problem() {
           {problem.eyebrow}
         </p>
         <h2 className="mt-3 max-w-2xl text-[clamp(1.9rem,4.5vw,3rem)] font-bold text-teal-deep">
-          {problem.title}
+          <Words text={problem.title} />
         </h2>
 
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {problem.items.map((item, i) => {
             const Icon = icons[i]
             return (
+              // Dominoes: outer cards tip in rotated toward the straight
+              // centre one, on a spring so they land with a settle.
               <motion.article
                 key={item.title}
-                initial={{ opacity: 0, y: 44, rotate: i === 1 ? 0 : i === 0 ? -4 : 4 }}
+                initial={{ opacity: 0, y: 70, rotate: i === 1 ? 0 : i === 0 ? -7 : 7 }}
                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ type: 'spring', stiffness: 110, damping: 16, delay: i * 0.13 }}
                 className="rounded-[var(--radius-card)] bg-teal-soft/25 p-6 sm:p-7"
               >
-                <Icon size={26} strokeWidth={1.75} color="var(--color-coral)" />
+                <motion.span
+                  initial={{ scale: 0, rotate: -30 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 15, delay: 0.25 + i * 0.13 }}
+                  className="inline-block"
+                >
+                  <Icon size={26} strokeWidth={1.75} color="var(--color-coral)" />
+                </motion.span>
                 <h3 className="mt-5 text-xl font-bold text-teal-deep">{item.title}</h3>
                 <p className="mt-2.5 leading-relaxed text-ink-muted">{item.body}</p>
               </motion.article>
