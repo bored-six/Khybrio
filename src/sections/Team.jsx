@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { motion } from 'motion/react'
 import { AssetImage } from '../components/AssetImage'
 import { InitialsAvatar } from '../components/InitialsAvatar'
 import { A } from '../lib/assets'
 import { Words } from '../components/Words'
+import { Reveal } from '../components/Reveal'
 import { useContent } from '../content/context'
 
 /**
@@ -39,14 +39,18 @@ export function Team() {
         </h2>
         <p className="mt-4 max-w-xl leading-relaxed text-ink-muted">{team.body}</p>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Cards swing in on their own hinge before the hover flip takes
+            over. The entrance rotates this outer element; the flip rotates the
+            inner one, so the two never fight over a transform. */}
+        <Reveal
+          from={{ rotateY: -55, y: 34 }}
+          stagger={0.14}
+          duration={1}
+          className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 [perspective:1400px]"
+        >
           {team.members.map((m, i) => (
-            <motion.div
+            <div
               key={m.name}
-              initial={{ opacity: 0, rotateY: -55, y: 34, transformPerspective: 1100 }}
-              whileInView={{ opacity: 1, rotateY: 0, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ type: 'spring', stiffness: 80, damping: 15, delay: i * 0.14 }}
               className="group h-80 cursor-pointer [perspective:1400px]"
               onClick={() => setFlipped(flipped === i ? null : i)}
             >
@@ -95,9 +99,9 @@ export function Team() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

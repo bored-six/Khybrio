@@ -293,14 +293,19 @@
 .border-flow {
   position: relative;
   isolation: isolate;
+  border-radius: var(--bf-r, 26px);
 }
 
 .border-flow::before {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: calc(-1 * var(--bf-w, 3px));
   z-index: -1;
-  border-radius: inherit;
+  /* Concentric with the inner edge, NOT `inherit`. A box inset by the ring
+     width needs that much more corner curve to nest; matching radii pinch the
+     ring to nothing at the corners while it stays full width down the sides,
+     which reads as a crooked border. */
+  border-radius: calc(var(--bf-r, 26px) + var(--bf-w, 3px));
   background: conic-gradient(
     from var(--bf-angle),
     var(--color-coral),
@@ -309,6 +314,143 @@
     var(--color-coral)
   );
   animation: bf-spin 7s linear infinite;
+}
+
+/* ── The automation pipeline (What we automate) ────────────────────────────
+   Trigger → action → result, drawn as the wired flow an automation actually
+   is rather than a screenshot of one. Every bit of motion is CSS on a keyed
+   container, so picking a workflow replays the build and a throttled tab
+   shows the finished diagram instead of a half-drawn one.
+
+   Vertical on mobile, horizontal from md up — hence the paired keyframes and
+   the animation-name swap rather than one set of transforms.
+   `--i` is the node's index; it staggers the whole chain off one number. */
+@keyframes node-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+}
+
+@keyframes wire-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes wire-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes wire-current-y {
+  to {
+    background-position: 0 -200%;
+  }
+}
+
+@keyframes wire-current-x {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse-y {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  18%,
+  82% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-x {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  18%,
+  82% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.pipe-node {
+  animation: node-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--i) * 320ms);
+}
+
+.pipe-wire {
+  position: relative;
+  transform-origin: top center;
+  animation: wire-grow-y 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--i) * 320ms + 160ms);
+}
+
+.pipe-current {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background-image: linear-gradient(
+    180deg,
+    var(--color-teal-soft),
+    var(--color-teal-bright),
+    var(--color-coral),
+    var(--color-teal-bright),
+    var(--color-teal-soft)
+  );
+  background-size: 100% 200%;
+  animation: wire-current-y 2.6s linear infinite;
+}
+
+.pipe-pulse {
+  position: absolute;
+  left: 50%;
+  height: 9px;
+  width: 9px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: var(--color-coral);
+  box-shadow: 0 0 10px 2px color-mix(in oklab, var(--color-coral) 55%, transparent);
+  animation: pulse-y 2.6s linear infinite;
+  animation-delay: calc(var(--i) * 320ms + 520ms);
+}
+
+@media (min-width: 768px) {
+  .pipe-wire {
+    transform-origin: left center;
+    animation-name: wire-grow-x;
+  }
+
+  .pipe-current {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-teal-soft),
+      var(--color-teal-bright),
+      var(--color-coral),
+      var(--color-teal-bright),
+      var(--color-teal-soft)
+    );
+    background-size: 200% 100%;
+    animation-name: wire-current-x;
+  }
+
+  .pipe-pulse {
+    top: 50%;
+    left: auto;
+    animation-name: pulse-x;
+  }
 }
 
 /* Hand-drawn underline beneath the headline accent, drawn in on load. */

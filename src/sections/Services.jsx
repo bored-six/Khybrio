@@ -1,6 +1,6 @@
-import { motion } from 'motion/react'
 import { Globe, MapPin, Check, Workflow, Star } from 'lucide-react'
 import { Words } from '../components/Words'
+import { Reveal } from '../components/Reveal'
 import { useContent } from '../content/context'
 
 const ICONS = { globe: Globe, pin: MapPin, workflow: Workflow, star: Star }
@@ -23,18 +23,18 @@ export function Services() {
         </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-muted">{services.body}</p>
 
-        <div className={`mt-12 grid gap-5 md:grid-cols-2 ${services.items.length > 3 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
-          {services.items.map((item, i) => {
+        <Reveal
+          from={{ x: (i) => (i % 2 ? 110 : -110) }}
+          stagger={0.11}
+          duration={1}
+          className={`mt-12 grid gap-5 md:grid-cols-2 ${services.items.length > 3 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}
+        >
+          {services.items.map((item) => {
             const Icon = ICONS[item.icon] ?? Globe
             return (
-              <motion.article
+              <article
                 key={item.name}
-                initial={{ opacity: 0, x: i % 2 ? 110 : -110 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ type: 'spring', stiffness: 90, damping: 17, delay: i * 0.11 }}
-                whileHover={{ y: -8 }}
-                className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-teal-soft/20 p-7 ring-1 ring-transparent transition-shadow duration-300 hover:shadow-[0_20px_50px_rgba(15,43,41,0.15)] hover:ring-coral/40"
+                className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-teal-soft/20 p-7 ring-1 ring-transparent transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(15,43,41,0.15)] hover:ring-coral/40"
               >
                 {/* Accent bars sweep opposite ways on hover — top from the
                     left, bottom from the right — so the border feels drawn. */}
@@ -58,24 +58,20 @@ export function Services() {
                 <h3 className="mt-5 font-display text-xl font-bold text-teal-deep">{item.name}</h3>
                 <p className="mt-2.5 leading-relaxed text-ink-muted">{item.body}</p>
                 <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5">
-                  {item.points.map((p, j) => (
-                    <motion.li
+                  {item.points.map((p) => (
+                    <li
                       key={p}
-                      initial={{ opacity: 0, x: -14 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: '-60px' }}
-                      transition={{ duration: 0.45, delay: 0.35 + i * 0.11 + j * 0.07, ease: [0.16, 1, 0.3, 1] }}
                       className="flex items-center gap-2 text-sm text-teal-deep transition-transform duration-300 group-hover:translate-x-0.5"
                     >
                       <Check size={15} strokeWidth={2.5} color="var(--color-coral)" className="shrink-0" />
                       {p}
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
-              </motion.article>
+              </article>
             )
           })}
-        </div>
+        </Reveal>
 
       </div>
     </section>

@@ -1,5 +1,5 @@
-import { motion } from 'motion/react'
 import { Star } from 'lucide-react'
+import { Reveal } from '../components/Reveal'
 import { reviews } from '../content/ph'
 
 /**
@@ -26,23 +26,19 @@ export function Reviews() {
           <p className="mt-4 leading-relaxed text-cream/75">{reviews.body}</p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {reviews.points.map((point, i) => (
-            <motion.div
+        <Reveal from={{ y: 44 }} stagger={0.09} className="mt-12 grid gap-5 md:grid-cols-3">
+          {reviews.points.map((point) => (
+            <div
               key={point.label}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-70px' }}
-              transition={{ duration: 0.55, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
               className="rounded-[var(--radius-card)] bg-cream/8 p-7 ring-1 ring-cream/15"
             >
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-teal-soft">
                 {point.label}
               </p>
               <p className="mt-3 leading-relaxed text-cream/90">{point.value}</p>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </Reveal>
 
         <p className="mt-8 max-w-2xl text-sm leading-relaxed text-cream/55">{reviews.note}</p>
       </div>

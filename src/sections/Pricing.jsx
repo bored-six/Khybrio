@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { Reveal } from '../components/Reveal'
 import { Check, ShieldCheck } from 'lucide-react'
 import { Words } from '../components/Words'
 import { useContent } from '../content/context'
@@ -27,14 +27,16 @@ export function Pricing() {
           ))}
         </div>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {pricing.tiers.map((tier, i) => (
-            <motion.article
+        <Reveal
+          from={{ y: 90, rotate: (i) => (i === 1 ? 0 : i === 0 ? -5 : 5) }}
+          stagger={0.14}
+          duration={1}
+          ease="back.out(1.3)"
+          className="mt-12 grid gap-5 lg:grid-cols-3"
+        >
+          {pricing.tiers.map((tier) => (
+            <article
               key={tier.name}
-              initial={{ opacity: 0, y: 90, rotate: i === 1 ? 0 : i === 0 ? -5 : 5 }}
-              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ type: 'spring', stiffness: 85, damping: 15, delay: i * 0.14 }}
               className={`flex flex-col rounded-[var(--radius-card)] p-7 ${
                 tier.featured ? 'bg-cream ring-2 ring-coral' : 'bg-cream/8 ring-1 ring-cream/15'
               }`}
@@ -96,18 +98,15 @@ export function Pricing() {
                   {pricing.cta.label}
                 </button>
               </Magnetic>
-            </motion.article>
+            </article>
           ))}
-        </div>
+        </Reveal>
 
         {/* Managed plan — deliberately outside the tier grid. It is a monthly
             add-on to any package, not a fourth thing to choose between. */}
         {pricing.managed ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-70px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          <Reveal
+            from={{ y: 44 }}
             className="mt-5 flex flex-col gap-6 rounded-[var(--radius-card)] bg-cream/8 p-7 ring-1 ring-cream/15 lg:flex-row lg:items-center"
           >
             <div className="lg:w-[26rem] lg:shrink-0">
@@ -134,18 +133,15 @@ export function Pricing() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </Reveal>
         ) : null}
 
         {/* Founding-clients band. Says outright that the offer is new, which
             beats implying a track record that comes apart the first time
             somebody asks for a reference. */}
         {pricing.founding ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-70px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          <Reveal
+            from={{ y: 44 }}
             className="mt-5 rounded-[var(--radius-card)] bg-coral p-7 sm:p-9"
           >
             <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-cream/75">
@@ -157,7 +153,7 @@ export function Pricing() {
             <p className="mt-3 max-w-3xl leading-relaxed text-cream/90">
               {pricing.founding.body}
             </p>
-          </motion.div>
+          </Reveal>
         ) : null}
 
         <p className="mt-8 text-sm text-cream/55">{pricing.footnote}</p>

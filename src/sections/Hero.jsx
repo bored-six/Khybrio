@@ -138,7 +138,7 @@ export function Hero() {
 
       <div className="rise-in-late mx-auto mt-14 max-w-5xl sm:mt-16">
         {/* The animated ring is the machine's border now. */}
-        <div className="border-flow rounded-[32px]">
+        <div className="border-flow" style={{ '--bf-r': '32px' }}>
           <FlowMachine />
         </div>
       </div>

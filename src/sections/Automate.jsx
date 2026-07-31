@@ -1,30 +1,42 @@
-import { useEffect, useState } from 'react'
-import { motion } from 'motion/react'
-import { ArrowRight, Check } from 'lucide-react'
+import { Fragment, useEffect, useState } from 'react'
+import { ArrowRight, Check, Cog, Zap } from 'lucide-react'
 import { Words } from '../components/Words'
+import { Reveal } from '../components/Reveal'
 import { scrollToId } from '../lib/smoothScroll'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { automate } from '../content/site'
 
 /**
- * The six named workflows, shown as software instead of listed as cards — a
- * laptop running an example build. Pick a workflow in the sidebar and the
- * screen plays its three beats. Auto-cycles until the visitor takes the
- * wheel, same contract as the hero machine.
+ * The six named workflows, shown as the thing we actually sell: a wired
+ * pipeline. Pick a workflow and its three beats draw themselves left to right
+ * — trigger, action, result — with current running down the wires between.
  *
- * The `Example` badge in the window chrome is load-bearing: these screens
- * are illustrative builds, and unlabelled they would read as a shipped
- * product with real activity in it.
+ * It replaced a laptop mockup. The laptop was a picture of software, which is
+ * a category this business is not in; the pipeline is a picture of the work
+ * happening without anyone touching it, which is the whole pitch. It also
+ * stopped competing with the hero machine for "screen with things in it".
+ *
+ * The build animation is CSS keyed off the workflow name, so re-picking
+ * replays it and a throttled tab shows a finished diagram, never a half-drawn
+ * one. Auto-cycles until the visitor takes the wheel, same contract as the
+ * hero machine.
+ *
+ * The `Example` badge is load-bearing: these are illustrative builds, and
+ * unlabelled they would read as a live product with real activity in it.
  */
+const NODE_ICONS = [Zap, Cog, Check]
+const NODE_TONES = ['bg-teal-bright', 'bg-teal-deep', 'bg-coral']
+
 export function Automate() {
   const reduced = usePrefersReducedMotion()
   const [idx, setIdx] = useState(0)
   const [auto, setAuto] = useState(true)
   const item = automate.items[idx]
+  const { lab } = automate
 
   useEffect(() => {
     if (reduced || !auto) return
-    const t = setInterval(() => setIdx((i) => (i + 1) % automate.items.length), 3400)
+    const t = setInterval(() => setIdx((i) => (i + 1) % automate.items.length), 4200)
     return () => clearInterval(t)
   }, [auto, reduced])
 
@@ -44,116 +56,104 @@ export function Automate() {
         </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-muted">{automate.body}</p>
 
-        {/* The laptop. Tips up from flat as it enters — a lid opening. */}
-        <motion.div
-          initial={{ opacity: 0, y: 80, rotateX: 22, transformPerspective: 1100 }}
-          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-          viewport={{ once: true, margin: '-90px' }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-14"
-        >
-          <div className="border-flow mx-auto max-w-4xl rounded-[26px]">
-            {/* bezel */}
-            <div className="rounded-[26px] bg-teal-deep p-2.5 sm:p-3">
-              {/* the app window */}
-              <div className="overflow-hidden rounded-2xl bg-cream">
+        <Reveal className="mt-12" y={56}>
+          <div className="border-flow mx-auto max-w-5xl" style={{ '--bf-r': '28px' }}>
+            <div className="rounded-[28px] bg-teal-deep p-2.5 sm:p-3">
+              <div className="overflow-hidden rounded-[20px] bg-cream">
                 <div className="flex items-center justify-between gap-3 border-b-2 border-teal-deep/10 px-4 py-2.5 sm:px-5">
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-teal-bright">
-                    {automate.lab.window}
+                    {lab.window}
                   </p>
                   <span className="shrink-0 rounded-lg bg-teal-deep px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-cream">
-                    {automate.lab.badge}
+                    {lab.badge}
                   </span>
                 </div>
 
-                <div className="grid md:grid-cols-[minmax(0,15rem)_1fr]">
-                  {/* Sidebar — the six workflows. Horizontal chip rail on
-                      mobile, vertical menu from md up. */}
-                  <nav
-                    aria-label={automate.lab.menu}
-                    className="flex flex-row flex-wrap gap-1.5 border-b-2 border-teal-deep/10 bg-teal-soft/15 p-2.5 md:flex-col md:border-b-0 md:border-r-2 md:p-3"
-                  >
-                    <p className="hidden w-full px-2 pb-2 pt-1 text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-ink-muted/60 md:block">
-                      {automate.lab.menu}
-                    </p>
-                    {automate.items.map((it, i) => (
-                      <button
-                        key={it.workflow}
-                        type="button"
-                        aria-pressed={i === idx}
-                        onClick={() => pick(i)}
-                        className={`rounded-xl px-3 py-2 text-left text-[0.8rem] font-semibold transition-colors duration-300 md:w-full ${
-                          i === idx
-                            ? 'bg-coral text-cream'
-                            : 'text-teal-deep hover:bg-teal-soft/40'
-                        }`}
-                      >
-                        {it.label}
-                      </button>
-                    ))}
-                  </nav>
+                {/* The six workflows as a scrolling rail. Horizontal at every
+                    width now — a vertical sidebar stole room the pipeline
+                    needs to be read left to right. */}
+                <nav
+                  aria-label={lab.menu}
+                  className="flex gap-1.5 overflow-x-auto border-b-2 border-teal-deep/10 bg-teal-soft/15 p-2.5 [scrollbar-width:none] sm:px-4 [&::-webkit-scrollbar]:hidden"
+                >
+                  {automate.items.map((it, i) => (
+                    <button
+                      key={it.workflow}
+                      type="button"
+                      aria-pressed={i === idx}
+                      onClick={() => pick(i)}
+                      className={`shrink-0 rounded-xl px-3 py-2 text-[0.78rem] font-semibold transition-colors duration-300 ${
+                        i === idx
+                          ? 'bg-coral text-cream'
+                          : 'text-teal-deep hover:bg-teal-soft/50'
+                      }`}
+                    >
+                      {it.label}
+                    </button>
+                  ))}
+                </nav>
 
-                  {/* Screen — the selected workflow playing its three beats.
-                      Keyed remount so the steps re-run on every selection. */}
-                  <div key={item.workflow} className="p-5 sm:p-6">
-                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-coral">
-                      {item.label}
-                    </p>
-                    <h3 className="mt-1.5 font-display text-xl font-bold text-teal-deep sm:text-2xl">
-                      {item.workflow}
-                    </h3>
+                {/* Keyed remount replays the CSS build on every selection. */}
+                <div key={item.workflow} className="px-5 py-7 sm:px-8 sm:py-9">
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-coral">
+                    {item.label}
+                  </p>
+                  <h3 className="mt-1.5 font-display text-xl font-bold text-teal-deep sm:text-2xl">
+                    {item.workflow}
+                  </h3>
 
-                    <ol className="mt-5 flex min-h-[9rem] flex-col gap-2.5">
-                      {item.steps.map((step, i) => (
-                        <motion.li
-                          key={step}
-                          initial={{ opacity: 0, x: 22 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: 0.45,
-                            delay: 0.15 + i * 0.28,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                          className="flex items-center gap-3 rounded-xl bg-teal-soft/20 px-3.5 py-2.5"
-                        >
-                          <motion.span
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{
-                              type: 'spring',
-                              stiffness: 320,
-                              damping: 18,
-                              delay: 0.32 + i * 0.28,
-                            }}
-                            className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-teal-bright"
+                  {/* min-height holds the frame steady between workflows,
+                      whose step text runs to one line or two. */}
+                  <div className="mt-7 flex flex-col md:min-h-[7rem] md:flex-row md:items-stretch">
+                    {item.steps.map((step, i) => {
+                      const Icon = NODE_ICONS[i]
+                      return (
+                        <Fragment key={step}>
+                          {i > 0 && (
+                            <div
+                              className="pipe-wire mx-auto my-1 h-7 w-[3px] shrink-0 md:mx-2 md:my-0 md:h-[3px] md:w-12 md:self-center"
+                              style={{ '--i': i - 1 }}
+                              aria-hidden="true"
+                            >
+                              <span className="pipe-current" />
+                              <span className="pipe-pulse" />
+                            </div>
+                          )}
+                          <div
+                            className="pipe-node flex-1 rounded-2xl border-2 border-teal-deep/10 bg-cream p-4"
+                            style={{ '--i': i }}
                           >
-                            <Check size={13} strokeWidth={3.2} color="var(--color-cream)" />
-                          </motion.span>
-                          <span className="text-sm font-medium leading-snug text-teal-deep">
-                            {step}
-                          </span>
-                        </motion.li>
-                      ))}
-                    </ol>
-
-                    <p className="mt-4 flex items-center gap-2.5 text-xs font-medium text-ink-muted">
-                      <span className="relative flex h-2.5 w-2.5">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-bright opacity-60" />
-                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-teal-bright" />
-                      </span>
-                      {automate.lab.status}
-                    </p>
+                            <div className="flex items-center gap-2.5">
+                              <span
+                                className={`grid h-8 w-8 shrink-0 place-items-center rounded-xl ${NODE_TONES[i]}`}
+                              >
+                                <Icon size={15} strokeWidth={2.6} color="var(--color-cream)" />
+                              </span>
+                              <span className="text-[0.6rem] font-bold uppercase tracking-[0.13em] text-ink-muted/70">
+                                {lab.roles[i]}
+                              </span>
+                            </div>
+                            <p className="mt-3 text-sm font-semibold leading-snug text-teal-deep">
+                              {step}
+                            </p>
+                          </div>
+                        </Fragment>
+                      )
+                    })}
                   </div>
+
+                  <p className="mt-6 flex items-center gap-2.5 text-xs font-medium text-ink-muted">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-bright opacity-60" />
+                      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-teal-bright" />
+                    </span>
+                    {lab.status}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* The base — a lip under the lid. */}
-          <div className="mx-auto h-3 w-full max-w-[59rem] rounded-b-2xl bg-[#173f3d]" aria-hidden="true">
-            <div className="mx-auto h-1.5 w-24 rounded-b-xl bg-[#12332f]" />
-          </div>
-        </motion.div>
+        </Reveal>
 
         <div className="mt-10 text-center">
           <button

@@ -270,14 +270,17 @@ export const automate = {
   eyebrow: 'What we automate',
   title: 'Six workflows we build most often',
   body: 'Named, not vague. Pick one in the demo below — if yours is not on the list it is usually a variation of one that is, which is what the free audit is for.',
-  // The laptop chrome around the demo. `badge` is load-bearing: the screens
-  // are illustrative builds, and unlabelled they would read as a shipped
-  // product with real activity in it.
+  // The console chrome around the demo. `badge` is load-bearing: these are
+  // illustrative builds, and unlabelled they would read as a shipped product
+  // with real activity in it.
   lab: {
     window: 'What a build looks like',
     badge: 'Example',
     menu: 'Pick a workflow',
     status: 'Runs quietly in the background',
+    // Captions on the three pipeline nodes — the beats every automation has,
+    // named in plain language instead of trigger/action/output.
+    roles: ['When this happens', 'This runs', 'You get'],
   },
   items: [
     {

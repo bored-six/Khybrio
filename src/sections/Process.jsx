@@ -1,5 +1,5 @@
-import { motion } from 'motion/react'
 import { Words } from '../components/Words'
+import { Reveal } from '../components/Reveal'
 import { useContent } from '../content/context'
 
 /**
@@ -23,16 +23,14 @@ export function Process() {
         </h2>
         <p className="mt-4 max-w-xl leading-relaxed text-cream/75">{process.body}</p>
 
-        <ol className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal
+          as="ol"
+          from={{ y: 40, scale: 0.94 }}
+          stagger={0.14}
+          className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
+        >
           {process.steps.map((step, i) => (
-            <motion.li
-              key={step.n}
-              initial={{ opacity: 0, y: 30, scale: 0.94 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: '-70px' }}
-              transition={{ duration: 0.65, delay: i * 0.14, ease: [0.16, 1, 0.3, 1] }}
-              className="relative"
-            >
+            <li key={step.n} className="relative">
               {/* Connector, desktop only. A dashed rail that is always fully
                   drawn — the old scaleX draw looked like a cut line mid-way —
                   with a coral runner travelling it toward the next step. */}
@@ -60,9 +58,9 @@ export function Process() {
 
               <h3 className="mt-5 font-display text-xl font-bold text-cream">{step.name}</h3>
               <p className="mt-2.5 text-sm leading-relaxed text-cream/70">{step.body}</p>
-            </motion.li>
+            </li>
           ))}
-        </ol>
+        </Reveal>
       </div>
     </section>
   )
