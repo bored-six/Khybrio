@@ -65,6 +65,56 @@ export function Hero() {
       id="hero"
       className="relative z-10 overflow-hidden bg-teal-deep px-5 pb-12 pt-32 sm:px-8 sm:pb-16 sm:pt-40"
     >
+      {/* Depth behind the headline. Sizes are in vw so the fields scale with
+          the panel instead of pooling in a corner on wide screens. */}
+      <div className="hero-atmos" aria-hidden="true">
+        <span
+          className="hero-aurora"
+          style={{
+            background: 'var(--color-teal-bright)',
+            opacity: 0.28,
+            width: '46vw',
+            height: '46vw',
+            left: '-8vw',
+            top: '-14vw',
+            '--ax': '9%',
+            '--ay': '12%',
+            '--as': 1.2,
+            '--ad': '19s',
+          }}
+        />
+        <span
+          className="hero-aurora"
+          style={{
+            background: 'var(--color-coral)',
+            opacity: 0.16,
+            width: '38vw',
+            height: '38vw',
+            right: '-6vw',
+            top: '6vw',
+            '--ax': '-8%',
+            '--ay': '10%',
+            '--as': 1.14,
+            '--ad': '24s',
+          }}
+        />
+        <span
+          className="hero-aurora"
+          style={{
+            background: 'var(--color-teal-soft)',
+            opacity: 0.14,
+            width: '52vw',
+            height: '34vw',
+            left: '22vw',
+            bottom: '-16vw',
+            '--ax': '-6%',
+            '--ay': '-9%',
+            '--as': 1.16,
+            '--ad': '28s',
+          }}
+        />
+      </div>
+
       {/* Kept to the hero's gutters — at 4xl the headline owns the middle
           band, so the chips sit high-right and low-left where it never is. */}
       <DriftChip
@@ -82,7 +132,7 @@ export function Hero() {
         body={runLog.flows[1].trigger}
       />
 
-      <div className="rise-in mx-auto max-w-4xl text-center">
+      <div className="rise-in relative z-10 mx-auto max-w-4xl text-center">
         <p className="inline-flex rounded-full border-2 border-cream/20 bg-cream/10 px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-teal-soft">
           {hero.eyebrow}
         </p>
@@ -136,7 +186,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="rise-in-late mx-auto mt-14 max-w-5xl sm:mt-16">
+      <div className="rise-in-late relative z-10 mx-auto mt-14 max-w-5xl sm:mt-16">
         {/* The animated ring is the machine's border now. */}
         <div className="border-flow" style={{ '--bf-r': '32px' }}>
           <FlowMachine />

@@ -16,12 +16,14 @@ export const brand = {
   location: 'Zamboanga City, Philippines',
 }
 
+// `hint` ang isang linyang sagot sa "ano ba talaga ang nandoon" — lumalabas
+// kapag na-hover, para alam agad ng bisita kung alin ang hinahanap niya.
 export const nav = [
-  { id: 'services', label: 'Ano ang gagawin namin' },
-  { id: 'reviews', label: 'Google reviews' },
-  { id: 'process', label: 'Paano' },
-  { id: 'pricing', label: 'Presyo' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'services', label: 'Ano ang gagawin namin', hint: 'Apat na serbisyo. Google muna.' },
+  { id: 'reviews', label: 'Google reviews', hint: 'Tunay na review mula sa tunay na customer' },
+  { id: 'process', label: 'Paano', hint: 'Mula sa Maps check hanggang turnover' },
+  { id: 'pricing', label: 'Presyo', hint: 'Nakasulat bago magsimula. Walang dagdag.' },
+  { id: 'contact', label: 'Contact', hint: 'Libreng Maps check sa cellphone mo' },
 ]
 
 export const hero = {

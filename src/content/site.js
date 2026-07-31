@@ -37,11 +37,27 @@ export const nav = [
   // `flightProgress` jumps into the flight at a zone; `zoneRange` lights the
   // pill coral while that zone band is the one on screen. The fractions are
   // zone-centres over the seven zones: 1.5/7 for the work, 4.5/7 for the process.
-  { id: 'flight', label: 'What we build', flightProgress: 0.2143, zoneRange: [1, 3] },
-  { id: 'flight', label: 'How it works', flightProgress: 0.6429, zoneRange: [4, 6] },
-  { id: 'automate', label: 'What we automate' },
-  { id: 'pricing', label: 'Packages' },
-  { id: 'faq', label: 'FAQ' },
+  //
+  // `hint` is the one-line answer to "what is actually down there" — it shows
+  // on hover, because five abstract labels on a one-page site tell a first-time
+  // visitor nothing about which one holds the thing they came for.
+  {
+    id: 'flight',
+    label: 'What we build',
+    hint: 'Automation, websites and local presence',
+    flightProgress: 0.2143,
+    zoneRange: [1, 3],
+  },
+  {
+    id: 'flight',
+    label: 'How it works',
+    hint: 'Free audit to handover, about four weeks',
+    flightProgress: 0.6429,
+    zoneRange: [4, 6],
+  },
+  { id: 'automate', label: 'What we automate', hint: 'The six workflows we build most often' },
+  { id: 'pricing', label: 'Packages', hint: 'What you get, and how we bill for it' },
+  { id: 'faq', label: 'FAQ', hint: 'The questions we get every time' },
 ]
 
 /**

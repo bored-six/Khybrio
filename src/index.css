@@ -316,6 +316,64 @@
   animation: bf-spin 7s linear infinite;
 }
 
+/* Mobile nav drawer — items drop in one after another instead of the panel
+   appearing whole, so the list reads as opening. */
+@keyframes nav-drawer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.nav-drawer-item {
+  animation: nav-drawer-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* ── Hero atmosphere ───────────────────────────────────────────────────────
+   The hero was a flat teal fill with the headline sitting on nothing. Three
+   blurred colour fields now drift behind it on different timings, and a fine
+   grain sits over the whole panel.
+
+   The split is deliberate: the aurora gives the dark surface depth and a soft
+   centre for the headline to sit on, while the grain keeps it reading as
+   printed stock rather than a backlit screen — which is the broadsheet
+   identity the rest of the page is built on. Smooth gradients alone go
+   digital and sterile at this size; the grain is what stops that.
+
+   Entirely decorative, never hit-tested, and the global reduced-motion rule
+   parks the drift where it stands. */
+@keyframes aurora-drift {
+  to {
+    transform: translate3d(var(--ax), var(--ay), 0) scale(var(--as));
+  }
+}
+
+.hero-atmos {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  will-change: transform;
+  animation: aurora-drift var(--ad, 19s) ease-in-out infinite alternate;
+}
+
+/* Grain. Greyscale fractal noise, tiled by the browser rather than shipped as
+   an image, so it costs nothing to download. */
+.hero-atmos::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* ── The automation pipeline (What we automate) ────────────────────────────
    Trigger → action → result, drawn as the wired flow an automation actually
    is rather than a screenshot of one. Every bit of motion is CSS on a keyed
