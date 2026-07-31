@@ -277,7 +277,7 @@ export const contact = {
 export const team = {
   eyebrow: 'Ang team',
   title: 'Kilalanin mo kami',
-  body: 'Tatlo lang kami — kaya alam mo palagi kung sino ang kausap mo. Walang account manager, walang paikot-ikot.',
+  body: 'Tatlo lang kami — kaya alam mo palagi kung sino ang kausap mo. Walang account manager, walang paikot-ikot. I-tap ang bawat card para makita kung sino ang gagawa ng ano sa proyekto mo.',
   members: [
     {
       name: 'Shiek Abdurahman',
@@ -285,7 +285,7 @@ export const team = {
       photo: 'shiek',
       role: 'Developer',
       accent: 'var(--color-teal-deep)',
-      bio: 'Siya ang gumagawa ng bawat website at automation, pati ang teknikal na bahagi — mula sa unang linya ng code hanggang sa hosting.',
+      bio: 'Siya ang gumagawa ng bawat website at automation — mula sa unang linya ng code hanggang sa hosting at maintenance. Pagkatapos ng turnover, nakapangalan sa iyo ang lahat: ang domain, ang site, ang mga account. Sa iyo talaga ang binayaran mo.',
       focus: ['Website', 'Automation', 'Hosting'],
     },
     {
@@ -294,7 +294,7 @@ export const team = {
       photo: 'dave',
       role: 'Unang kausap & onboarding',
       accent: 'var(--color-teal-bright)',
-      bio: 'Siya ang madalas mong unang makakausap. Ipapakita niya sa iyo mismo ang listing mo sa Maps — walang mabigat na termino.',
+      bio: 'Siya ang madalas mong unang makakausap. Sa mismong cellphone mo, ipapakita niya ang listing mo sa Google Maps — kung saan ka lumalabas at kung saan ka wala — bago pa pag-usapan ang kahit ano. Simpleng salita, walang mabigat na termino, walang pilitan.',
       focus: ['Unang kausap', 'Maps check', 'Onboarding'],
     },
     {
@@ -303,7 +303,7 @@ export const team = {
       photo: 'haiqal',
       role: 'Marketing & sales',
       accent: 'var(--color-coral)',
-      bio: 'Siya ang humahawak ng presentation at follow-through, mula sa unang usapan hanggang sa malinaw na kasunduan.',
+      bio: 'Siya ang humahawak ng presentation at follow-through. Bago magsimula ang kahit anong trabaho, malinaw na nakasulat ang presyo at ang saklaw ng gagawin — isang fixed na presyo, walang sorpresang dagdag. Ang napag-usapan ninyo, iyon mismo ang matatanggap mo.',
       focus: ['Presentation', 'Scoping', 'Follow-through'],
     },
   ],

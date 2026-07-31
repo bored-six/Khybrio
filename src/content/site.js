@@ -510,7 +510,7 @@ export const contact = {
 export const team = {
   eyebrow: 'Behind the work',
   title: 'Meet the team',
-  body: 'Small on purpose. You always know exactly who you’re talking to — no account managers, no runaround.',
+  body: 'Small on purpose — three people, no layers. The person who audits your workflows, the person who prices the build and the person who writes the code are a message apart, so nothing gets lost in a handoff. Flip a card to see exactly who does what on your project.',
   members: [
     {
       name: 'Shiek Abdurahman',
@@ -520,8 +520,8 @@ export const team = {
       photo: 'shiek',
       role: 'Developer',
       accent: 'var(--color-teal-deep)',
-      bio: 'Builds every automation and site we ship, plus the technical side of the handover — from the first mapped workflow to the documentation you keep.',
-      focus: ['Automation', 'Web development', 'Handover & docs'],
+      bio: 'Writes every automation and website we ship — and runs each one alongside your current process until it proves itself on your real data. At handover he documents the whole build, records a walkthrough video and puts every account in your name, so what we built is genuinely yours to keep.',
+      focus: ['Automation', 'Websites & booking', 'Handover & docs'],
     },
     {
       name: 'Dave Calio',
@@ -529,7 +529,7 @@ export const team = {
       photo: 'dave',
       role: 'First contact & onboarding',
       accent: 'var(--color-teal-bright)',
-      bio: 'Usually the first person you meet. Walks owners through what the audit found and what it would actually change — in plain terms, no jargon.',
+      bio: 'Usually the first person you meet, and the reason you’ll never need a translator for tech talk. Dave takes the three repetitive tasks you send in, walks you through what the free audit found and shows what would actually change in your week — plain language, no pressure.',
       focus: ['First contact', 'Workflow audits', 'Onboarding'],
     },
     {
@@ -538,8 +538,8 @@ export const team = {
       photo: 'haiqal',
       role: 'Marketing & sales',
       accent: 'var(--color-coral)',
-      bio: 'Runs proposals and follow-through, from the first conversation all the way to a signed, clearly-scoped agreement.',
-      focus: ['Proposals', 'Scoping', 'Follow-through'],
+      bio: 'Turns your audit into a proposal you can hold us to: what gets built, what it costs and when it lands — one fixed price, agreed in writing before any work starts. Haiqal keeps the scope honest through the build, so the thing you signed is exactly the thing you get.',
+      focus: ['Proposals', 'Fixed-price scoping', 'Follow-through'],
     },
   ],
 }
