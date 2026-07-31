@@ -29,7 +29,7 @@ export function Team() {
   const [flipped, setFlipped] = useState(null)
 
   return (
-    <section id="team" className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32">
+    <section id="team" className="relative z-10 bg-cream px-5 py-16 sm:px-8 sm:py-20">
       <div className="mx-auto max-w-6xl">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-bright">
           {team.eyebrow}

@@ -63,7 +63,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative z-10 overflow-hidden bg-teal-deep px-5 pb-16 pt-32 sm:px-8 sm:pb-24 sm:pt-40"
+      className="relative z-10 overflow-hidden bg-teal-deep px-5 pb-12 pt-32 sm:px-8 sm:pb-16 sm:pt-40"
     >
       {/* Kept to the hero's gutters — at 4xl the headline owns the middle
           band, so the chips sit high-right and low-left where it never is. */}

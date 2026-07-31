@@ -50,7 +50,7 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <section id="faq" className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32">
+    <section id="faq" className="relative z-10 bg-cream px-5 py-16 sm:px-8 sm:py-20">
       <div className="mx-auto max-w-4xl">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-bright">
           {faq.eyebrow}

@@ -234,7 +234,7 @@ function FlightOverlay({ progressRef }) {
 /** Static stacked layout for reduced-motion / no-pin. */
 function ReducedLayout() {
   return (
-    <div className="bg-teal-deep px-5 py-20 sm:px-8">
+    <div className="bg-teal-deep px-5 py-16 sm:px-8">
       <div className="mx-auto max-w-5xl space-y-16">
         {zones.map((z, i) => (
           <div key={z.key} className="grid gap-6 md:grid-cols-2 md:items-center">

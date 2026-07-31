@@ -13,7 +13,7 @@ import { reviews } from '../content/ph'
  */
 export function Reviews() {
   return (
-    <section id="reviews" className="relative z-10 bg-teal-deep px-5 py-24 sm:px-8 sm:py-32">
+    <section id="reviews" className="relative z-10 bg-teal-deep px-5 py-16 sm:px-8 sm:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="max-w-3xl">
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-coral">

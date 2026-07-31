@@ -6,7 +6,7 @@ import { mascot } from '../content/ph'
 
 export function MascotIntro() {
   return (
-    <section id="khybi" className="relative z-10 overflow-hidden bg-teal-deep px-5 py-24 sm:px-8 sm:py-32">
+    <section id="khybi" className="relative z-10 overflow-hidden bg-teal-deep px-5 py-16 sm:px-8 sm:py-20">
       <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-2">
         {/* Khybi, floating gently over a coral glow, framed on a cream card. */}
         <div className="relative order-2 flex justify-center md:order-1">

@@ -33,7 +33,7 @@ export function NfcTapDemo() {
   return (
     <section
       id="tap-demo"
-      className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32"
+      className="relative z-10 bg-cream px-5 py-16 sm:px-8 sm:py-20"
     >
       <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
         <div>

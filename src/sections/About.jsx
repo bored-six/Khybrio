@@ -8,7 +8,7 @@ import { useContent } from '../content/context'
 export function About() {
   const { about } = useContent()
   return (
-    <section id="about" className="relative z-10 bg-cream px-5 py-24 sm:px-8 sm:py-32">
+    <section id="about" className="relative z-10 bg-cream px-5 py-16 sm:px-8 sm:py-20">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:gap-20">
         {/* The headline unmasks left-to-right — a wipe, not a fade. */}
         <motion.div

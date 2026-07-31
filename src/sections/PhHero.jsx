@@ -29,7 +29,7 @@ export function PhHero() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-5 pb-24 pt-32 sm:px-8 sm:pb-32 sm:pt-40">
+      <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-32 sm:px-8 sm:pb-20 sm:pt-40">
         <div className="rise-in max-w-2xl">
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-teal-soft sm:text-xs">
             {hero.eyebrow}
