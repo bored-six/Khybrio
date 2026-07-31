@@ -3,21 +3,32 @@ import { A } from '../lib/assets'
 /**
  * The scrubbed scenes, as data.
  *
- * The flight is the centrepiece: one pinned scene scrubbing all eight island
- * zones as a single continuous take (crossfade + camera push over the stills).
- * It runs as `mediaType: 'image'` today — the closest we can get to the planned
- * flight without true image-to-video. When real Seedance clips exist, drop the
- * stitched file at A.flightClip and flip `mediaType` to 'video'; the pin/scrub
- * machinery underneath doesn't change.
+ * The flight is the centrepiece: one pinned scene scrubbing all seven island
+ * zones as a single continuous take.
+ *
+ * The flight is being generated a segment at a time (HIGGSFIELD.md, clips 1–7).
+ * Segment 1 exists, so the opening of the scene is a real scrubbed camera move
+ * and the rest is still the crossfade-and-push over the stills. `clipRange` is
+ * the only thing that has to change as more segments land — stitch them and
+ * widen the range; at [0, 1] the whole flight is video and the stills go back
+ * to being the fallback they were designed as.
  */
 export const scenes = {
   flight: {
     id: 'flight',
-    mediaType: 'image', // 'video' once A.flightClip exists
+    mediaType: 'video',
     clip: A.flightClip,
-    // heroLoop intentionally omitted — the 1080p loop wasn't crisp enough, so
-    // the hero shows the sharp still (01-hero). Re-add A.heroLoop here if a
-    // genuinely HD loop is generated later.
+    /**
+     * Scene progress the clip covers. Segment 1 flies from the wide island
+     * (zone 1) to the web desk (zone 3), so it ends where zone 3's still is
+     * fully solid — seg 2.5 of 7 — and dissolves onto that identical framing.
+     * The desk-nook still that zone 2 would otherwise show is skipped: its copy
+     * rides the moving camera instead, which is what the flight was always
+     * meant to do.
+     */
+    clipRange: [0, 2.5 / 7],
+    /** Ambient loop over zone 1, before the visitor has scrolled anything. */
+    heroLoop: A.heroLoop,
     // Seven zones, in flight order — must line up with content/site.js
     // `flight.zones`. Re-ordered for the automation cut: the code-brackets nook
     // opens the three lines of work, and the crew scenes now carry the process

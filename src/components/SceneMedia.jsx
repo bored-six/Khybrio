@@ -2,10 +2,27 @@ import { useRef } from 'react'
 import { AssetImage } from './AssetImage'
 import { useScrubbedVideo } from '../hooks/useScrubbedVideo'
 import { useKenBurns } from '../hooks/useKenBurns'
-import { useProgressEffect, smooth } from '../hooks/useProgressEffect'
+import { useProgressEffect, smooth, band } from '../hooks/useProgressEffect'
 import { isCoarsePointer } from '../lib/smoothScroll'
 
 const clamp = (v) => Math.min(1, Math.max(0, v))
+
+/**
+ * How much scene progress the clip takes to fade up over the ambient hero loop,
+ * and to hand back to the stills once its range runs out. The fade-in is short
+ * so the visitor sees the camera commit almost immediately; the fade-out is
+ * longer because it dissolves onto a still of the same framing and wants to be
+ * unnoticeable.
+ */
+const CLIP_FADE_IN = 0.03
+const CLIP_FADE_OUT = 0.055
+
+/** Opacity of a ranged clip at scene progress `p`. */
+function clipEnvelope(p, [r0, r1]) {
+  const rise = smooth(band(p, r0, r0 + CLIP_FADE_IN))
+  const fall = smooth(band(p, r1, r1 + CLIP_FADE_OUT))
+  return rise * (1 - fall)
+}
 
 /**
  * A stack of stills scrubbed against scene progress. Two transition styles:
@@ -17,7 +34,17 @@ const clamp = (v) => Math.min(1, Math.max(0, v))
  * The Ken-Burns move is applied once to the whole stack rather than per layer,
  * so the camera reads as continuous across the cuts.
  */
-function StillStack({ stills, progressRef, transition, zoom, pan, foreground, reduced, heroLoop }) {
+function StillStack({
+  stills,
+  progressRef,
+  transition,
+  zoom,
+  pan,
+  foreground,
+  reduced,
+  heroLoop,
+  heroLoopFade,
+}) {
   const stackRef = useRef(null)
   const foregroundRef = useRef(null)
   const layerRefs = useRef([])
@@ -72,12 +99,20 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
     }
 
     // Hero loop video rides zone 0's opacity, and pauses once it's faded out
-    // so it isn't decoding a 1080p loop off-screen.
+    // so it isn't decoding a loop off-screen. When a scrubbed clip covers the
+    // opening zones the loop instead hands over on the clip's own fade-in band
+    // — otherwise both would sit at partial opacity over each other for a
+    // seventh of the flight, ghosting two near-identical framings together.
     const hv = heroLoopRef.current
     if (hv) {
-      const W = 0.42
-      const seg = cp * n
-      const op = 1 - smooth(clamp((seg - (1 - W / 2)) / W))
+      let op
+      if (heroLoopFade) {
+        op = 1 - smooth(band(cp, heroLoopFade[0], heroLoopFade[1]))
+      } else {
+        const W = 0.42
+        const seg = cp * n
+        op = 1 - smooth(clamp((seg - (1 - W / 2)) / W))
+      }
       hv.style.opacity = String(op)
       if (op < 0.02) {
         if (!hv.paused) hv.pause()
@@ -145,15 +180,20 @@ function StillStack({ stills, progressRef, transition, zoom, pan, foreground, re
  * surrounding ScrollScene never knows which one ran.
  *
  * For `mediaType: 'video'` the stills stack still renders underneath as the
- * live fallback. Until the Higgsfield flight clip exists — and whenever the
- * fetch fails, or the visitor prefers reduced motion — that fallback IS the
- * hero: the two stills cross-fade against the very same progress value the
- * video would have scrubbed. So the section behaves correctly today, and the
- * clip is a pure drop-in upgrade.
+ * live fallback. Whenever the fetch fails, or the visitor prefers reduced
+ * motion, that fallback IS the hero: the stills cross-fade against the very
+ * same progress value the video would have scrubbed. The clip is additive, and
+ * the section behaves correctly without it.
+ *
+ * `clipRange` is the slice of the scene the clip actually covers. The island
+ * flight is generated one segment at a time, so today one clip carries the
+ * opening zones and the stills carry the rest; the video fades out onto the
+ * still of the framing it lands on, which is why the seam doesn't read.
  */
 export function SceneMedia({
   mediaType = 'image',
   clip,
+  clipRange = [0, 1],
   heroLoop,
   stills,
   foreground,
@@ -166,12 +206,22 @@ export function SceneMedia({
   const videoRef = useRef(null)
   const rootRef = useRef(null)
   const tiltRef = useRef(null)
+  const scrubbing = mediaType === 'video' && !reduced
 
   const status = useScrubbedVideo({
     videoRef,
     progressRef,
     src: clip,
-    enabled: mediaType === 'video' && !reduced,
+    enabled: scrubbing,
+    range: clipRange,
+  })
+
+  // The clip's opacity is per-frame, not a CSS transition — it has to track
+  // scroll exactly at both ends of its range. The wrapper below owns the
+  // separate, one-shot fade that hides the element until the blob is decoded.
+  useProgressEffect(progressRef, (p) => {
+    const v = videoRef.current
+    if (v && scrubbing) v.style.opacity = String(clipEnvelope(p, clipRange))
   })
 
   // Pointer-parallax: the island tilts a few degrees toward the cursor and
@@ -209,24 +259,29 @@ export function SceneMedia({
           foreground={foreground}
           reduced={reduced}
           heroLoop={heroLoop}
+          heroLoopFade={scrubbing ? [0, CLIP_FADE_IN] : null}
         />
-      </div>
 
-      {mediaType === 'video' && !reduced ? (
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover scene-layer transition-opacity duration-700"
-          style={{
-            opacity: status === 'ready' ? 1 : 0,
-            objectPosition: 'center 44%',
-            zIndex: 20,
-          }}
-        />
-      ) : null}
+        {/* Inside the tilt wrapper, not beside it — the clip and the stills are
+            the same island, so the pointer parallax has to apply to whichever
+            one is currently on screen or the effect blinks out mid-flight. */}
+        {scrubbing ? (
+          <div
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{ opacity: status === 'ready' ? 1 : 0, zIndex: 20 }}
+          >
+            <video
+              ref={videoRef}
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover scene-layer"
+              style={{ opacity: 0, objectPosition: 'center 44%' }}
+            />
+          </div>
+        ) : null}
+      </div>
     </div>
   )
 }

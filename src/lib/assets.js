@@ -38,14 +38,21 @@ export const A = {
   // public/assets/showcase/ if a real portfolio section comes back.
 
   /**
-   * Optional: the one continuous flight clip. Absent by default — the flight
-   * runs as a scroll-scrubbed crossfade + camera push over the seven stills,
-   * which needs no video. Drop a real Seedance/stitched clip here and flip the
-   * flight scene's mediaType to 'video' to upgrade to true 3D parallax.
+   * The scrubbed island flight. Currently segment 1 of the 7 in HIGGSFIELD.md
+   * (wide island → web desk), scrubbed across the opening of the scene and
+   * handed back to the stills after — see `clipRange` in scenes.config.js. As
+   * segments land, stitch them into this same file and widen that range.
+   *
+   * 1280×720, watermark patched, and re-encoded at GOP 4 so seeking to an
+   * arbitrary time is cheap. Scrubbing a default-GOP clip turns to mush.
    */
   flightClip: `${BASE}assets/world/island-flight.mp4`,
 
-  /** 1080p seamless loop that plays over the hero zone before you scroll. */
+  /**
+   * Ambient loop over the hero zone, before the visitor scrolls. Ping-ponged
+   * locally from the Higgsfield clip — the source drifts, so its first and last
+   * frames don't match and looping it raw snapped on every wrap.
+   */
   heroLoop: `${BASE}assets/world/hero-loop.mp4`,
 
   mark: {

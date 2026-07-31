@@ -20,10 +20,25 @@ import { gsap, isCoarsePointer } from '../lib/smoothScroll'
  * Returns `status`: 'loading' | 'ready' | 'unavailable'. 'unavailable' is the
  * expected state until the Higgsfield clip is generated; the caller falls back
  * to cross-fading the two stills against the same progress value.
+ *
+ * `range` is the slice of scene progress the clip covers, so a clip that only
+ * spans the opening zones still plays at its true speed instead of being
+ * stretched across the whole scene. The flight is generated one segment at a
+ * time; each new segment widens this range rather than changing any code.
  */
-export function useScrubbedVideo({ videoRef, progressRef, src, enabled = true }) {
+export function useScrubbedVideo({
+  videoRef,
+  progressRef,
+  src,
+  enabled = true,
+  range = [0, 1],
+}) {
   const [status, setStatus] = useState(enabled ? 'loading' : 'unavailable')
   const stateRef = useRef({ cur: 0, lastSeek: -1 })
+  // Read through a ref so a fresh array literal from the caller can't tear down
+  // and rebuild the ticker every render.
+  const rangeRef = useRef(range)
+  rangeRef.current = range
 
   // --- load the clip as a blob -------------------------------------------
   useEffect(() => {
@@ -97,7 +112,9 @@ export function useScrubbedVideo({ videoRef, progressRef, src, enabled = true })
       const video = videoRef.current
       if (!video || !video.duration || Number.isNaN(video.duration)) return
 
-      const target = Math.min(1, Math.max(0, progressRef.current))
+      const [r0, r1] = rangeRef.current
+      const span = r1 - r0 || 1
+      const target = Math.min(1, Math.max(0, (progressRef.current - r0) / span))
       state.cur += (target - state.cur) * 0.18
 
       if (video.seeking) return
