@@ -17,15 +17,6 @@ const N = zones.length
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v))
 
-// Snap the flight to each zone's centre, so a light scroll settles cleanly on
-// the next zone instead of requiring a precise landing.
-const flightSnap = {
-  snapTo: zones.map((_, i) => (i + 0.5) / N),
-  duration: { min: 0.2, max: 0.6 },
-  delay: 0.05,
-  ease: 'power1.inOut',
-}
-
 /** CTA/nav that may jump into the flight at a zone (flightProgress) or to a section. */
 const ctaClick = (cta) => (e) => {
   e.preventDefault()
@@ -275,12 +266,7 @@ function ReducedLayout() {
 
 export function Flight() {
   return (
-    <ScrollScene
-      id="flight"
-      scroll={scene.scroll}
-      milestone={flightMilestone}
-      snap={flightSnap}
-    >
+    <ScrollScene id="flight" scroll={scene.scroll} milestone={flightMilestone}>
       {({ progressRef, reduced }) =>
         reduced ? (
           <ReducedLayout />

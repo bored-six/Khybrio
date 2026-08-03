@@ -38,13 +38,14 @@ export const A = {
   // public/assets/showcase/ if a real portfolio section comes back.
 
   /**
-   * The scrubbed island flight. Currently segment 1 of the 7 in HIGGSFIELD.md
-   * (wide island → web desk), scrubbed across the opening of the scene and
-   * handed back to the stills after — see `clipRange` in scenes.config.js. As
-   * segments land, stitch them into this same file and widen that range.
+   * The scrubbed island flight: all seven HIGGSFIELD.md segments stitched into
+   * one 50-second take, 1s crossfade at each join. The joins need the fade —
+   * consecutive segments only match at 0.76–0.90 SSIM, so a hard cut visibly
+   * jumps at every one.
    *
-   * 1280×720, watermark patched, and re-encoded at GOP 4 so seeking to an
-   * arbitrary time is cheap. Scrubbing a default-GOP clip turns to mush.
+   * Watermark painted out (the source is stamped bottom-right), and encoded at
+   * a short GOP so seeking to an arbitrary time stays cheap — scrubbing a
+   * default-GOP clip turns to mush.
    */
   flightClip: `${BASE}assets/world/island-flight.mp4`,
 

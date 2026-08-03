@@ -156,18 +156,18 @@ export const flight = {
       sub: 'Automation leads, because it is the part that pays for itself. The other two exist to feed it.',
     },
     {
-      key: 'automation',
-      eyebrow: '01 · Workflow automation',
-      title: ['The work that ', 'runs itself', '.'],
-      sub: 'Tool-to-tool connections, automated messaging, scheduled reports — and data entry removed at the source rather than sped up.',
-      hotspot: { benefit: 'Tool to tool, no copy-paste' },
-    },
-    {
       key: 'sites',
-      eyebrow: '02 · Websites & booking',
+      eyebrow: '01 · Websites & booking',
       title: ['A site that ', 'does something', '.'],
       sub: 'Booking and enquiry systems, forms and intake, payments and confirmations — feeding the automations behind it. Not a brochure.',
       hotspot: { benefit: 'Takes bookings, not compliments' },
+    },
+    {
+      key: 'automation',
+      eyebrow: '02 · Workflow automation',
+      title: ['The work that ', 'runs itself', '.'],
+      sub: 'Tool-to-tool connections, automated messaging, scheduled reports — and data entry removed at the source rather than sped up.',
+      hotspot: { benefit: 'Tool to tool, no copy-paste' },
     },
     {
       key: 'local',

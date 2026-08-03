@@ -40,12 +40,6 @@ export function ScrollScene({
    * frame and the last one mounted always won.
    */
   milestone,
-  /**
-   * Optional GSAP ScrollTrigger snap config. For the flight this snaps to each
-   * zone's centre, so a light scroll settles cleanly on the next zone instead
-   * of needing a precise landing.
-   */
-  snap,
   children,
 }) {
   const rootRef = useRef(null)
@@ -85,7 +79,6 @@ export function ScrollScene({
         pin: pinRef.current,
         pinSpacing: true,
         scrub: true,
-        snap: snap || undefined,
         invalidateOnRefresh: true,
         anticipatePin: 1,
         onToggle: (self) => {
@@ -105,7 +98,7 @@ export function ScrollScene({
     }, rootRef)
 
     return () => ctx.revert()
-  }, [scroll, reduced, milestone, snap, id])
+  }, [scroll, reduced, milestone, id])
 
   return (
     <section id={id} ref={rootRef} className={`relative ${className}`}>
