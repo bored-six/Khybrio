@@ -38,10 +38,16 @@ export const A = {
   // public/assets/showcase/ if a real portfolio section comes back.
 
   /**
-   * The scrubbed island flight: all seven HIGGSFIELD.md segments stitched into
-   * one 50-second take, 1s crossfade at each join. The joins need the fade —
-   * consecutive segments only match at 0.76–0.90 SSIM, so a hard cut visibly
-   * jumps at every one.
+   * The scrubbed island flight, 74s: hold, fly, hold, fly. Each zone opens on
+   * a 3.5s freeze of the original 4K still it was generated from (the same
+   * files this module exports below), so the zone's copy can be read against a
+   * clean frame before the camera moves on.
+   *
+   * Holding the ORIGINAL rather than the clip's own last frame earns its keep
+   * twice: the source PNG is sharper than any decoded video frame, and
+   * consecutive segments do not actually meet — they land 0.76–0.90 SSIM apart
+   * — so the still is the anchor that absorbs the drift on both sides. Every
+   * junction is a 0.5s crossfade.
    *
    * Watermark painted out (the source is stamped bottom-right), and encoded at
    * a short GOP so seeking to an arbitrary time stays cheap — scrubbing a

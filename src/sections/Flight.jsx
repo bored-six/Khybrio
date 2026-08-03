@@ -31,7 +31,12 @@ const ctaClick = (cta) => (e) => {
  * clamped fully on before its centre and the last fully on after, so the
  * opening and closing copy read at full strength at the very top and bottom.
  */
-const W = 0.42 // crossfade width, in zone-band units
+// Crossfade width, in zone-band units. Tightened from 0.42 once the flight
+// video gained a held still at the head of every zone: the copy has to be fully
+// up while its image is frozen, and at 0.42 it was still fading in for the
+// first two-fifths of the hold. At 0.28 it settles ~1.7s into the band against
+// a 3.5s hold, so text and clean frame are both readable together.
+const W = 0.28
 function zoneVis(seg, i) {
   let rise = smooth(clamp01((seg - (i - W / 2)) / W))
   let fall = smooth(clamp01((seg - (i + 1 - W / 2)) / W))
