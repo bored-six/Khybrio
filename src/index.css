@@ -98,6 +98,31 @@
   animation: rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
+/* The same entrance, staggered off a `--i` index so a stack of elements
+   arrives in reading order instead of all at once. Still CSS for the reason
+   above: CSS animations run off the compositor's own clock, so they finish
+   (and hold their end state) even in a tab the frame loop never services. */
+.rise-step {
+  animation: rise-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 85ms + 120ms);
+}
+
+/* Headline words, lifting one after another. The delay is small per word so
+   the whole line is settled inside a second — a headline that takes longer
+   than that to assemble reads as a loading screen, not an entrance. */
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.36em, 0);
+  }
+}
+
+.word-rise {
+  display: inline-block;
+  animation: word-rise 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 62ms);
+}
+
 /* The flow machine — the hero's centrepiece.
 
    Tasks feed into the engine, the engine churns, done rows pop out the other
@@ -374,6 +399,171 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ── Hero lighting ─────────────────────────────────────────────────────────
+   The aurora alone wasn't enough: three low-opacity fields behind 70px of
+   blur average out to the same flat teal they sit on, so the panel still read
+   as a fill with type on top. What was missing is a light SOURCE — a room is
+   only legible as a room once you can see where the light comes from and
+   where it runs out.
+
+   So: a pool of light above the headline, a vignette closing the corners, a
+   darker floor for the machine card to cast against, and a slow sweep that
+   crosses the panel every eleven seconds. Together they give the flat fill a
+   near-far axis, which is the whole difference between depth and paint.
+   All four are decorative, cost no bytes, and park under reduced motion. */
+.hero-spot {
+  position: absolute;
+  left: 50%;
+  top: -26vh;
+  width: 130vw;
+  height: 110vh;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--color-teal-soft) 30%, transparent),
+    color-mix(in oklab, var(--color-teal-bright) 16%, transparent) 52%,
+    transparent 78%
+  );
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(125% 88% at 50% 30%, transparent 42%, rgba(5, 24, 23, 0.6) 100%);
+}
+
+/* The floor. The card below sits in the darkest part of the panel, so its
+   shadow has something to land on and it reads as lifted off the surface. */
+.hero-floor {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 46%;
+  background: linear-gradient(to bottom, transparent, rgba(7, 28, 27, 0.78));
+}
+
+@keyframes hero-sweep {
+  0% {
+    transform: translateX(-70%) rotate(14deg);
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(180%) rotate(14deg);
+    opacity: 0;
+  }
+}
+
+.hero-sweep {
+  position: absolute;
+  top: -30%;
+  left: 0;
+  /* Floored in px so it stays a wash on a phone. At a flat 26vw it narrows to
+     under 100px there and reads as a visible stripe crossing the panel. */
+  width: max(26vw, 260px);
+  height: 170%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(245, 247, 246, 0.06) 45%,
+    rgba(245, 247, 246, 0.09) 55%,
+    transparent
+  );
+  animation: hero-sweep 11s ease-in-out 2.4s infinite;
+}
+
+/* ── Hero furniture ────────────────────────────────────────────────────────
+   The primary CTA breathes a ring outward on a long cycle. It is the one
+   thing on the page a first-time visitor is meant to click, and on a dark
+   panel a solid coral pill is still just a shape until something moves. The
+   shine only fires on hover, so the resting state stays quiet. */
+@keyframes cta-breathe {
+  0%,
+  100% {
+    box-shadow:
+      0 10px 26px -14px color-mix(in oklab, var(--color-coral) 75%, transparent),
+      0 0 0 0 color-mix(in oklab, var(--color-coral) 32%, transparent);
+  }
+  55% {
+    box-shadow:
+      0 13px 32px -14px color-mix(in oklab, var(--color-coral) 85%, transparent),
+      0 0 0 12px rgba(232, 98, 45, 0);
+  }
+}
+
+.cta-glow {
+  position: relative;
+  overflow: hidden;
+  animation: cta-breathe 3.6s ease-in-out infinite;
+}
+
+.cta-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 36%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 64%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-glow:hover::after {
+  transform: translateX(130%);
+}
+
+/* The machine card, lifted off the floor. Two shadows: a wide ambient one for
+   the height, and a tight one under the bottom edge for the contact. */
+.hero-card-lift {
+  box-shadow:
+    0 44px 100px -32px rgba(0, 0, 0, 0.72),
+    0 12px 34px -14px rgba(0, 0, 0, 0.5);
+}
+
+/* Scroll cue — a dot falling down a hairline, on repeat. */
+@keyframes cue-fall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.cue-dot {
+  animation: cue-fall 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+/* The live dot in the eyebrow pill: a slow coral pulse, so the label reads as
+   a running status rather than a sticker. */
+@keyframes live-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-coral) 65%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(232, 98, 45, 0);
+  }
+}
+
+.live-dot {
+  animation: live-pulse 2.4s ease-out infinite;
+}
+
 /* ── The automation pipeline (What we automate) ────────────────────────────
    Trigger → action → result, drawn as the wired flow an automation actually
    is rather than a screenshot of one. Every bit of motion is CSS on a keyed
@@ -547,5 +737,13 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    /* Delays go too. Collapsing the duration alone still leaves a staggered
+       entrance holding its `backwards` start state for the length of its
+       delay — for the hero that meant the last headline word sitting at
+       opacity 0 for a third of a second on a machine that asked for no
+       motion at all. Everything staggered here is decorative, so landing the
+       whole set on frame one is the intended end state. */
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
   }
 }
