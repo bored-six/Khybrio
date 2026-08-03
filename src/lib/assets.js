@@ -38,16 +38,21 @@ export const A = {
   // public/assets/showcase/ if a real portfolio section comes back.
 
   /**
-   * The scrubbed island flight, 74s: hold, fly, hold, fly. Each zone opens on
-   * a 3.5s freeze of the original 4K still it was generated from (the same
-   * files this module exports below), so the zone's copy can be read against a
-   * clean frame before the camera moves on.
+   * The scrubbed island flight, 77.5s, built by scripts/build-flight.sh. Each
+   * zone runs three beats on an 11s stride:
    *
-   * Holding the ORIGINAL rather than the clip's own last frame earns its keep
-   * twice: the source PNG is sharper than any decoded video frame, and
-   * consecutive segments do not actually meet — they land 0.76–0.90 SSIM apart
-   * — so the still is the anchor that absorbs the drift on both sides. Every
-   * junction is a 0.5s crossfade.
+   *   HOLD 3.0s  the original 4K still, frozen — the zone's copy reads against
+   *              a clean frame. The source PNG (exported below) is sharper than
+   *              anything the codec hands back, so the hold uses it directly.
+   *   FLY  8.0s  the Higgsfield segment, scrubbed by scroll.
+   *   LAND 1.5s  the clip's own last frame, frozen — the camera settles where
+   *              it actually arrived before the next beat starts.
+   *
+   * LAND and the following HOLD are the same framing only in intent: Seedance
+   * drifts, so a clip's last frame lands 0.74–0.91 SSIM from the original it
+   * was told to end on. Freezing the arrival first and then dissolving to the
+   * crisp original turns that gap into a deliberate settle rather than a smear
+   * applied mid-motion. Every junction is a 0.5s crossfade.
    *
    * Watermark painted out (the source is stamped bottom-right), and encoded at
    * a short GOP so seeking to an arbitrary time stays cheap — scrubbing a

@@ -6,15 +6,15 @@ import { A } from '../lib/assets'
  * The flight is the centrepiece: one pinned scene scrubbing all seven island
  * zones as a single continuous take.
  *
- * All seven segments from HIGGSFIELD.md are stitched into one 74-second take
- * that alternates a 3.5s hold on each zone's original still with the 8s flight
- * to the next one, so `clipRange` is [0, 1]. The stills below are back to being
- * the pure fallback they were designed as: reduced motion, a failed fetch, or a
- * slow first paint.
+ * All seven segments from HIGGSFIELD.md are stitched into one 77.5-second take
+ * that runs hold / fly / land per zone (see A.flightClip), so `clipRange` is
+ * [0, 1]. The stills below are back to being the pure fallback they were
+ * designed as: reduced motion, a failed fetch, or a slow first paint.
  *
- * The holds open each zone band (0, 10.5, 21, 31.5, 42, 52.5, 63s against a
- * 10.571s band), which is why `W` in Flight.jsx had to tighten — the copy has
- * to be fully up while its image is frozen.
+ * Zone holds open at 0, 11, 22, 33, 44, 55, 66s against an 11.071s band — the
+ * 0.071s/zone drift is absorbed by the hold being 3s long. This is also why `W`
+ * in Flight.jsx had to tighten: the copy has to be fully up while its image is
+ * frozen, not still fading in.
  */
 export const scenes = {
   flight: {
