@@ -44,6 +44,7 @@ function StillStack({
   reduced,
   heroLoop,
   heroLoopFade,
+  snap,
 }) {
   const stackRef = useRef(null)
   const foregroundRef = useRef(null)
@@ -94,7 +95,22 @@ function StillStack({
         let fall = smooth(clamp((seg - (k + 1 - W / 2)) / W))
         if (k === 0) rise = 1
         if (k === n - 1) fall = 0
-        el.style.opacity = String(rise * (1 - fall))
+        let vis = rise * (1 - fall)
+
+        // Under a stop plan the clip's position no longer tracks scroll — it
+        // parks on whichever stop the zone asked for. The stills have to agree.
+        // Left on the continuous schedule they answer to raw scroll instead, so
+        // parking near a band edge left TWO island framings at 0.43/0.57 on top
+        // of each other, which reads as a blurred, doubled, badly-encoded
+        // picture. Parked, the stack collapses to exactly the still the camera
+        // stopped on; travelling, it returns to the crossfade (and is hidden
+        // behind the clip anyway). `park` is 0 whenever no plan is driving, so
+        // the fallback stack is untouched.
+        if (snap) {
+          const park = clamp(1 - snap.travelRef.current)
+          vis += (((snap.indexAt(cp) === k ? 1 : 0) - vis) * park)
+        }
+        el.style.opacity = String(vis)
       }
     }
 
@@ -284,6 +300,13 @@ export function SceneMedia({
           reduced={reduced}
           heroLoop={heroLoop}
           heroLoopFade={scrubbing ? [0, CLIP_FADE_IN] : null}
+          // Only once the clip is actually driving. If it never loads, the
+          // stack stays on its own crossfade and behaves as the fallback.
+          snap={
+            scrubbing && clipPlan && status === 'ready'
+              ? { travelRef, indexAt: clipPlan.indexAt }
+              : null
+          }
         />
 
         {/* Inside the tilt wrapper, not beside it — the clip and the stills are
