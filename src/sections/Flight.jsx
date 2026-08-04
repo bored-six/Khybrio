@@ -68,10 +68,13 @@ function Headline({ parts, rotations }) {
  * and the scroll hint can't drift out of sync with the camera because they all
  * read the same value.
  */
-function FlightOverlay({ progressRef }) {
+function FlightOverlay({ progressRef, travellingRef }) {
   const copyRefs = useRef([])
   const cardRefs = useRef([])
   const hintRef = useRef(null)
+  const hintStartRef = useRef(null)
+  const hintMoreRef = useRef(null)
+  const chevRef = useRef(null)
 
   useProgressEffect(progressRef, (p) => {
     const seg = p * N // 0..N across the flight
@@ -94,9 +97,21 @@ function FlightOverlay({ progressRef }) {
         card.style.transform = `translate3d(${(1 - cardVis) * 24}px, 0, 0)`
       }
     }
+    // The cue is hidden while a segment plays and shown once it parks, so the
+    // stop reads as "your turn" instead of "it stopped". Past the last zone it
+    // stays down — there is nothing left to advance to.
+    const travelling = travellingRef?.current
+    const atEnd = p > 1 - 0.5 / N
     if (hintRef.current) {
-      hintRef.current.style.opacity = String(1 - smooth(band(p, 0, 0.06)))
+      hintRef.current.style.opacity = travelling || atEnd ? '0' : '1'
     }
+    if (chevRef.current) {
+      chevRef.current.style.opacity = travelling ? '0' : '1'
+    }
+    // Swap "scroll to fly in" for "keep scrolling" once underway.
+    const started = smooth(band(p, 0, 0.06))
+    if (hintStartRef.current) hintStartRef.current.style.opacity = String(1 - started)
+    if (hintMoreRef.current) hintMoreRef.current.style.opacity = String(started)
   })
 
   return (
@@ -213,15 +228,25 @@ function FlightOverlay({ progressRef }) {
         </div>
       </div>
 
-      {/* Scroll cue, first zone only. */}
+      {/* Scroll cue. Reads "fly in" at the very top, then becomes the parked
+          indicator: visible whenever the camera is stopped on a still and
+          waiting, hidden while a segment is playing. It is the only signal that
+          the flight is stepped rather than stuck, so it has to be legible the
+          moment the clip lands — hence no fade-in delay on the way back. */}
       <div
         ref={hintRef}
         className="pointer-events-none absolute inset-x-0 bottom-7 z-20 flex flex-col items-center gap-1.5 text-cream/60"
       >
-        <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em]">
-          {flight.hint}
+        <span className="relative text-[0.7rem] font-medium uppercase tracking-[0.2em]">
+          <span ref={hintStartRef}>{flight.hint}</span>
+          <span
+            ref={hintMoreRef}
+            className="absolute inset-0 whitespace-nowrap text-center opacity-0"
+          >
+            {flight.hintMore}
+          </span>
         </span>
-        <ChevronDown size={16} />
+        <ChevronDown ref={chevRef} size={16} className="animate-bounce" />
       </div>
     </>
   )
@@ -270,6 +295,11 @@ function ReducedLayout() {
 }
 
 export function Flight() {
+  // Whether a segment is currently playing. A ref, not state: it flips on the
+  // ticker and is only ever read from inside another ticker callback, so
+  // re-rendering the whole flight for it would be pure waste.
+  const travellingRef = useRef(false)
+
   return (
     <ScrollScene id="flight" scroll={scene.scroll} milestone={flightMilestone}>
       {({ progressRef, reduced }) =>
@@ -281,7 +311,10 @@ export function Flight() {
               mediaType={scene.mediaType}
               clip={scene.clip}
               clipRange={scene.clipRange}
-              clipWarp={scene.clipWarp}
+              clipPlan={scene.clipPlan}
+              onTravelChange={(t) => {
+                travellingRef.current = t
+              }}
               heroLoop={scene.heroLoop}
               stills={scene.stills}
               transition={scene.transition}
@@ -317,7 +350,7 @@ export function Flight() {
                   'linear-gradient(to top, rgba(28,77,74,0.45) 0%, rgba(28,77,74,0) 32%)',
               }}
             />
-            <FlightOverlay progressRef={progressRef} />
+            <FlightOverlay progressRef={progressRef} travellingRef={travellingRef} />
           </>
         )
       }

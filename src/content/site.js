@@ -147,6 +147,9 @@ export const runLog = {
  */
 export const flight = {
   hint: 'Scroll to fly in',
+  // Shown once the flight is underway, whenever the camera is parked on a zone
+  // and waiting for the next scroll.
+  hintMore: 'Scroll to keep flying',
   zones: [
     {
       key: 'open',

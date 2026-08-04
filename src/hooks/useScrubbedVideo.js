@@ -26,13 +26,20 @@ import { gsap, isCoarsePointer } from '../lib/smoothScroll'
  * stretched across the whole scene. The flight is generated one segment at a
  * time; each new segment widens this range rather than changing any code.
  *
- * `warp` re-times scroll against the clip. Scrubbing is linear by default, and
- * linear is wrong whenever the footage has held frames: a 1.5s freeze inside a
- * 77s clip is 1.9% of the scroll — about 170px of a 9000px pin — so the visitor
- * blows straight past the thing they were meant to stop and look at. Freezing
- * more frames cannot fix that; the dwell has to come from the mapping. `warp`
- * takes normalised clip position and returns normalised clip position, so it
- * can spend a third of a zone's scroll crossing one static second.
+ * `plan` swaps continuous scrubbing for stepped playback, which is what the
+ * flight uses. Under a plain scrub the clip is welded to the scroll: flick hard
+ * and 50 seconds of camera blur past, and there is no position the footage ever
+ * actually rests at. Re-timing the mapping helps but cannot fix it, because the
+ * speed is still the visitor's to set.
+ *
+ * A plan inverts that. Scroll only chooses WHICH stop is wanted; the clip then
+ * travels there at its own fixed rate and stops dead on arrival. One gesture
+ * plays one segment. Scrolling harder does not play it faster, it just queues
+ * the next stop, so the flight can never be driven into a mess.
+ *
+ *   plan.stops        normalised clip positions to rest at, in order
+ *   plan.indexAt(p)   which stop this scroll position is asking for
+ *   plan.rate         clip-seconds travelled per real second
  */
 export function useScrubbedVideo({
   videoRef,
@@ -40,16 +47,19 @@ export function useScrubbedVideo({
   src,
   enabled = true,
   range = [0, 1],
-  warp,
+  plan,
+  onTravelChange,
 }) {
   const [status, setStatus] = useState(enabled ? 'loading' : 'unavailable')
-  const stateRef = useRef({ cur: 0, lastSeek: -1 })
+  const stateRef = useRef({ cur: 0, lastSeek: -1, travelling: false })
   // Read through a ref so a fresh array literal from the caller can't tear down
   // and rebuild the ticker every render.
   const rangeRef = useRef(range)
   rangeRef.current = range
-  const warpRef = useRef(warp)
-  warpRef.current = warp
+  const planRef = useRef(plan)
+  planRef.current = plan
+  const travelCbRef = useRef(onTravelChange)
+  travelCbRef.current = onTravelChange
 
   // --- load the clip as a blob -------------------------------------------
   useEffect(() => {
@@ -126,11 +136,47 @@ export function useScrubbedVideo({
       const [r0, r1] = rangeRef.current
       const span = r1 - r0 || 1
       const raw = Math.min(1, Math.max(0, (progressRef.current - r0) / span))
-      const target = warpRef.current ? warpRef.current(raw) : raw
-      state.cur += (target - state.cur) * 0.18
+      const p = planRef.current
+      let arrived = false
+
+      if (p) {
+        // Stepped: scroll picks a stop, the clip walks there at a fixed rate.
+        const target = p.stops[Math.min(p.stops.length - 1, Math.max(0, p.indexAt(raw)))]
+        // deltaRatio() is frames-at-60fps, so /60 is the frame's real seconds.
+        // Capped so a backgrounded tab can't resume with one giant jump.
+        const dt = Math.min(0.05, gsap.ticker.deltaRatio() / 60)
+        const stride = (p.rate * dt) / video.duration
+        let gap = target - state.cur
+        // A fixed rate means a fast scroll would leave the clip crawling
+        // through every intervening segment while the copy is already six zones
+        // ahead — 26 seconds of catch-up on a flick to the end. So never trail
+        // by more than maxLag: close the rest instantly and play the last hop
+        // properly. Normal stepping never reaches this.
+        if (p.maxLag && Math.abs(gap) > p.maxLag) {
+          state.cur = target - Math.sign(gap) * p.maxLag
+          gap = target - state.cur
+        }
+        if (Math.abs(gap) <= stride) {
+          state.cur = target // land exactly, then hold — this is the hard stop
+          arrived = true
+        } else {
+          state.cur += Math.sign(gap) * stride
+        }
+      } else {
+        state.cur += (raw - state.cur) * 0.18
+      }
+
+      if (state.travelling === arrived) {
+        state.travelling = !arrived
+        travelCbRef.current?.(state.travelling)
+      }
 
       if (video.seeking) return
-      if (Math.abs(state.cur - state.lastSeek) < eps) return
+      // On arrival, force the final seek through: it is usually smaller than
+      // eps, and skipping it would park a frame short of the stop every time.
+      if (arrived) {
+        if (state.lastSeek === state.cur) return
+      } else if (Math.abs(state.cur - state.lastSeek) < eps) return
 
       state.lastSeek = state.cur
       video.currentTime = state.cur * video.duration

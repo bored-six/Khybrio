@@ -194,7 +194,8 @@ export function SceneMedia({
   mediaType = 'image',
   clip,
   clipRange = [0, 1],
-  clipWarp,
+  clipPlan,
+  onTravelChange,
   heroLoop,
   stills,
   foreground,
@@ -215,7 +216,8 @@ export function SceneMedia({
     src: clip,
     enabled: scrubbing,
     range: clipRange,
-    warp: clipWarp,
+    plan: clipPlan,
+    onTravelChange,
   })
 
   // The clip's opacity is per-frame, not a CSS transition — it has to track
