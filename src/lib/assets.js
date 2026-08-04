@@ -38,40 +38,16 @@ export const A = {
   // public/assets/showcase/ if a real portfolio section comes back.
 
   /**
-   * The scrubbed island flight, 77.5s, built by scripts/build-flight.sh. Each
-   * zone runs three beats on an 11s stride:
-   *
-   *   HOLD 3.0s  the original 4K still, frozen — the zone's copy reads against
-   *              a clean frame. The source PNG (exported below) is sharper than
-   *              anything the codec hands back, so the hold uses it directly.
-   *   FLY  8.0s  the Higgsfield segment, scrubbed by scroll.
-   *   LAND 1.5s  the clip's own last frame, frozen — the camera settles where
-   *              it actually arrived before the next beat starts.
-   *
-   * LAND and the following HOLD are the same framing only in intent: Seedance
-   * drifts, so a clip's last frame lands 0.74–0.91 SSIM from the original it
-   * was told to end on. Freezing the arrival first and then dissolving to the
-   * crisp original turns that gap into a deliberate settle rather than a smear
-   * applied mid-motion. Every junction is a 0.5s crossfade.
-   *
-   * Watermark painted out (the source is stamped bottom-right). Encoded at a
-   * normal 2s GOP, NOT the short one a scrubbed clip needs: the flight is
-   * played rather than seeked now (see useScrubbedVideo's plan branch), and a
-   * keyframe every 12 frames was eating most of the bitrate — 1.67 Mbps of
-   * visibly mushy 1080p. Same content at 2.78 Mbps once that budget went back
-   * into the picture.
-   *
-   * It does not have to carry the still frames, either. The camera parks on a
-   * still at every stop, and SceneMedia fades the clip out there to reveal the
-   * 4K original underneath — so the clip only has to look good in motion, where
-   * the eye is least able to see compression anyway.
-   */
-  flightClip: `${BASE}assets/world/island-flight.mp4`,
-
-  /**
    * Ambient loop over the hero zone, before the visitor scrolls. Ping-ponged
    * locally from the Higgsfield clip — the source drifts, so its first and last
    * frames don't match and looping it raw snapped on every wrap.
+   *
+   * The only video left in the flight. `flightClip` — the seven stitched
+   * HIGGSFIELD.md segments — is gone: the footage came back 1080p where the
+   * plan called for 4K, so it was magnified ~1.6x on a retina viewport and read
+   * softer than the 2752px stills behind it. 25MB to look worse. Re-add the
+   * export and flip `mediaType` in scenes.config.js if 4K clips ever land;
+   * scripts/build-flight.sh still rebuilds the stitch.
    */
   heroLoop: `${BASE}assets/world/hero-loop.mp4`,
 

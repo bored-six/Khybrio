@@ -31,12 +31,7 @@ const ctaClick = (cta) => (e) => {
  * clamped fully on before its centre and the last fully on after, so the
  * opening and closing copy read at full strength at the very top and bottom.
  */
-// Crossfade width, in zone-band units. Tightened from 0.42 once the flight
-// video gained a held still at the head of every zone: the copy has to be fully
-// up while its image is frozen, and at 0.42 it was still fading in for the
-// first two-fifths of the hold. At 0.28 it settles ~1.7s into the band against
-// a 3.5s hold, so text and clean frame are both readable together.
-const W = 0.28
+const W = 0.42 // crossfade width, in zone-band units
 function zoneVis(seg, i) {
   let rise = smooth(clamp01((seg - (i - W / 2)) / W))
   let fall = smooth(clamp01((seg - (i + 1 - W / 2)) / W))
@@ -68,13 +63,10 @@ function Headline({ parts, rotations }) {
  * and the scroll hint can't drift out of sync with the camera because they all
  * read the same value.
  */
-function FlightOverlay({ progressRef, travellingRef }) {
+function FlightOverlay({ progressRef }) {
   const copyRefs = useRef([])
   const cardRefs = useRef([])
   const hintRef = useRef(null)
-  const hintStartRef = useRef(null)
-  const hintMoreRef = useRef(null)
-  const chevRef = useRef(null)
 
   useProgressEffect(progressRef, (p) => {
     const seg = p * N // 0..N across the flight
@@ -97,21 +89,9 @@ function FlightOverlay({ progressRef, travellingRef }) {
         card.style.transform = `translate3d(${(1 - cardVis) * 24}px, 0, 0)`
       }
     }
-    // The cue is hidden while a segment plays and shown once it parks, so the
-    // stop reads as "your turn" instead of "it stopped". Past the last zone it
-    // stays down — there is nothing left to advance to.
-    const travelling = travellingRef?.current
-    const atEnd = p > 1 - 0.5 / N
     if (hintRef.current) {
-      hintRef.current.style.opacity = travelling || atEnd ? '0' : '1'
+      hintRef.current.style.opacity = String(1 - smooth(band(p, 0, 0.06)))
     }
-    if (chevRef.current) {
-      chevRef.current.style.opacity = travelling ? '0' : '1'
-    }
-    // Swap "scroll to fly in" for "keep scrolling" once underway.
-    const started = smooth(band(p, 0, 0.06))
-    if (hintStartRef.current) hintStartRef.current.style.opacity = String(1 - started)
-    if (hintMoreRef.current) hintMoreRef.current.style.opacity = String(started)
   })
 
   return (
@@ -228,25 +208,15 @@ function FlightOverlay({ progressRef, travellingRef }) {
         </div>
       </div>
 
-      {/* Scroll cue. Reads "fly in" at the very top, then becomes the parked
-          indicator: visible whenever the camera is stopped on a still and
-          waiting, hidden while a segment is playing. It is the only signal that
-          the flight is stepped rather than stuck, so it has to be legible the
-          moment the clip lands — hence no fade-in delay on the way back. */}
+      {/* Scroll cue, first zone only. */}
       <div
         ref={hintRef}
         className="pointer-events-none absolute inset-x-0 bottom-7 z-20 flex flex-col items-center gap-1.5 text-cream/60"
       >
-        <span className="relative text-[0.7rem] font-medium uppercase tracking-[0.2em]">
-          <span ref={hintStartRef}>{flight.hint}</span>
-          <span
-            ref={hintMoreRef}
-            className="absolute inset-0 whitespace-nowrap text-center opacity-0"
-          >
-            {flight.hintMore}
-          </span>
+        <span className="text-[0.7rem] font-medium uppercase tracking-[0.2em]">
+          {flight.hint}
         </span>
-        <ChevronDown ref={chevRef} size={16} className="animate-bounce" />
+        <ChevronDown size={16} />
       </div>
     </>
   )
@@ -295,11 +265,6 @@ function ReducedLayout() {
 }
 
 export function Flight() {
-  // Whether a segment is currently playing. A ref, not state: it flips on the
-  // ticker and is only ever read from inside another ticker callback, so
-  // re-rendering the whole flight for it would be pure waste.
-  const travellingRef = useRef(false)
-
   return (
     <ScrollScene id="flight" scroll={scene.scroll} milestone={flightMilestone}>
       {({ progressRef, reduced }) =>
@@ -309,12 +274,6 @@ export function Flight() {
           <>
             <SceneMedia
               mediaType={scene.mediaType}
-              clip={scene.clip}
-              clipRange={scene.clipRange}
-              clipPlan={scene.clipPlan}
-              onTravelChange={(t) => {
-                travellingRef.current = t
-              }}
               heroLoop={scene.heroLoop}
               stills={scene.stills}
               transition={scene.transition}
@@ -350,7 +309,7 @@ export function Flight() {
                   'linear-gradient(to top, rgba(28,77,74,0.45) 0%, rgba(28,77,74,0) 32%)',
               }}
             />
-            <FlightOverlay progressRef={progressRef} travellingRef={travellingRef} />
+            <FlightOverlay progressRef={progressRef} />
           </>
         )
       }
