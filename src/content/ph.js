@@ -250,11 +250,14 @@ export const contact = {
   // Kung hindi pa nakakabit ang form. Contact.jsx is shared with the main page,
   // so this key has to exist here too or the PH form fails silently — which is
   // the exact thing the note is there to prevent.
+  // Kapag nag-submit ulit agad — pampakalma, hindi pang-akusa.
+  cooldownNote:
+    'Nakuha na namin ang una mo — hindi na kailangang ulitin. Sagot kami sa loob ng ilang oras. Kung may madalian, message mo na lang kami sa Facebook o Instagram.',
   fallbackNote:
     'May diperensya ang form namin — i-message mo na lang kami sa Facebook o Instagram, o mag-email sa khybrio.org@gmail.com. Pareho lang ang sagot.',
   // PLACEHOLDER — same Formspree endpoint as the main page. Paste it in
   // content/site.js and set this to match, or import it from there.
-  formEndpoint: null,
+  formEndpoint: 'https://formspree.io/f/xrpzzyre',
   fields: {
     name: { label: 'Pangalan mo', placeholder: 'Juan Dela Cruz' },
     business: { label: 'Pangalan ng negosyo', placeholder: 'Tindahan mo' },

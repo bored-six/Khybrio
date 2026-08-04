@@ -57,6 +57,20 @@ const CHANNEL_ICONS = {
  * messages the form says so and points at the channels above it, which work
  * today.
  */
+/**
+ * How long after a successful send before the form will submit again.
+ *
+ * This is a courtesy rail, NOT security. It lives in localStorage, so anyone
+ * who opens a private window or clears storage is past it in seconds — and it
+ * is worth being clear-eyed about that rather than believing the form is
+ * protected. What it actually stops is the common case: the impatient
+ * double-click, the "did that send?" resubmit, and idle mischief. Real abuse
+ * has to be stopped server-side, which for us means Formspree's own filtering
+ * and the reCAPTCHA toggle in its dashboard.
+ */
+const COOLDOWN_MS = 5 * 60 * 1000
+const COOLDOWN_KEY = 'khybrio:lastSent'
+
 export function Contact() {
   const { contact } = useContent()
   const f = contact.fields
@@ -67,6 +81,18 @@ export function Contact() {
     if (!contact.formEndpoint) {
       setStatus('unconfigured')
       return
+    }
+
+    // Guarded: Safari in private mode throws on localStorage rather than
+    // returning null, and a storage exception must never cost us a lead.
+    try {
+      const last = Number(localStorage.getItem(COOLDOWN_KEY) || 0)
+      if (last && Date.now() - last < COOLDOWN_MS) {
+        setStatus('cooldown')
+        return
+      }
+    } catch {
+      /* no storage, no rail — send anyway */
     }
 
     setStatus('sending')
@@ -87,7 +113,16 @@ export function Contact() {
         body: JSON.stringify(data),
       })
       setStatus(res.ok ? 'sent' : 'error')
-      if (res.ok) e.target.reset()
+      if (res.ok) {
+        e.target.reset()
+        // Only stamp on success — a failed send must not lock the visitor out
+        // of retrying the one thing the whole page asks them to do.
+        try {
+          localStorage.setItem(COOLDOWN_KEY, String(Date.now()))
+        } catch {
+          /* storage unavailable; the send already worked, which is what matters */
+        }
+      }
     } catch {
       setStatus('error')
     }
@@ -240,6 +275,11 @@ export function Contact() {
             <p className="text-sm font-medium text-coral">
               {contact.fallbackNote}
             </p>
+          ) : null}
+          {/* Reassuring, not accusatory. Almost everyone who trips this is a
+              real person who was not sure the first one went through. */}
+          {status === 'cooldown' ? (
+            <p className="text-sm font-medium text-teal-bright">{contact.cooldownNote}</p>
           ) : null}
         </form>
       </div>

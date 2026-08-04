@@ -561,6 +561,13 @@ export const contact = {
    * the last thing a lead reads before they give up, at the end of the only
    * conversion path on the page.
    */
+  /**
+   * Shown when someone submits again inside the cooldown. Reads as reassurance
+   * rather than an accusation — nearly everyone who sees it is a real person
+   * who was not certain the first one sent.
+   */
+  cooldownNote:
+    'That one is already with us — no need to send it twice. Give us a few hours to come back to you, and message us on Facebook or Instagram if something urgent changed.',
   fallbackNote:
     'Our form is having a moment — send your three straight to khybrio.org@gmail.com, or message us on Facebook or Instagram. Same reply, same free audit.',
   /**
@@ -575,7 +582,7 @@ export const contact = {
    *
    * Until this is set, every CTA on the page dead-ends into `fallbackNote`.
    */
-  formEndpoint: null,
+  formEndpoint: 'https://formspree.io/f/xrpzzyre',
   fields: {
     name: { label: 'Your name', placeholder: 'Alex Chen' },
     business: { label: 'Business name', placeholder: 'Your business' },
