@@ -212,7 +212,7 @@ export function Hero() {
           {hero.eyebrow}
         </p>
 
-        <h1 className="mt-6 font-normal leading-[0.95] tracking-[-0.03em] text-cream [font-size:clamp(2.9rem,7.5vw,5.6rem)]">
+        <h1 className="mt-6 font-normal leading-[0.95] tracking-[-0.03em] text-cream [font-size:clamp(2.6rem,7.5vw,5.6rem)]">
           <SplitWords text={hero.title[0]} />{' '}
           {/* The punctuation rides inside the nowrap group so it can never
               wrap onto a line of its own. */}

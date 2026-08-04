@@ -64,7 +64,14 @@ export const hero = {
   // the FAQ then had to settle two screens later ("Will this replace our
   // staff?" — "Not in our experience, and it is not what we are selling").
   // Same insight, inverted: the people are good, the work is beneath them.
-  title: ['Your best people, ', 'free of the busywork', '.'],
+  // The coral phrase is the ONLY part that cannot wrap — the hand-drawn
+  // squiggle is one SVG sitting under it, so a line break would tear the
+  // underline in half. That makes its length a hard layout constraint, not a
+  // styling choice: at the hero's size "free of the busywork" measured 429px
+  // and simply hung off the side of a 375px phone. Accenting just the noun
+  // keeps the same sentence, keeps the squiggle, and lets "free of" wrap like
+  // ordinary text. Keep this phrase SHORT if it is ever rewritten.
+  title: ['Your best people, free of ', 'the busywork', '.'],
   sub: 'We find the repetitive work eating your week — the copy-pasting, the re-typing, the chasing — and make it run itself. Then we hand it over, documented, in your name.',
   ctas: {
     primary: { label: 'Get a free workflow audit', href: '#contact' },
