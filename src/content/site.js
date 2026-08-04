@@ -59,7 +59,12 @@ export const nav = [
  */
 export const hero = {
   eyebrow: 'Automation for small businesses',
-  title: ['Your team is doing a ', "computer's job", '.'],
+  // "Your team is doing a computer's job" read as an accusation about the
+  // staff — that they were wasteful, or replaceable. It also picked a fight
+  // the FAQ then had to settle two screens later ("Will this replace our
+  // staff?" — "Not in our experience, and it is not what we are selling").
+  // Same insight, inverted: the people are good, the work is beneath them.
+  title: ['Your best people, ', 'free of the busywork', '.'],
   sub: 'We find the repetitive work eating your week — the copy-pasting, the re-typing, the chasing — and make it run itself. Then we hand it over, documented, in your name.',
   ctas: {
     primary: { label: 'Get a free workflow audit', href: '#contact' },
