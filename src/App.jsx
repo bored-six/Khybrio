@@ -10,7 +10,6 @@ import { Services } from './sections/Services'
 import { Automate } from './sections/Automate'
 import { Process } from './sections/Process'
 import { Pricing } from './sections/Pricing'
-import { Team } from './sections/Team'
 import { About } from './sections/About'
 import { Faq } from './sections/Faq'
 import { Contact } from './sections/Contact'
@@ -60,7 +59,6 @@ export default function App() {
           <Process />
           <Pricing />
         </div>
-        <Team />
         <About />
         <Faq />
         <Contact />

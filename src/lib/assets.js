@@ -78,28 +78,9 @@ export const A = {
     alt: 'Khybrio — local digital presence',
   },
 
-  /**
-   * Real team headshots, keyed by the `photo` field on each member in
-   * content/site.js. A member who omits the key falls back to the initials
-   * avatar, so the grid stays even.
-   */
-  teamPhotos: {
-    shiek: {
-      src: `${BASE}assets/team/shiek.jpg`,
-      placeholder: `${BASE}assets/placeholders/05-shiek.svg`,
-      alt: 'Shiek Abdurahman',
-    },
-    dave: {
-      src: `${BASE}assets/team/dave.jpg`,
-      placeholder: `${BASE}assets/placeholders/06-dave.svg`,
-      alt: 'Dave Calio',
-    },
-    haiqal: {
-      src: `${BASE}assets/team/haiqal.jpg`,
-      placeholder: `${BASE}assets/placeholders/07-haiqal.svg`,
-      alt: 'Haiqal Munjalin',
-    },
-  },
+  // `teamPhotos` went with the team section. The headshots are still in
+  // public/assets/team/ — nothing requests them, so they cost no page weight,
+  // and they are there if the section ever comes back.
 
   // Generated Khybi mascot renders (cream background, watermark removed).
   khybiWave: {

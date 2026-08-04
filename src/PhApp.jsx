@@ -9,7 +9,6 @@ import { NfcTapDemo } from './sections/NfcTapDemo'
 import { Process } from './sections/Process'
 import { MascotIntro } from './sections/MascotIntro'
 import { Pricing } from './sections/Pricing'
-import { Team } from './sections/Team'
 import { About } from './sections/About'
 import { Faq } from './sections/Faq'
 import { Contact } from './sections/Contact'
@@ -47,7 +46,6 @@ export default function PhApp() {
         <Process />
         <MascotIntro />
         <Pricing />
-        <Team />
         <About />
         <Faq />
         <Contact />
