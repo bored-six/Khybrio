@@ -10,6 +10,7 @@ import { Automate } from './sections/Automate'
 import { Improves } from './sections/Improves'
 import { Process } from './sections/Process'
 import { Pricing } from './sections/Pricing'
+import { NotFor } from './sections/NotFor'
 import { Faq } from './sections/Faq'
 import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
@@ -58,6 +59,7 @@ export default function App() {
           <Process />
           <Pricing />
         </div>
+        <NotFor />
         <Faq />
         <Contact />
       </main>

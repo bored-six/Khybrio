@@ -247,6 +247,11 @@ export const contact = {
   title: 'Sabihin mo kung ano ang binebenta mo. Sasabihin namin kung ano ang kulang.',
   body: 'Sapat na ang maikling mensahe. Sasagutin ka namin sa kahit alin dito na ginagamit mo.',
   submitLabel: 'Ipadala',
+  // Kung hindi pa nakakabit ang form. Contact.jsx is shared with the main page,
+  // so this key has to exist here too or the PH form fails silently — which is
+  // the exact thing the note is there to prevent.
+  fallbackNote:
+    'May diperensya ang form namin — i-message mo na lang kami sa Facebook o Instagram, o mag-email sa khybrio.org@gmail.com. Pareho lang ang sagot.',
   // PLACEHOLDER — same Formspree endpoint as the main page. Paste it in
   // content/site.js and set this to match, or import it from there.
   formEndpoint: null,

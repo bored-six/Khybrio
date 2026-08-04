@@ -199,14 +199,16 @@ export function Contact() {
               That didn’t go through. Use one of the channels on the left instead.
             </p>
           ) : null}
+          {/* Written for the visitor, not the developer. This used to name a
+              config key and a source file — a small-business owner who filled
+              the form in and pressed send was told to go and edit
+              src/content/site.js. It is the last thing anyone sees before they
+              give up, on a page whose whole argument is that we are competent
+              at plumbing. The fix for the endpoint belongs in the code comment
+              on `contact.formEndpoint`, where a developer will actually look. */}
           {status === 'unconfigured' ? (
             <p className="text-sm font-medium text-coral">
-              This form isn’t connected yet — set{' '}
-              <code className="rounded bg-teal-soft/40 px-1.5 py-0.5 text-[0.85em]">
-                contact.formEndpoint
-              </code>{' '}
-              in <code className="text-[0.85em]">src/content/site.js</code>. Email us or
-              message us on Facebook or Instagram in the meantime.
+              {contact.fallbackNote}
             </p>
           ) : null}
         </form>

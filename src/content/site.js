@@ -65,7 +65,10 @@ export const hero = {
     primary: { label: 'Get a free workflow audit', href: '#contact' },
     secondary: { label: 'See what we automate', href: '#automate' },
   },
-  trust: ['Fixed price', 'Built in weeks, not quarters', 'You own everything'],
+  // "Built in weeks, not quarters" was a comparative promise with nothing
+  // hedging it. Voice rule 3 is under-promise timing and frame it as a target,
+  // so this states the target and owns the dependency instead.
+  trust: ['Fixed price', 'Usually live inside four weeks', 'You own everything'],
 }
 
 /**
@@ -346,7 +349,7 @@ export const automate = {
 export const process = {
   eyebrow: 'How it works',
   title: 'Four steps — and you can stop after the first.',
-  body: 'The audit is free and self-contained. If you take the video and build it yourself, that is a fine outcome.',
+  body: 'The audit is free and self-contained. If you take the video and build it yourself, that is a fine outcome. The timings below are what we aim for — they hold as long as we can get at the tools, which is the part that usually decides the pace.',
   steps: [
     {
       n: '01',
@@ -467,6 +470,43 @@ export const pricing = {
  * highest-intent questions on the page — nobody asks how to pay for something
  * they are not buying.
  */
+/**
+ * Who this is not for — the page's only moment of pushing back.
+ *
+ * Voice rule 7 is "push back on flawed requests rather than quietly shipping
+ * them", and until now the page did that nowhere: every section argued for the
+ * sale. For a vendor with no case studies, naming the buyer you would turn away
+ * is the cheapest trust available — it is the one claim a liar has no incentive
+ * to make. It also does real qualifying work, since the audit is free and
+ * unsuitable leads cost actual hours.
+ *
+ * Every line has to be one we would genuinely honour on a call. If we would
+ * take the money anyway, it does not belong here.
+ */
+export const notFor = {
+  eyebrow: 'Before you send it',
+  title: 'When we are the wrong call',
+  body: 'The audit is free, so there is no cost to finding out. But it is a faster answer for everyone if one of these is you.',
+  items: [
+    {
+      title: 'The process changes every week',
+      body: 'Automation locks in a way of doing something. If the way is still moving, we would be hardening a decision you have not made yet — and you would be paying us to rebuild it next month.',
+    },
+    {
+      title: 'The task needs judgement, not speed',
+      body: 'Pricing an awkward job, reading whether a customer is about to walk, deciding who to hire. We can move the information around it faster; we cannot make the call, and anyone who says they can is selling you something else.',
+    },
+    {
+      title: 'You want a headcount cut',
+      body: 'What this replaces is the re-typing, not the person doing it. If the brief is fewer staff, the numbers will disappoint you and we would rather say that now than after an invoice.',
+    },
+    {
+      title: 'It happens twice a year',
+      body: 'A build has to earn its cost back in time saved. Something you do at month-end for twenty minutes probably never will — write it down properly instead and keep your money.',
+    },
+  ],
+}
+
 export const faq = {
   eyebrow: 'Before you ask',
   title: 'What we build, and what it takes',
@@ -516,10 +556,24 @@ export const contact = {
   body: 'That is the whole audit. Send your three most repeated tasks and we send back a short video showing what we would automate — free, no call, no obligation.',
   submitLabel: 'Send us your three',
   /**
+   * What the visitor sees if they submit before the endpoint is wired. It has
+   * to name a channel that works TODAY and stay in the site's voice — this is
+   * the last thing a lead reads before they give up, at the end of the only
+   * conversion path on the page.
+   */
+  fallbackNote:
+    'Our form is having a moment — send your three straight to khybrio.org@gmail.com, or message us on Facebook or Instagram. Same reply, same free audit.',
+  /**
    * PLACEHOLDER — paste the Formspree endpoint here (it looks like
-   * 'https://formspree.io/f/xxxxxxxx') and both pages start submitting. Until
-   * it is set the form tells the visitor it is not connected rather than
-   * quietly dropping their message.
+   * 'https://formspree.io/f/xxxxxxxx') and both pages start submitting.
+   *
+   * Formspree needs no code change: Contact.jsx already POSTs JSON with
+   * `Accept: application/json`, which is exactly its AJAX contract. Web3Forms
+   * is the fallback if the free tier (50/month) ever runs out, but it wants an
+   * `access_key` in the body, so that one is not a drop-in. Netlify Forms
+   * cannot work at all from GitHub Pages.
+   *
+   * Until this is set, every CTA on the page dead-ends into `fallbackNote`.
    */
   formEndpoint: null,
   fields: {
