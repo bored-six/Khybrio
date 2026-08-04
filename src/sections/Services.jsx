@@ -1,78 +1,112 @@
 import { Globe, MapPin, Check, Workflow, Star } from 'lucide-react'
 import { Words } from '../components/Words'
 import { Reveal } from '../components/Reveal'
+import { AssetImage } from '../components/AssetImage'
+import { A } from '../lib/assets'
 import { useContent } from '../content/context'
 
 const ICONS = { globe: Globe, pin: MapPin, workflow: Workflow, star: Star }
 
 /**
- * The lines of work. Cards slide in from alternating wings on a spring, a
- * ghost numeral sits behind each one, and every checklist point lands with
- * its own beat — the section has to feel built, not listed.
+ * The lines of work — one full-width row each: the island zone that stands for
+ * the work on one side, what it actually is on the other, alternating sides
+ * down the section.
+ *
+ * This replaced a three-card grid. The cards gave each line of work a third of
+ * a row and a 12-word summary, which read as a menu; a row gives it half the
+ * page and a picture, which reads as an argument. The zone renders were already
+ * carrying that meaning in the flight above — the desk nook IS the automation
+ * zone — so pairing them here costs no new assets and keeps the island running
+ * through the page instead of ending when the flight does.
+ *
+ * The image side alternates so the eye is handed across the page rather than
+ * marching down one column, and the numeral sits in the image corner where it
+ * doubles as the visual's label.
  */
 export function Services() {
   const { services } = useContent()
+
   return (
     <section id="services" className="relative z-10 bg-cream px-5 py-16 sm:px-8 sm:py-20">
       <div className="mx-auto max-w-7xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-bright">
-          {services.eyebrow}
-        </p>
-        <h2 className="mt-3 max-w-3xl text-[clamp(1.9rem,4.5vw,3rem)] font-bold text-teal-deep">
-          <Words text={services.title} />
-        </h2>
-        <p className="mt-4 max-w-2xl leading-relaxed text-ink-muted">{services.body}</p>
+        {/* Centred opening — the heading has to sit over the whole section now
+            that what follows is two columns wide rather than three. */}
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-bright">
+            {services.eyebrow}
+          </p>
+          <h2 className="mt-3 text-[clamp(1.9rem,4.5vw,3rem)] font-bold text-teal-deep">
+            <Words text={services.title} />
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-ink-muted">{services.body}</p>
+        </div>
 
-        <Reveal
-          from={{ x: (i) => (i % 2 ? 110 : -110) }}
-          stagger={0.11}
-          duration={1}
-          className={`mt-12 grid gap-5 md:grid-cols-2 ${services.items.length > 3 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}
-        >
-          {services.items.map((item) => {
+        <div className="mt-14 flex flex-col gap-16 sm:mt-16 sm:gap-20">
+          {services.items.map((item, i) => {
             const Icon = ICONS[item.icon] ?? Globe
+            const flipped = i % 2 === 1
             return (
-              <article
+              <Reveal
                 key={item.name}
-                className="group relative flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-teal-soft/20 p-7 ring-1 ring-transparent transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(15,43,41,0.15)] hover:ring-coral/40"
+                // Halves converge from their own sides, so a row assembles
+                // instead of arriving as one block.
+                from={{ x: (c) => ((c === 0) !== flipped ? -70 : 70) }}
+                stagger={0.08}
+                duration={0.9}
+                className="grid items-center gap-8 md:grid-cols-2 md:gap-14"
               >
-                {/* Accent bars sweep opposite ways on hover — top from the
-                    left, bottom from the right — so the border feels drawn. */}
-                <span className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-coral transition-transform duration-500 ease-out group-hover:scale-x-100" />
-                <span className="absolute inset-x-0 bottom-0 h-1 origin-right scale-x-0 bg-coral transition-transform duration-500 ease-out group-hover:scale-x-100" />
-
-                {/* Ghost numeral, the editorial watermark. */}
-                <span
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-2 -top-6 font-display text-[7rem] font-bold leading-none text-teal-deep/6 transition-colors duration-500 group-hover:text-coral/10"
-                >
-                  {item.n}
-                </span>
-
-                <div className="flex items-center gap-3">
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-deep transition-transform duration-500 ease-out group-hover:-rotate-6 group-hover:scale-110">
-                    <Icon size={22} color="var(--color-cream)" strokeWidth={1.9} />
-                  </span>
-                  <span className="font-display text-sm font-bold text-coral">{item.n}</span>
-                </div>
-                <h3 className="mt-5 font-display text-xl font-bold text-teal-deep">{item.name}</h3>
-                <p className="mt-2.5 leading-relaxed text-ink-muted">{item.body}</p>
-                <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5">
-                  {item.points.map((p) => (
-                    <li
-                      key={p}
-                      className="flex items-center gap-2 text-sm text-teal-deep transition-transform duration-300 group-hover:translate-x-0.5"
+                {/* `md:order-2` moves the visual right on odd rows without
+                    reordering the DOM, so reading order stays image-then-copy
+                    for a screen reader on every row. */}
+                <div className={flipped ? 'md:order-2' : ''}>
+                  <div className="group relative overflow-hidden rounded-[var(--radius-card)] bg-teal-soft/20 ring-1 ring-teal-deep/5">
+                    <AssetImage
+                      asset={A[item.still] ?? A.hero}
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    />
+                    {/* On a solid chip, not bare cream type. Every one of
+                        these renders is pale cream haze in the top corner —
+                        cream numerals measured 1.2:1 against it, which is
+                        invisible, and on two of the three the darkest pixel in
+                        that whole region was 222, so there was nothing to sit
+                        on. The chip carries its own background instead. */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-2xl bg-teal-deep/90 font-display text-lg font-bold leading-none text-cream backdrop-blur-sm"
                     >
-                      <Check size={15} strokeWidth={2.5} color="var(--color-coral)" className="shrink-0" />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+                      {item.n}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={flipped ? 'md:order-1' : ''}>
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-12 w-12 place-items-center rounded-2xl bg-teal-deep">
+                      <Icon size={22} color="var(--color-cream)" strokeWidth={1.9} />
+                    </span>
+                    <span className="font-display text-sm font-bold text-coral">{item.n}</span>
+                  </div>
+
+                  <h3 className="mt-5 font-display text-[clamp(1.35rem,2.4vw,1.9rem)] font-bold text-teal-deep">
+                    {item.name}
+                  </h3>
+                  <p className="mt-3 max-w-xl leading-relaxed text-ink-muted">{item.body}</p>
+
+                  <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                    {item.points.map((p) => (
+                      <li key={p} className="flex items-start gap-2.5 text-teal-deep">
+                        <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-coral/12">
+                          <Check size={13} strokeWidth={3} color="var(--color-coral)" />
+                        </span>
+                        <span className="text-sm leading-snug">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
             )
           })}
-        </Reveal>
-
+        </div>
       </div>
     </section>
   )

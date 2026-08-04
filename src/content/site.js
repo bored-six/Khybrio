@@ -241,6 +241,10 @@ export const services = {
     {
       n: '01',
       icon: 'workflow',
+      // Which island zone stands beside this line of work. The renders already
+      // carry the meaning — the desk nook is the one with the code brackets —
+      // so the picture argues the same point as the list next to it.
+      still: 'shiek',
       name: 'Workflow automation',
       body: 'We map what your team actually repeats, then build it away — so the work happens whether or not anyone remembers to do it.',
       points: [
@@ -253,6 +257,7 @@ export const services = {
     {
       n: '02',
       icon: 'globe',
+      still: 'webDesk',
       name: 'Websites & booking',
       body: 'A site that does something — takes bookings, captures enquiries, feeds the automations behind it. Not a brochure.',
       points: [
@@ -265,6 +270,7 @@ export const services = {
     {
       n: '03',
       icon: 'pin',
+      still: 'signalTower',
       name: 'Local presence',
       body: 'The listing people actually find you through, set up the way Google expects, with a review flow that keeps running.',
       points: [

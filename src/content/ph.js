@@ -70,6 +70,8 @@ export const services = {
     {
       n: '01',
       icon: 'pin',
+      // Island zone that stands for the work — see Services.jsx.
+      still: 'signalTower',
       name: 'Google Business Profile',
       body: 'I-claim, i-verify at kumpletuhin ang listing mo — kategorya, oras, address, litrato — para lumabas ka kapag may naghanap malapit sa iyo.',
       points: ['Claim & verify', 'Tamang oras at pin', 'Litrato at kategorya', 'Ayusin ang mali'],
@@ -77,6 +79,7 @@ export const services = {
     {
       n: '02',
       icon: 'star',
+      still: 'nfcKiosk',
       name: 'Reviews (buwanan)',
       body: 'Kami ang bahala sa pagkuha ng review — kasama na ang libreng tap card o counter stand. Ito ang nagpapataas sa Maps.',
       points: ['Libreng tap card', 'Counter stand', 'Follow-up para sa staff', 'Sinasagot ang reviews'],
@@ -84,6 +87,7 @@ export const services = {
     {
       n: '03',
       icon: 'globe',
+      still: 'webDesk',
       name: 'Website & booking',
       body: 'Mabilis, mobile-first, at may silbi — tumatanggap ng booking o inquiry, hindi lang pang-porma.',
       points: ['Bilis kahit mahina ang signal', 'Booking at inquiry form', 'Contact na madaling pindutin', 'Sa iyo ang domain'],
@@ -91,6 +95,7 @@ export const services = {
     {
       n: '04',
       icon: 'workflow',
+      still: 'shiek',
       name: 'Automation',
       body: 'Ang paulit-ulit na trabaho — pag-encode ng order, paghabol ng bayad, pagpapaalala — pinapagana namin nang kusa.',
       points: ['Order mula sa Messenger', 'Paalala sa booking', 'Habol sa hindi bayad', 'Report na kusang gawa'],
