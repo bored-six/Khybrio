@@ -25,6 +25,14 @@ import { gsap, isCoarsePointer } from '../lib/smoothScroll'
  * spans the opening zones still plays at its true speed instead of being
  * stretched across the whole scene. The flight is generated one segment at a
  * time; each new segment widens this range rather than changing any code.
+ *
+ * `warp` re-times scroll against the clip. Scrubbing is linear by default, and
+ * linear is wrong whenever the footage has held frames: a 1.5s freeze inside a
+ * 77s clip is 1.9% of the scroll — about 170px of a 9000px pin — so the visitor
+ * blows straight past the thing they were meant to stop and look at. Freezing
+ * more frames cannot fix that; the dwell has to come from the mapping. `warp`
+ * takes normalised clip position and returns normalised clip position, so it
+ * can spend a third of a zone's scroll crossing one static second.
  */
 export function useScrubbedVideo({
   videoRef,
@@ -32,6 +40,7 @@ export function useScrubbedVideo({
   src,
   enabled = true,
   range = [0, 1],
+  warp,
 }) {
   const [status, setStatus] = useState(enabled ? 'loading' : 'unavailable')
   const stateRef = useRef({ cur: 0, lastSeek: -1 })
@@ -39,6 +48,8 @@ export function useScrubbedVideo({
   // and rebuild the ticker every render.
   const rangeRef = useRef(range)
   rangeRef.current = range
+  const warpRef = useRef(warp)
+  warpRef.current = warp
 
   // --- load the clip as a blob -------------------------------------------
   useEffect(() => {
@@ -114,7 +125,8 @@ export function useScrubbedVideo({
 
       const [r0, r1] = rangeRef.current
       const span = r1 - r0 || 1
-      const target = Math.min(1, Math.max(0, (progressRef.current - r0) / span))
+      const raw = Math.min(1, Math.max(0, (progressRef.current - r0) / span))
+      const target = warpRef.current ? warpRef.current(raw) : raw
       state.cur += (target - state.cur) * 0.18
 
       if (video.seeking) return

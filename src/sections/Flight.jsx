@@ -281,6 +281,7 @@ export function Flight() {
               mediaType={scene.mediaType}
               clip={scene.clip}
               clipRange={scene.clipRange}
+              clipWarp={scene.clipWarp}
               heroLoop={scene.heroLoop}
               stills={scene.stills}
               transition={scene.transition}

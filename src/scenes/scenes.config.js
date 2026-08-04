@@ -1,6 +1,49 @@
 import { A } from '../lib/assets'
 
 /**
+ * Scroll-time to clip-time for the flight — the soft stop on every landing.
+ *
+ * The clip is built as seven 11-second zones of hold / fly / land (see
+ * A.flightClip). Scrubbed linearly, each 1.5s landing is 1.9% of the run — on a
+ * ~9000px pin that is about 170px of scroll, gone in a flick. The frames are
+ * held but nothing feels held. So the dwell is bought here instead: a zone's
+ * scroll is split unevenly, spending a third of it crossing the 3 static
+ * seconds of the opening still and another third crossing the 1 static second
+ * of the landing, leaving the middle third to cover 7 seconds of camera move.
+ *
+ * The camera therefore eases to a stop on each arrival, sits there while the
+ * copy is up, and only pulls away once the visitor keeps scrolling. Zone
+ * boundaries are preserved exactly, so this never desynchronises the copy.
+ */
+const FLIGHT_ZONES = 7
+const ZONE_SECONDS = 11 // hold 3 + fly 7 + land 1, per build-flight.sh
+const CLIP_SECONDS = 77.5
+
+// Where each beat ends, in seconds within a zone, and the share of that zone's
+// scroll it is given. Widen SCROLL_SHARE's outer values for a longer stop.
+const BEAT_SECONDS = [3, 10, ZONE_SECONDS]
+const SCROLL_SHARE = [0.3, 0.38, 0.32]
+
+function flightWarp(p) {
+  const s = Math.min(FLIGHT_ZONES - 1e-6, Math.max(0, p) * FLIGHT_ZONES)
+  const zone = Math.floor(s)
+  let f = s - zone // 0..1 across this zone's scroll
+
+  let fromT = 0
+  let fromF = 0
+  for (let i = 0; i < BEAT_SECONDS.length; i++) {
+    if (f <= fromF + SCROLL_SHARE[i] || i === BEAT_SECONDS.length - 1) {
+      const local = Math.min(1, (f - fromF) / SCROLL_SHARE[i])
+      const t = fromT + local * (BEAT_SECONDS[i] - fromT)
+      return Math.min(1, (zone * ZONE_SECONDS + t) / CLIP_SECONDS)
+    }
+    fromF += SCROLL_SHARE[i]
+    fromT = BEAT_SECONDS[i]
+  }
+  return p
+}
+
+/**
  * The scrubbed scenes, as data.
  *
  * The flight is the centrepiece: one pinned scene scrubbing all seven island
@@ -23,6 +66,8 @@ export const scenes = {
     clip: A.flightClip,
     /** All seven segments exist, so the video carries the whole flight. */
     clipRange: [0, 1],
+    /** Soft stop on each arrival — see flightWarp above. */
+    clipWarp: flightWarp,
     /** Ambient loop over zone 1, before the visitor has scrolled anything. */
     heroLoop: A.heroLoop,
     // Seven zones, in flight order — must line up with content/site.js
