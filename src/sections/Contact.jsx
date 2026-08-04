@@ -71,6 +71,15 @@ export function Contact() {
 
     setStatus('sending')
     const data = Object.fromEntries(new FormData(e.currentTarget))
+
+    // Formspree (and most form relays) read `_replyto` to set the Reply-To
+    // header on the notification email. Our email field is named `contact`,
+    // which they do not recognise — so without this, hitting Reply on a new
+    // lead replies to Formspree and you copy the address across by hand every
+    // time. `_subject` is the same idea: it stops every enquiry landing under
+    // an identical generic subject line.
+    if (data.contact) data._replyto = data.contact
+    data._subject = `Audit request — ${data.business || data.name || 'new enquiry'}`
     try {
       const res = await fetch(contact.formEndpoint, {
         method: 'POST',
@@ -149,6 +158,27 @@ export function Contact() {
         </div>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          {/* Honeypot. `_gotcha` is Formspree's own convention: anything with
+              this field filled is discarded silently, so a bot never learns it
+              failed. Bots fill every input they find in the DOM; a human never
+              sees this one.
+
+              It matters more than it looks. A monthly submission allowance is
+              a shared resource, and one script can exhaust it in a minute —
+              after which real enquiries are REJECTED and we never find out
+              they tried. Cheap insurance against a silent, invisible failure.
+
+              Off-screen rather than `display:none` or `hidden`, because the
+              cruder bots skip fields that are obviously hidden. aria-hidden and
+              tabIndex keep it away from screen readers and keyboard tabbing. */}
+          <input
+            type="text"
+            name="_gotcha"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+          />
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-2">
               <span className="text-sm font-medium text-teal-deep">{f.name.label}</span>
