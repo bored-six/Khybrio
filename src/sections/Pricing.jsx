@@ -136,25 +136,6 @@ export function Pricing() {
           </Reveal>
         ) : null}
 
-        {/* Founding-clients band. Says outright that the offer is new, which
-            beats implying a track record that comes apart the first time
-            somebody asks for a reference. */}
-        {pricing.founding ? (
-          <Reveal
-            from={{ y: 44 }}
-            className="mt-5 rounded-[var(--radius-card)] bg-coral p-7 sm:p-9"
-          >
-            <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em] text-cream/75">
-              {pricing.founding.label}
-            </p>
-            <h3 className="mt-2 font-display text-[clamp(1.5rem,3.2vw,2.1rem)] font-bold text-cream">
-              {pricing.founding.title}
-            </h3>
-            <p className="mt-3 max-w-3xl leading-relaxed text-cream/90">
-              {pricing.founding.body}
-            </p>
-          </Reveal>
-        ) : null}
 
         <p className="mt-8 text-sm text-cream/55">{pricing.footnote}</p>
       </div>

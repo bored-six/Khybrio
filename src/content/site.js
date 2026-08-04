@@ -440,16 +440,6 @@ export const pricing = {
       'Cancel anytime',
     ],
   },
-  /**
-   * Says plainly that the offer is new. This converts better than implying a
-   * track record we do not have, and unlike an implied one it cannot come apart
-   * later when a client asks for references.
-   */
-  founding: {
-    label: 'Founding clients',
-    title: 'Five spots, 35% off',
-    body: 'This offer is new, and pretending otherwise would show. The first five clients get 35% off any package, in exchange for a case study and a testimonial once it is working. That is the whole trade — and if it does not work, you owe us neither.',
-  },
   cta: { label: 'Get your free audit', href: '#contact' },
   footnote:
     'Every engagement starts with the free audit — three tasks, a short video back, no call. You get a fixed, itemized quote before anything begins, and we will tell you honestly if the smallest package is all you need.',
