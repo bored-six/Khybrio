@@ -19,41 +19,34 @@ export const brand = {
 
 /**
  * The counter and dot trail run off this list — one entry per island zone in
- * the continuous flight. It stays flat and independent of the animation so the
- * counter can advance zone-by-zone as the single scrubbed flight moves through
- * the whole tour.
+ * the flight. It stays flat and independent of the animation so the counter can
+ * advance zone-by-zone as the flight moves.
  */
 export const milestones = [
   { id: 'flight', label: 'The workshop' },
-  { id: 'flight', label: 'Automation' },
-  { id: 'flight', label: 'Sites & booking' },
-  { id: 'flight', label: 'Local presence' },
   { id: 'flight', label: 'The audit' },
-  { id: 'flight', label: 'Built in parallel' },
   { id: 'flight', label: 'Handover' },
 ]
 
 export const nav = [
-  // `flightProgress` jumps into the flight at a zone; `zoneRange` lights the
-  // pill coral while that zone band is the one on screen. The fractions are
-  // zone-centres over the seven zones: 1.5/7 for the work, 4.5/7 for the process.
+  // These used to jump INTO the flight at a zone, because the flight was where
+  // the three lines of work and the four steps were actually explained. It is a
+  // short visual beat now and the content lives in its own sections, so the nav
+  // points at those instead — a link labelled "What we build" should land on
+  // the section that builds the case, not partway through an animation of it.
   //
   // `hint` is the one-line answer to "what is actually down there" — it shows
   // on hover, because five abstract labels on a one-page site tell a first-time
   // visitor nothing about which one holds the thing they came for.
   {
-    id: 'flight',
+    id: 'services',
     label: 'What we build',
     hint: 'Automation, websites and local presence',
-    flightProgress: 0.2143,
-    zoneRange: [1, 3],
   },
   {
-    id: 'flight',
+    id: 'process',
     label: 'How it works',
     hint: 'Free audit to handover, about four weeks',
-    flightProgress: 0.6429,
-    zoneRange: [4, 6],
   },
   { id: 'automate', label: 'What we automate', hint: 'The six workflows we build most often' },
   { id: 'pricing', label: 'Packages', hint: 'What you get, and how we bill for it' },
@@ -139,11 +132,17 @@ export const runLog = {
 }
 
 /**
- * The continuous flight: seven island zones scrubbed as one take, re-cut from
- * the old bundle-and-crew tour to the automation story. Zones 2–4 are the three
- * lines of work; zones 5–7 are the process beats. Each zone carries an all-caps
- * eyebrow, a headline with exactly one phrase in the coral accent, and a
- * one-line subhead. `hint` shows the scroll cue only on the first zone.
+ * The island flight — an opening visual beat, not the page's argument.
+ *
+ * It ran seven zones and took ten screens of pinned scroll to do it: three
+ * zones on the lines of work, three on the process. Every word of that was
+ * repeated verbatim by the Services and Process sections underneath, so a
+ * visitor read the same page twice and the second time was the one that
+ * actually sold. Cut to three: what we build, what you do, what you get. The
+ * detail belongs in sections a skimmer can scan and a search engine can read.
+ *
+ * Each zone carries an all-caps eyebrow, a headline with exactly one phrase in
+ * the coral accent, and a one-line subhead. `hint` shows the cue on zone one.
  */
 export const flight = {
   hint: 'Scroll to fly in',
@@ -156,39 +155,11 @@ export const flight = {
       sub: 'Automation leads, because it is the part that pays for itself. The other two exist to feed it.',
     },
     {
-      key: 'sites',
-      eyebrow: '01 · Websites & booking',
-      title: ['A site that ', 'does something', '.'],
-      sub: 'Booking and enquiry systems, forms and intake, payments and confirmations — feeding the automations behind it. Not a brochure.',
-      hotspot: { benefit: 'Takes bookings, not compliments' },
-    },
-    {
-      key: 'automation',
-      eyebrow: '02 · Workflow automation',
-      title: ['The work that ', 'runs itself', '.'],
-      sub: 'Tool-to-tool connections, automated messaging, scheduled reports — and data entry removed at the source rather than sped up.',
-      hotspot: { benefit: 'Tool to tool, no copy-paste' },
-    },
-    {
-      key: 'local',
-      eyebrow: '03 · Local presence',
-      title: ['Found where they ', 'search', '.'],
-      sub: 'Google Business Profile set up properly, map and hours and categories fixed, a review flow that runs on its own.',
-      hotspot: { benefit: 'Right pin, right hours, real reviews' },
-    },
-    {
       key: 'audit',
       eyebrow: 'Day 0 · The audit',
       title: ['Name your ', 'three tasks', '.'],
       sub: 'You tell us the three things you do most often. We send back a short video showing what we would automate. Free, and no call to sit through.',
       hotspot: { benefit: 'Free · No call required' },
-    },
-    {
-      key: 'parallel',
-      eyebrow: 'Week 1–3 · Build',
-      title: ['Nothing switches off until it is ', 'proven', '.'],
-      sub: 'The automation runs alongside your current process, on real data, until it has earned the right to replace it.',
-      hotspot: { benefit: 'Runs in parallel, on real data' },
     },
     {
       key: 'handover',
@@ -204,15 +175,49 @@ export const flight = {
   ],
 }
 
-// Count-up strip. Every figure here is a term of the offer — something we
-// control and can be held to — not a performance statistic we would have to
-// have measured on clients we do not have yet.
-export const stats = [
-  { value: 1, suffix: ' workflow', label: 'the smallest thing we build — start with the worst task' },
-  { value: 4, suffix: ' weeks', label: 'first call to handover, at the outside' },
-  { value: 3, suffix: ' tasks', label: 'all we need to start — name your most repeated' },
-  { value: 100, suffix: '%', label: 'yours — accounts, docs and automations' },
-]
+/**
+ * What changes for the owner — the "so what" the rest of the page never quite
+ * says. Everything above this describes what we DO; this describes what is
+ * different in their week afterwards.
+ *
+ * There are deliberately NO numbers here. Numbers would be stronger and this
+ * section is where they would belong, but there are no clients to have measured
+ * them on yet, and a percentage nobody measured is a lie with a decimal point
+ * in it. Every line is a mechanism instead: something the build guarantees by
+ * construction, which is true on day one and stays true. Replace these with
+ * real figures the moment there are real figures.
+ */
+export const improves = {
+  eyebrow: 'What we improve',
+  title: 'What actually changes in your week',
+  body: 'Not the tools — the tools are the boring part. This is what you notice about a month in, once the thing has been running long enough to stop being interesting.',
+  items: [
+    {
+      title: 'Replies stop waiting on a person',
+      body: 'The enquiry that used to sit until somebody opened the inbox gets answered when it lands — at 11pm, on a Sunday, mid-service — and in the same words every time.',
+    },
+    {
+      title: 'The re-typing stops',
+      body: 'Information moves between your tools on its own. Nobody copies a number from one screen to another, so nobody transposes a digit doing it at the end of a long day.',
+    },
+    {
+      title: 'Money gets chased without anyone remembering',
+      body: 'Overdue invoices and unconfirmed bookings follow themselves up on a schedule. The chasing stops depending on whether it was a quiet week.',
+    },
+    {
+      title: 'The admin stops setting the agenda',
+      body: 'Reports, reminders and month-end run on their own clock. The hours that come back land on the work that was already being neglected.',
+    },
+    {
+      title: 'The process stops living in someone’s head',
+      body: 'How it is done sits in the automation and the written walkthrough, not in whoever has been there longest. Handovers and holidays stop being events.',
+    },
+    {
+      title: 'You end up owning an asset',
+      body: 'Every account, automation and document is in your name from the first day. It keeps running whether or not we are still in the picture — it is not a subscription you rent.',
+    },
+  ],
+}
 
 export const problem = {
   eyebrow: 'Where the week goes',
@@ -447,44 +452,60 @@ export const pricing = {
     'Every engagement starts with the free audit — three tasks, a short video back, no call. You get a fixed, itemized quote before anything begins, and we will tell you honestly if the smallest package is all you need.',
 }
 
-export const about = {
-  eyebrow: 'Who you’re dealing with',
-  title: 'Three people. You talk to the one building it.',
-  body: 'No account managers, no handoffs between a salesperson who promised it and a builder who never heard about it. The person who maps your workflow is the person who builds it and the person who hands it over. That is the entire advantage of being small, and we would rather keep it than grow out of it.',
-  points: [
-    { label: 'Small on purpose', value: 'Three of us. You always know exactly who you are talking to.' },
-    { label: 'You own it', value: 'Every account, automation and document is registered in your name.' },
-    { label: 'Plain language', value: 'We explain what we are doing and why, without the jargon.' },
-  ],
-}
-
+/**
+ * Re-pointed at the work. It used to open with "who are you and where are you
+ * based" and spend half its length on the company; a visitor at this depth has
+ * already decided they like the idea and is now asking what it would actually
+ * be like, so the questions are about the build.
+ *
+ * The location question STAYS, and stays for a reason. The About section that
+ * used to disclose it is gone from this page, and an overseas buyer weighing
+ * $2,900 is entitled to know they are hiring a remote team before they email,
+ * not after. Burying it would convert slightly better and be the wrong call.
+ *
+ * Payment and access questions also stay: they read as admin, but they are the
+ * highest-intent questions on the page — nobody asks how to pay for something
+ * they are not buying.
+ */
 export const faq = {
   eyebrow: 'Before you ask',
-  title: 'The questions we get every time',
+  title: 'What we build, and what it takes',
   items: [
     {
-      q: 'Who are you and where are you based?',
-      a: 'We are a three-person team based in Zamboanga City, Philippines, taking on work from small businesses anywhere — Australia, New Zealand, the US, Canada, the UK and beyond. We work in your time zone for calls and we are reachable by email and message the rest of the time. Being remote is why the pricing is what it is.',
+      q: 'What can you actually automate?',
+      a: 'Anything that follows a rule and happens often enough to be annoying — an order arriving, an invoice going overdue, a booking needing a reminder, a form that should have become a contact. If you can say it as "when this happens, someone does that", it can usually be built. What we cannot automate is judgement: pricing an awkward job, calming an unhappy customer, deciding who to hire. We will tell you when something is judgement wearing a process costume.',
+    },
+    {
+      q: 'How do you decide what to automate first?',
+      a: 'By volume first, annoyance second. You name the three tasks you repeat most, we watch them happen once on a call, and we start with the one that costs the most hours for the least thinking. That one has to be working before anything else gets touched — a build that tries to fix five things at once fails in five places.',
     },
     {
       q: 'Do we have to change the software we use?',
       a: 'Almost never, and we would push back if you suggested it. The whole point is to connect what you already use — your inbox, your spreadsheet, your booking tool, your accounting software. Migrating you to something new is a different project with a much worse risk profile, and we will say so if someone proposes it.',
     },
     {
-      q: 'What if it breaks when you’re not around?',
-      a: 'You get documentation and a recorded walkthrough, and every account is in your name — so any competent person can pick it up, including one who is not us. Automations also fail loudly rather than silently: if something stops, you get told rather than finding out from a customer. The managed plan covers monitoring and fixes if you would rather not think about it, but nothing is built so that you need us.',
+      q: 'How do we know it works before it replaces anything?',
+      a: 'Because nothing switches off until it has proven itself. The automation runs alongside your current process, on real data, while somebody still does it the old way — so you can compare the two outputs before you trust one. If it disagrees with the human, we fix it before it is load-bearing.',
     },
     {
       q: 'Will this replace our staff?',
       a: 'Not in our experience, and it is not what we are selling. What it replaces is the part of their day spent re-typing things a computer could have moved. Most owners use the time back for work that was already being neglected — the follow-ups, the quotes, the customers who got a slow reply. If your goal is a headcount cut, we are probably the wrong people.',
     },
     {
-      q: 'How do payments work?',
-      a: 'Fixed price, agreed in writing before anything starts. Half up front, half on handover. Bank transfer or Wise, invoiced in USD. The managed plan is billed monthly and can be cancelled whenever you like — it is not a lock-in and it is not a condition of the build.',
+      q: 'What happens if an automation breaks?',
+      a: 'You get documentation and a recorded walkthrough, and every account is in your name — so any competent person can pick it up, including one who is not us. Automations also fail loudly rather than silently: if something stops, you get told rather than finding out from a customer. The managed plan covers monitoring and fixes if you would rather not think about it, but nothing is built so that you need us.',
     },
     {
       q: 'What do you need from us?',
       a: 'To start: the three tasks you repeat most. After that, one call where we watch the work happen, and access to the tools involved. Roughly two to three hours of your time across the whole build — most of the delay in a project like this is waiting on access, so the faster that arrives the faster it ships.',
+    },
+    {
+      q: 'How do payments work?',
+      a: 'Fixed price, agreed in writing before anything starts. Half up front, half on handover. Bank transfer or Wise, invoiced in USD. The managed plan is billed monthly and can be cancelled whenever you like — it is not a lock-in and it is not a condition of the build.',
+    },
+    {
+      q: 'Where are you based?',
+      a: 'Zamboanga City, Philippines — three of us, working with small businesses in Australia, New Zealand, the US, Canada, the UK and elsewhere. We work your time zone for calls and are reachable by email and message the rest of the time. Being remote is why the pricing is what it is.',
     },
   ],
 }

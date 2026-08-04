@@ -5,12 +5,11 @@ import { SceneCounter } from './components/SceneCounter'
 import { Hero } from './sections/Hero'
 import { Problem } from './sections/Problem'
 import { Flight } from './sections/Flight'
-import { StatStrip } from './components/StatStrip'
 import { Services } from './sections/Services'
 import { Automate } from './sections/Automate'
+import { Improves } from './sections/Improves'
 import { Process } from './sections/Process'
 import { Pricing } from './sections/Pricing'
-import { About } from './sections/About'
 import { Faq } from './sections/Faq'
 import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
@@ -48,9 +47,9 @@ export default function App() {
         <Problem />
         {/* The island tour, re-cut: three lines of work, then the process. */}
         <Flight />
-        <StatStrip />
         <Services />
         <Automate />
+        <Improves />
         {/* Process and Pricing are both dark — fused into one rounded chamber
             set into the cream page. The wrapper carries its own teal fill so
             any subpixel seam between the two sections shows teal, not the
@@ -59,7 +58,6 @@ export default function App() {
           <Process />
           <Pricing />
         </div>
-        <About />
         <Faq />
         <Contact />
       </main>

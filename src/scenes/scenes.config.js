@@ -30,19 +30,15 @@ export const scenes = {
     // it (site.js `flight.zones`) — each block lands on the still it was
     // written for, and the two nav groups stay contiguous: zones 1-3 are the
     // three lines of work, 4-6 the process beats in chronological order.
-    stills: [
-      A.hero,
-      A.webDesk,
-      A.nfcKiosk,
-      A.signalTower,
-      A.shiek,
-      A.dave,
-      A.haiqal,
-    ],
-    // Viewport-heights the flight stays pinned for. ~1.6 per zone across 7
-    // zones, so a single scroll gesture stays within a zone instead of blowing
-    // straight through to the next — each zone gets a deliberate hold.
-    scroll: 11.2,
+    // One per zone, in order — the wide island, the desk where the audit
+    // lands, the bench where it is handed over. The other four renders are
+    // still in public/assets/world/ and are used by the Services section.
+    stills: [A.hero, A.shiek, A.haiqal],
+    // Viewport-heights the flight stays pinned for: ~1.6 per zone, so a single
+    // gesture stays within a zone instead of blowing through to the next. At
+    // seven zones that was 11.2 — ten screens of pinned scroll, a quarter of
+    // the page, spent on content the sections below repeat in full.
+    scroll: 4.8,
     zoom: [1, 1.12],
     pan: [0, -3],
     transition: 'crossfade',
