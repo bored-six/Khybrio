@@ -210,6 +210,10 @@ export function SceneMedia({
   const tiltRef = useRef(null)
   const scrubbing = mediaType === 'video' && !reduced
 
+  // 0 parked, 1 travelling, smoothed. Drives the handover below.
+  const travelRef = useRef(0)
+  const travellingRef = useRef(false)
+
   const status = useScrubbedVideo({
     videoRef,
     progressRef,
@@ -217,15 +221,31 @@ export function SceneMedia({
     enabled: scrubbing,
     range: clipRange,
     plan: clipPlan,
-    onTravelChange,
+    onTravelChange: (t) => {
+      travellingRef.current = t
+      onTravelChange?.(t)
+    },
   })
 
   // The clip's opacity is per-frame, not a CSS transition — it has to track
   // scroll exactly at both ends of its range. The wrapper below owns the
   // separate, one-shot fade that hides the element until the blob is decoded.
+  //
+  // It also fades the video out entirely once the camera parks, revealing the
+  // stills stack underneath. Every stop in the plan IS one of those stills —
+  // the clip was built by freezing them — so the two are the same picture and
+  // the handover cannot be seen. What it buys is resolution: the still is the
+  // 4K original at whatever DPR the screen has, where the video is 1080p being
+  // upscaled ~1.6x on a retina display. The frames a visitor actually stops and
+  // reads against are now the sharp ones, and the clip only has to look good
+  // while it is moving.
   useProgressEffect(progressRef, (p) => {
     const v = videoRef.current
-    if (v && scrubbing) v.style.opacity = String(clipEnvelope(p, clipRange))
+    if (!v || !scrubbing) return
+    const want = travellingRef.current ? 1 : 0
+    travelRef.current += (want - travelRef.current) * 0.12
+    const gate = clipPlan ? travelRef.current : 1
+    v.style.opacity = String(clipEnvelope(p, clipRange) * gate)
   })
 
   // Pointer-parallax: the island tilts a few degrees toward the cursor and

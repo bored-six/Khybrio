@@ -54,9 +54,17 @@ export const A = {
    * crisp original turns that gap into a deliberate settle rather than a smear
    * applied mid-motion. Every junction is a 0.5s crossfade.
    *
-   * Watermark painted out (the source is stamped bottom-right), and encoded at
-   * a short GOP so seeking to an arbitrary time stays cheap — scrubbing a
-   * default-GOP clip turns to mush.
+   * Watermark painted out (the source is stamped bottom-right). Encoded at a
+   * normal 2s GOP, NOT the short one a scrubbed clip needs: the flight is
+   * played rather than seeked now (see useScrubbedVideo's plan branch), and a
+   * keyframe every 12 frames was eating most of the bitrate — 1.67 Mbps of
+   * visibly mushy 1080p. Same content at 2.78 Mbps once that budget went back
+   * into the picture.
+   *
+   * It does not have to carry the still frames, either. The camera parks on a
+   * still at every stop, and SceneMedia fades the clip out there to reveal the
+   * 4K original underneath — so the clip only has to look good in motion, where
+   * the eye is least able to see compression anyway.
    */
   flightClip: `${BASE}assets/world/island-flight.mp4`,
 

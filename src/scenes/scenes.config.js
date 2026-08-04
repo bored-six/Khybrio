@@ -21,11 +21,17 @@ const CLIP_SECONDS = 77.5
 const HOLD_CENTRE = 1.5 // into a zone: mid-hold, fully settled on the still
 
 /**
- * Clip-seconds per real second while travelling. 1.0 is true playback speed and
- * feels sluggish at 11s a hop; this covers a zone in a bit over four seconds,
- * which still reads as the camera flying rather than cutting.
+ * Clip-seconds per real second while travelling. 1.0 — the footage plays at the
+ * speed it was rendered at, and nothing is sped up.
+ *
+ * This was 2.5 to keep a hop short, and that is what made the flight stutter:
+ * at 2.5x the decoder has to hand over 60 frames every second from a 24fps
+ * 1080p file, which is two and a half times realtime decoding. At 1.0 it is
+ * ordinary playback and the browser is built for it. The cost is that a hop is
+ * a full zone of footage, 11s — shorten HOLD and LAND in build-flight.sh if
+ * that is too long a wait, rather than reaching for the rate again.
  */
-const FLIGHT_RATE = 2.5
+const FLIGHT_RATE = 1.0
 
 const flightPlan = {
   stops: Array.from(

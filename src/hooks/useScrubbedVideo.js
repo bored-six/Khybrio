@@ -137,14 +137,12 @@ export function useScrubbedVideo({
     // derived from the clip's length, not hard-coded. A flat 0.005 was fine on
     // an 8-second clip (0.04s, about one frame); on the 77.5s flight the same
     // number means 0.39s of footage, so the picture only changed ~6 times a
-    // second however many frames the file had. That, not the source frame rate,
-    // was what made the flight look choppy.
+    // second however many frames the file had.
     //
-    // One frame is the right floor: finer just queues seeks the decoder will
-    // coalesce anyway. Coarse pointers get a wider gate because mobile decoders
-    // stall under rapid seeking.
+    // Only the plain scrub path seeks per frame now. Coarse pointers get a
+    // wider gate because mobile decoders stall under rapid seeking.
     const frame = FRAME_SECONDS / (videoRef.current?.duration || 1)
-    const eps = frame * (isCoarsePointer() ? 3 : 1)
+    const eps = frame * (isCoarsePointer() ? 6 : 2)
     const state = stateRef.current
 
     const tick = () => {
@@ -158,43 +156,67 @@ export function useScrubbedVideo({
       let arrived = false
 
       if (p) {
-        // Stepped: scroll picks a stop, the clip walks there at a fixed rate.
-        const target = p.stops[Math.min(p.stops.length - 1, Math.max(0, p.indexAt(raw)))]
-        // deltaRatio() is frames-at-60fps, so /60 is the frame's real seconds.
-        // Capped so a backgrounded tab can't resume with one giant jump.
+        // Stepped: scroll picks a stop, the clip PLAYS there and stops dead.
+        //
+        // Playing rather than seeking is the whole point. Walking currentTime
+        // forward by hand meant a seek every frame — up to a full GOP decoded
+        // per seek, sixty times a second, which is what made this lag. The
+        // decoder already knows how to run forward at speed; playbackRate asks
+        // it to, and it costs one decode per frame instead of twelve.
+        //
+        // It also removes the reason the file needed a keyframe every 12
+        // frames, which was where most of the bitrate was going.
+        const target =
+          p.stops[Math.min(p.stops.length - 1, Math.max(0, p.indexAt(raw)))] *
+          video.duration
+        const now = video.currentTime
+        const gap = target - now
+        // How far playback carries in one tick. The arrival window has to be at
+        // least this wide or a slow frame steps straight over the stop into the
+        // backward branch, and the two fight each other around the target.
         const dt = Math.min(0.05, gsap.ticker.deltaRatio() / 60)
-        const stride = (p.rate * dt) / video.duration
-        let gap = target - state.cur
+        const reach = Math.max(FRAME_SECONDS, dt) * p.rate
+
         // A fixed rate means a fast scroll would leave the clip crawling
         // through every intervening segment while the copy is already six zones
-        // ahead — 26 seconds of catch-up on a flick to the end. So never trail
-        // by more than maxLag: close the rest instantly and play the last hop
-        // properly. Normal stepping never reaches this.
-        if (p.maxLag && Math.abs(gap) > p.maxLag) {
-          state.cur = target - Math.sign(gap) * p.maxLag
-          gap = target - state.cur
+        // ahead. Never trail by more than maxLag: close the rest with one seek
+        // and play the last hop properly. Normal stepping never reaches this.
+        if (p.maxLag && Math.abs(gap) > p.maxLag * video.duration) {
+          if (!video.seeking) {
+            video.currentTime = target - Math.sign(gap) * p.maxLag * video.duration
+          }
+          return
         }
-        if (Math.abs(gap) <= stride) {
-          state.cur = target // land exactly, then hold — this is the hard stop
+
+        // Within one tick's reach of the stop: park exactly and stay parked.
+        if (Math.abs(gap) <= reach) {
+          if (!video.paused) video.pause()
+          if (!video.seeking && Math.abs(now - target) > 1e-3) video.currentTime = target
           arrived = true
+        } else if (gap > 0) {
+          // Forward — let the decoder run.
+          if (video.playbackRate !== p.rate) video.playbackRate = p.rate
+          if (video.paused) video.play().catch(() => {})
         } else {
-          state.cur += Math.sign(gap) * stride
+          // Backward. No element plays in reverse, so this is the one case that
+          // still steps by hand; it is rare and short.
+          if (!video.paused) video.pause()
+          if (!video.seeking) video.currentTime = Math.max(target, now - p.rate * dt)
         }
-      } else {
-        state.cur += (raw - state.cur) * 0.18
+        state.cur = video.currentTime / video.duration
+
+        if (state.travelling === arrived) {
+          state.travelling = !arrived
+          travelCbRef.current?.(state.travelling)
+        }
+        return
       }
 
-      if (state.travelling === arrived) {
-        state.travelling = !arrived
-        travelCbRef.current?.(state.travelling)
-      }
+      // Plain scrub (no plan): clip position is welded to scroll position.
+      state.cur += (raw - state.cur) * 0.18
 
       if (video.seeking) return
-      // On arrival, force the final seek through: it is usually smaller than
-      // eps, and skipping it would park a frame short of the stop every time.
-      if (arrived) {
-        if (state.lastSeek === state.cur) return
-      } else if (Math.abs(state.cur - state.lastSeek) < eps) return
+      if (Math.abs(state.cur - state.lastSeek) < eps) return
 
       state.lastSeek = state.cur
       video.currentTime = state.cur * video.duration
