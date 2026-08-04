@@ -2,6 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap, isCoarsePointer } from '../lib/smoothScroll'
 
 /**
+ * One frame at the highest rate any scrubbed clip in the project runs at. Used
+ * only as the floor for how small a seek is worth issuing, so erring fast costs
+ * nothing on a slower clip — the decoder coalesces seeks it cannot service.
+ */
+const FRAME_SECONDS = 1 / 60
+
+/**
  * Scroll-scrubbed video playback, ported from the scroll-world engine
  * (github.com/oso95/scroll-world). Four things make this work where a naive
  * `video.currentTime = progress * duration` falls apart:
@@ -126,7 +133,18 @@ export function useScrubbedVideo({
   useEffect(() => {
     if (status !== 'ready') return
 
-    const eps = isCoarsePointer() ? 0.02 : 0.005
+    // Smallest seek worth issuing, as a FRACTION OF THE CLIP — so it has to be
+    // derived from the clip's length, not hard-coded. A flat 0.005 was fine on
+    // an 8-second clip (0.04s, about one frame); on the 77.5s flight the same
+    // number means 0.39s of footage, so the picture only changed ~6 times a
+    // second however many frames the file had. That, not the source frame rate,
+    // was what made the flight look choppy.
+    //
+    // One frame is the right floor: finer just queues seeks the decoder will
+    // coalesce anyway. Coarse pointers get a wider gate because mobile decoders
+    // stall under rapid seeking.
+    const frame = FRAME_SECONDS / (videoRef.current?.duration || 1)
+    const eps = frame * (isCoarsePointer() ? 3 : 1)
     const state = stateRef.current
 
     const tick = () => {
