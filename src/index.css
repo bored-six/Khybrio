@@ -747,3 +747,76 @@
     transition-delay: 0s !important;
   }
 }
+
+/* ── Device cluster (What we do) ───────────────────────────────────────────
+   The three devices carry the three lines of work, one each, and the list
+   beside them drives which one is in front. The motion is ambient on purpose:
+   a still arrangement of flat rectangles reads as a diagram, and this section
+   is meant to read as software that is currently running.
+
+   Float sits on a wrapper, never on the device itself — the devices carry a
+   `perspective(...) rotateY(...)` of their own and a second transform on the
+   same element would replace it, not compose with it. */
+@keyframes dev-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.dev-float {
+  animation: dev-float 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Light sweeping the glass as a device comes forward. Keyed on the active
+   index in JSX so it replays on each change instead of looping forever —
+   a permanent sweep would be the flat thing it is there to fix. */
+@keyframes dev-sheen {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateX(260%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.dev-sheen {
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, white 78%, transparent),
+    transparent
+  );
+  animation: dev-sheen 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1;
+}
+
+/* Rows arriving in the run list, staggered off --i, so the laptop looks like
+   it is working through a queue rather than displaying a screenshot. */
+@keyframes dev-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dev-row {
+  animation: dev-row-in 0.5s ease-out both;
+  animation-delay: calc(var(--i) * 90ms);
+}

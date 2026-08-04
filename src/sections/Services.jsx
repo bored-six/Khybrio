@@ -1,24 +1,50 @@
+import { useEffect, useRef, useState } from 'react'
 import { Check } from 'lucide-react'
 import { Words } from '../components/Words'
 import { Reveal } from '../components/Reveal'
 import { DeviceShowcase } from '../components/DeviceShowcase'
+import { prefersReducedMotion } from '../lib/smoothScroll'
 import { useContent } from '../content/context'
 
+/** How long each line of work holds the cluster before handing it on. */
+const DWELL_MS = 4200
+
 /**
- * The lines of work, as one block: the devices on the left with the work
- * running in them, the capability list on the right.
+ * The lines of work: devices on one side, the list on the other, and one line
+ * of work lit at a time in both.
  *
- * This was three alternating image rows before, and before that a card grid.
- * The single block is the tighter read — one visual carries "here is the thing"
- * and the column beside it says what it does, instead of the same argument
- * being made three times down the page.
+ * The pairing is the point. Three static devices beside a static list is two
+ * decorations that happen to share a row — the reader has no reason to connect
+ * "Websites & booking" with the tablet. Lighting them together says which
+ * screen belongs to which line of work without a caption, and gives the section
+ * something to do while it is being read.
  *
- * The list stays grouped by line of work rather than flattening to one run of
- * ticks. The section's own copy leans on that order ("Automation leads"), and
- * three coral leads cost one line each while keeping 01/02/03 legible.
+ * It cycles on its own so the block is never dead on arrival, and any hover or
+ * keyboard focus takes it over — an auto-rotation that fights the reader is
+ * worse than no motion at all. Under reduced-motion it does not cycle; the
+ * first line of work stays lit and hover still works.
  */
 export function Services() {
   const { services } = useContent()
+  const [active, setActive] = useState(0)
+  const [held, setHeld] = useState(false)
+  const heldRef = useRef(false)
+  heldRef.current = held
+
+  const count = services.items.length
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    const id = setInterval(() => {
+      if (!heldRef.current) setActive((a) => (a + 1) % count)
+    }, DWELL_MS)
+    return () => clearInterval(id)
+  }, [count])
+
+  const take = (i) => {
+    setActive(i)
+    setHeld(true)
+  }
 
   return (
     <section id="services" className="relative z-10 bg-cream px-5 py-16 sm:px-8 sm:py-20">
@@ -40,27 +66,68 @@ export function Services() {
           className="mt-14 grid items-center gap-10 md:grid-cols-2 md:gap-14 lg:gap-20"
         >
           <div>
-            <DeviceShowcase />
+            <DeviceShowcase active={active} />
           </div>
 
-          <div>
-            {services.items.map((item) => (
-              <div key={item.name} className="mt-7 first:mt-0">
-                <p className="font-display text-sm font-bold text-coral">
-                  {item.n} · {item.name}
-                </p>
-                <ul className="mt-3 grid gap-2.5 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-                  {item.points.map((p) => (
-                    <li key={p} className="flex items-start gap-2.5 text-teal-deep">
-                      <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-coral/12">
-                        <Check size={13} strokeWidth={3} color="var(--color-coral)" />
-                      </span>
-                      <span className="text-sm leading-snug">{p}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div onMouseLeave={() => setHeld(false)}>
+            {services.items.map((item, i) => {
+              const on = i === active
+              return (
+                <div
+                  key={item.name}
+                  onMouseEnter={() => take(i)}
+                  className={`relative mt-6 border-l-2 pl-4 transition-all duration-500 first:mt-0 sm:pl-5 ${
+                    on ? 'border-coral' : 'border-teal-deep/10'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onFocus={() => take(i)}
+                    onClick={() => take(i)}
+                    aria-pressed={on}
+                    className={`rounded-sm text-left font-display text-sm font-bold transition-colors duration-500 ${
+                      on ? 'text-coral' : 'text-teal-deep/45'
+                    }`}
+                  >
+                    {item.n} · {item.name}
+                  </button>
+
+                  {/* The body only shows for the line of work being talked
+                      about. Three of them at once is the wall of text the old
+                      card grid already was. */}
+                  <p
+                    className={`overflow-hidden text-sm leading-relaxed text-ink-muted transition-all duration-500 ${
+                      on ? 'mt-2 max-h-24 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    {item.body}
+                  </p>
+
+                  <ul
+                    className={`mt-3 grid gap-2.5 transition-opacity duration-500 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 ${
+                      on ? 'opacity-100' : 'opacity-55'
+                    }`}
+                  >
+                    {item.points.map((p) => (
+                      <li key={p} className="flex items-start gap-2.5 text-teal-deep">
+                        <span
+                          className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full transition-colors duration-500 ${
+                            on ? 'bg-coral/15' : 'bg-teal-deep/6'
+                          }`}
+                        >
+                          <Check
+                            size={13}
+                            strokeWidth={3}
+                            color={on ? 'var(--color-coral)' : 'var(--color-teal-deep)'}
+                          />
+                        </span>
+                        <span className="text-sm leading-snug">{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
           </div>
         </Reveal>
       </div>
