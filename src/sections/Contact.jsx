@@ -187,7 +187,7 @@ export function Contact() {
               style={{ filter: 'drop-shadow(0 16px 22px rgba(15,43,41,0.22))' }}
             />
             <span className="mb-8 rounded-2xl rounded-bl-none bg-teal-deep px-4 py-2.5 text-sm font-medium text-cream">
-              Here — reach us on any of these.
+              Here’s where to reach us.
             </span>
           </div>
         </div>
