@@ -72,7 +72,7 @@ export const hero = {
   // keeps the same sentence, keeps the squiggle, and lets "free of" wrap like
   // ordinary text. Keep this phrase SHORT if it is ever rewritten.
   title: ['Your best people, free of ', 'the busywork', '.'],
-  sub: 'We find the repetitive work eating your week — the copy-pasting, the re-typing, the chasing — and make it run itself. Then we hand it over, documented, in your name.',
+  sub: 'We find the repetitive work eating your week: the copy-pasting, the re-typing, the chasing. We make it run itself. Then we hand it over, documented, in your name.',
   ctas: {
     primary: { label: 'Get a free workflow audit', href: '#contact' },
     secondary: { label: 'See what we automate', href: '#automate' },
@@ -209,7 +209,7 @@ export const improves = {
   items: [
     {
       title: 'Replies stop waiting on a person',
-      body: 'The enquiry that used to sit until somebody opened the inbox gets answered when it lands — at 11pm, on a Sunday, mid-service — and in the same words every time.',
+      body: 'The enquiry that used to sit until somebody opened the inbox gets answered the moment it lands, at 11pm, on a Sunday, mid-service, in the same words every time.',
     },
     {
       title: 'The re-typing stops',
@@ -229,7 +229,7 @@ export const improves = {
     },
     {
       title: 'You end up owning an asset',
-      body: 'Every account, automation and document is in your name from the first day. It keeps running whether or not we are still in the picture — it is not a subscription you rent.',
+      body: 'Every account, automation and document is in your name from the first day. It keeps running whether or not we are still in the picture. It is not a subscription you rent.',
     },
   ],
 }
@@ -279,7 +279,7 @@ export const services = {
       icon: 'globe',
       still: 'webDesk',
       name: 'Websites & booking',
-      body: 'A site that does something — takes bookings, captures enquiries, feeds the automations behind it. Not a brochure.',
+      body: 'A site that does something: takes bookings, captures enquiries, feeds the automations behind it. Not a brochure.',
       points: [
         'Booking and enquiry systems',
         'Online forms and intake',
@@ -492,7 +492,7 @@ export const notFor = {
   items: [
     {
       title: 'The process changes every week',
-      body: 'Automation locks in a way of doing something. If the way is still moving, we would be hardening a decision you have not made yet — and you would be paying us to rebuild it next month.',
+      body: 'Automation locks in a way of doing something. If the way is still moving, we would be hardening a decision you have not made yet, and you would be paying us to rebuild it next month.',
     },
     {
       title: 'The task needs judgement, not speed',
@@ -504,7 +504,7 @@ export const notFor = {
     },
     {
       title: 'It happens twice a year',
-      body: 'A build has to earn its cost back in time saved. Something you do at month-end for twenty minutes probably never will — write it down properly instead and keep your money.',
+      body: 'A build has to earn its cost back in time saved. Something you do at month-end for twenty minutes probably never will. Write it down properly instead and keep your money.',
     },
   ],
 }
