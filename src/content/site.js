@@ -205,7 +205,7 @@ export const flight = {
 export const improves = {
   eyebrow: 'What we improve',
   title: 'What actually changes in your week',
-  body: 'Not the tools — the tools are the boring part. This is what you notice about a month in, once the thing has been running long enough to stop being interesting.',
+  body: 'Not the tools. The tools are the boring part. This is what you notice about a month in, once the thing has been running long enough to stop being interesting.',
   items: [
     {
       title: 'Replies stop waiting on a person',
@@ -240,7 +240,7 @@ export const problem = {
   items: [
     {
       title: 'The same message, again',
-      body: 'Price, hours, availability, directions — typed out by hand forty times a day, and typed slightly differently every time.',
+      body: 'Price, hours, availability, directions, typed out by hand forty times a day, and typed slightly differently every time.',
     },
     {
       title: 'The copy-paste tax',
@@ -266,7 +266,7 @@ export const services = {
       // so the picture argues the same point as the list next to it.
       still: 'shiek',
       name: 'Workflow automation',
-      body: 'We map what your team actually repeats, then build it away — so the work happens whether or not anyone remembers to do it.',
+      body: 'We map what your team actually repeats, then build it away, so the work happens whether or not anyone remembers to do it.',
       points: [
         'Tool-to-tool connections',
         'Automated messaging and replies',
@@ -311,7 +311,7 @@ export const services = {
 export const automate = {
   eyebrow: 'What we automate',
   title: 'Six workflows we build most often',
-  body: 'Named, not vague. Pick one in the demo below — if yours is not on the list it is usually a variation of one that is, which is what the free audit is for.',
+  body: 'Named, not vague. Pick one in the demo below. If yours is not on the list it is usually a variation of one that is, which is what the free audit is for.',
   // The console chrome around the demo. `badge` is load-bearing: these are
   // illustrative builds, and unlabelled they would read as a shipped product
   // with real activity in it.
@@ -360,8 +360,8 @@ export const automate = {
 
 export const process = {
   eyebrow: 'How it works',
-  title: 'Four steps — and you can stop after the first.',
-  body: 'The audit is free and self-contained. If you take the video and build it yourself, that is a fine outcome. The timings below are what we aim for — they hold as long as we can get at the tools, which is the part that usually decides the pace.',
+  title: 'Four steps, and you can stop after the first.',
+  body: 'The audit is free and self-contained. If you take the video and build it yourself, that is a fine outcome. The timings below are what we aim for. They hold as long as we can get at the tools, which is the part that usually decides the pace.',
   steps: [
     {
       n: '01',
@@ -373,7 +373,7 @@ export const process = {
       n: '02',
       when: 'Day 1–3',
       name: 'Map the work',
-      body: 'One call where we watch how the task actually happens — not how the process document says it happens. The gap between those two is usually where the time goes.',
+      body: 'One call where we watch how the task actually happens, not how the process document says it happens. The gap between those two is usually where the time goes.',
     },
     {
       n: '03',
@@ -393,7 +393,7 @@ export const process = {
 export const pricing = {
   eyebrow: 'The packages',
   title: 'Three packages. You pick the shape.',
-  body: 'What each one costs depends on how many tools your work touches and what state they are in, so the number comes on the call rather than off a poster. It is a fixed price either way — agreed in writing before anything starts, with no hourly billing and no scope that quietly grows once you have committed.',
+  body: 'What each one costs depends on how many tools your work touches and what state they are in, so the number comes on the call rather than off a poster. It is a fixed price either way, agreed in writing before anything starts, with no hourly billing and no scope that quietly grows once you have committed.',
   reassurances: [
     'Fixed price, agreed up front',
     'You own every account and automation',
@@ -444,7 +444,7 @@ export const pricing = {
   managed: {
     name: 'Managed plan',
     unit: 'Optional · monthly · cancel anytime',
-    body: 'Optional, and never a condition of the build. Add it to any package or leave it — what we hand over keeps running either way.',
+    body: 'Optional, and never a condition of the build. Add it to any package or leave it. What we hand over keeps running either way.',
     features: [
       'Monitoring and fixes',
       'Small changes as you need them',
@@ -454,7 +454,7 @@ export const pricing = {
   },
   cta: { label: 'Get your free audit', href: '#contact' },
   footnote:
-    'Every engagement starts with the free audit — three tasks, a short video back, no call. You get a fixed, itemized quote before anything begins, and we will tell you honestly if the smallest package is all you need.',
+    'Every engagement starts with the free audit: three tasks, a short video back, no call. You get a fixed, itemized quote before anything begins, and we will tell you honestly if the smallest package is all you need.',
 }
 
 /**
@@ -515,7 +515,7 @@ export const faq = {
   items: [
     {
       q: 'What can you actually automate?',
-      a: 'Anything that follows a rule and happens often enough to be annoying — an order arriving, an invoice going overdue, a booking needing a reminder, a form that should have become a contact. If you can say it as "when this happens, someone does that", it can usually be built. What we cannot automate is judgement: pricing an awkward job, calming an unhappy customer, deciding who to hire. We will tell you when something is judgement wearing a process costume.',
+      a: 'Anything that follows a rule and happens often enough to be annoying: an order arriving, an invoice going overdue, a booking needing a reminder, a form that should have become a contact. If you can say it as "when this happens, someone does that", it can usually be built. What we cannot automate is judgement: pricing an awkward job, calming an unhappy customer, deciding who to hire. We will tell you when something is judgement wearing a process costume.',
     },
     {
       q: 'How do you decide what to automate first?',
@@ -555,7 +555,7 @@ export const faq = {
 export const contact = {
   eyebrow: 'Get started',
   title: 'Tell us the three things you do most often.',
-  body: 'That is the whole audit. Send your three most repeated tasks and we send back a short video showing what we would automate — free, no call, no obligation.',
+  body: 'That is the whole audit. Send your three most repeated tasks and we send back a short video showing what we would automate. Free, no call, no obligation.',
   submitLabel: 'Send us your three',
   /**
    * What the visitor sees if they submit before the endpoint is wired. It has
