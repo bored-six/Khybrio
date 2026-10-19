@@ -104,8 +104,10 @@ export function Contact() {
     // lead replies to Formspree and you copy the address across by hand every
     // time. `_subject` is the same idea: it stops every enquiry landing under
     // an identical generic subject line.
-    if (data.contact) data._replyto = data.contact
-    data._subject = `Audit request — ${data.business || data.name || 'new enquiry'}`
+    // The field now takes an email or a mobile number, and a phone number in
+    // `_replyto` risks Formspree rejecting the send, so only set it for an email.
+    if (data.contact?.includes('@')) data._replyto = data.contact
+    data._subject = `Free call request: ${data.business || data.name || 'new enquiry'}`
     try {
       const res = await fetch(contact.formEndpoint, {
         method: 'POST',
@@ -256,7 +258,7 @@ export function Contact() {
 
           {status === 'sent' ? (
             <p className="text-sm font-medium text-teal-bright">
-              Got it — we’ll reply within a day.
+              Got it. We will reply within a day.
             </p>
           ) : null}
           {status === 'error' ? (

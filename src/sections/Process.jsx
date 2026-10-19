@@ -3,11 +3,7 @@ import { Reveal } from '../components/Reveal'
 import { useContent } from '../content/context'
 
 /**
- * The four (or three, locally) steps with real timeframes attached.
- *
- * Shared between both pages — the international page runs audit → map → build
- * → hand over, the local page runs a shorter Maps-first version — so the copy
- * comes from the provider rather than a fixed import.
+ * The four steps of buying from us: free call, fixed quote, build, handover.
  */
 export function Process() {
   const { process } = useContent()

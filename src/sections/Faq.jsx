@@ -8,8 +8,8 @@ import { useContent } from '../content/context'
  * Objection-handling accordion. Native <button> rows with aria-expanded so it
  * stays keyboard- and screen-reader-friendly; one panel open at a time.
  *
- * Sits directly before Pricing — the questions here (cost, timeline, ownership)
- * are the ones that stop an owner from reading the plans at all.
+ * Sits right before the ask. The questions here (cost, timeline, ownership)
+ * are the ones that stop an owner from sending a message at all.
  */
 function Item({ item, open, onToggle, id }) {
   return (

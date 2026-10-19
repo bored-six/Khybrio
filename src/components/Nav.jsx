@@ -28,7 +28,7 @@ import { subscribeActiveIndex } from '../lib/sceneRegistry'
  * section on leave, so exploring the nav never costs you your place.
  */
 export function Nav() {
-  const { nav } = useContent()
+  const { nav, navCta } = useContent()
   const [open, setOpen] = useState(false)
   const [activeZone, setActiveZone] = useState(0)
   const [atFlight, setAtFlight] = useState(true)
@@ -207,7 +207,7 @@ export function Nav() {
               onClick={go('contact')}
               className="hidden rounded-full border-2 border-teal-deep bg-coral px-4 py-2 text-sm font-semibold text-cream transition-transform duration-300 hover:scale-[1.04] md:inline-block"
             >
-              Get started
+              {navCta.label}
             </a>
           </Magnetic>
 
@@ -255,7 +255,7 @@ export function Nav() {
                 style={{ animationDelay: `${nav.length * 55}ms` }}
                 className="nav-drawer-item mt-2 rounded-full border-2 border-teal-deep bg-coral px-5 py-3 text-center text-base font-semibold text-cream"
               >
-                Get started
+                {navCta.label}
               </a>
             </nav>
           </div>

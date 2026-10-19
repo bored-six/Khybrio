@@ -1,14 +1,9 @@
 import { createContext, useContext } from 'react'
 
 /**
- * Which copy set the tree is rendering.
- *
- * There are two pages on one domain — the international automation page (/)
- * and the Philippine local page (/ph) — built as separate Vite entries, so each
- * ships only its own copy. Sections used by both read their content from here
- * instead of importing content/site.js directly; page-exclusive sections (the
- * flight, the tap-card demo) still import their own module, since there is
- * nothing to switch between.
+ * The copy set the tree renders. There is one page and one copy set
+ * (content/site.js), supplied once in main.jsx; sections read it from here
+ * instead of importing the module directly.
  */
 const ContentContext = createContext(null)
 

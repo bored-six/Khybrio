@@ -74,7 +74,7 @@ export const A = {
   logoFull: {
     src: `${BASE}assets/brand/khybrio-logo-full-transparent.png`,
     placeholder: `${BASE}assets/placeholders/brand-mark.svg`,
-    alt: 'Khybrio — local digital presence',
+    alt: 'Khybrio',
   },
 
   // `teamPhotos` went with the team section. The headshots are still in

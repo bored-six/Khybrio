@@ -5,23 +5,24 @@ import { SceneCounter } from './components/SceneCounter'
 import { Hero } from './sections/Hero'
 import { Problem } from './sections/Problem'
 import { Flight } from './sections/Flight'
-import { Services } from './sections/Services'
-import { Automate } from './sections/Automate'
-import { Improves } from './sections/Improves'
+import { ServicesOverview } from './sections/offer/ServicesOverview'
+import { WebsitePackages } from './sections/offer/WebsitePackages'
+import { GoogleProfile } from './sections/offer/GoogleProfile'
+import { AutomationPackages } from './sections/offer/AutomationPackages'
+import { AddOns } from './sections/offer/AddOns'
 import { Process } from './sections/Process'
-import { Pricing } from './sections/Pricing'
-import { NotFor } from './sections/NotFor'
+import { About } from './sections/About'
 import { Faq } from './sections/Faq'
 import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
 
 /**
- * The international page (/) — workflow automation, USD, no local offering.
+ * The whole site, one page.
  *
- * Order is deliberate: the run log shows work executing before any claim is
- * made about it, the pain lands next, and only then do the three lines of work
- * appear. Pricing sits after the process so a reader meets the number knowing
- * what the four weeks contain.
+ * Order is deliberate: the gap a small business has (Problem), the island tour
+ * that frames the three services, the offer itself (services, then each
+ * package and the add-ons), how buying works (Process), who we are, the
+ * objections, and finally the ask.
  */
 export default function App() {
   useEffect(() => {
@@ -46,20 +47,19 @@ export default function App() {
       <main>
         <Hero />
         <Problem />
-        {/* The island tour, re-cut: three lines of work, then the process. */}
         <Flight />
-        <Services />
-        <Automate />
-        <Improves />
-        {/* Process and Pricing are both dark — fused into one rounded chamber
-            set into the cream page. The wrapper carries its own teal fill so
-            any subpixel seam between the two sections shows teal, not the
-            cream body behind — that was the "cut" hairline. */}
+        <ServicesOverview />
+        <WebsitePackages />
+        <GoogleProfile />
+        <AutomationPackages />
+        <AddOns />
+        {/* Process sits in the dark rounded chamber set into the cream page.
+            The wrapper carries its own teal fill so any subpixel seam between
+            sections shows teal, not the cream body behind. */}
         <div className="mx-2 overflow-clip rounded-[40px] bg-teal-deep sm:mx-4 sm:rounded-[64px]">
           <Process />
-          <Pricing />
         </div>
-        <NotFor />
+        <About />
         <Faq />
         <Contact />
       </main>

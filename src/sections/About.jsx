@@ -2,8 +2,8 @@ import { Reveal } from '../components/Reveal'
 import { useContent } from '../content/context'
 
 /**
- * Short origin story. Sits after the pricing so a visitor meets the number
- * first, hears why the three of them started, and only then reads the FAQ.
+ * Short origin story. Sits after the process, so a visitor knows how buying
+ * works, hears why we started, and only then reads the FAQ.
  */
 export function About() {
   const { about } = useContent()

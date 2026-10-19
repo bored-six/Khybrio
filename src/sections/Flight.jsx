@@ -3,7 +3,6 @@ import { ChevronDown } from 'lucide-react'
 import { ScrollScene } from '../components/ScrollScene'
 import { SceneMedia } from '../components/SceneMedia'
 import { AssetImage } from '../components/AssetImage'
-import { InitialsAvatar } from '../components/InitialsAvatar'
 import { Magnetic } from '../components/Magnetic'
 import { RotatingWord } from '../components/RotatingWord'
 import { useProgressEffect, band, smooth } from '../hooks/useProgressEffect'
@@ -57,11 +56,10 @@ function Headline({ parts, rotations }) {
 }
 
 /**
- * All eight zones' copy + cards live in the DOM at once; this fades each in as
+ * All three zones' copy + cards live in the DOM at once; this fades each in as
  * its band comes into focus during the single scrubbed flight. Everything is
- * driven off one progress ref — the copy, the bundle hotspots, the crew cards
- * and the scroll hint can't drift out of sync with the camera because they all
- * read the same value.
+ * driven off one progress ref: the copy, the hotspot cards and the scroll hint
+ * can't drift out of sync with the camera because they all read the same value.
  */
 function FlightOverlay({ progressRef }) {
   const copyRefs = useRef([])
@@ -120,21 +118,12 @@ function FlightOverlay({ progressRef }) {
                 {z.sub}
               </p>
 
-              {/* Mobile-only inline info — the desktop right-hand card is hidden
-                  on small screens, so surface the benefit / crew here instead. */}
+              {/* Mobile-only inline info: the desktop right-hand card is hidden
+                  on small screens, so surface the hotspot here instead. */}
               {z.hotspot ? (
                 <p className="mt-3 inline-flex rounded-full bg-cream/15 px-3.5 py-1.5 text-sm font-semibold text-cream md:hidden">
                   {z.hotspot.benefit}
                 </p>
-              ) : null}
-              {z.crew ? (
-                <div className="mt-3 flex items-center gap-3 md:hidden">
-                  <InitialsAvatar initials={z.crew.initials} accent={z.crew.accent} size={40} />
-                  <div>
-                    <p className="font-semibold text-cream">{z.crew.name}</p>
-                    <p className="text-sm text-teal-soft">{z.crew.role}</p>
-                  </div>
-                </div>
               ) : null}
 
               {z.ctas ? (
@@ -164,11 +153,11 @@ function FlightOverlay({ progressRef }) {
         </div>
       </div>
 
-      {/* Cards column, right — bundle hotspot or crew card per zone (desktop). */}
+      {/* Cards column, right: the hotspot card per zone (desktop). */}
       <div className="pointer-events-none absolute inset-0 z-20 hidden items-center md:flex">
         <div className="relative ml-auto mr-8 w-[21rem] lg:mr-16">
           {zones.map((z, i) => {
-            if (!z.hotspot && !z.crew) return <div key={z.key} />
+            if (!z.hotspot) return <div key={z.key} />
             return (
               <article
                 key={z.key}
@@ -178,30 +167,13 @@ function FlightOverlay({ progressRef }) {
                 className="absolute right-0 top-1/2 w-[21rem] -translate-y-1/2 rounded-[var(--radius-card)] bg-cream/95 p-6 shadow-[0_10px_40px_rgba(15,43,41,0.28)] backdrop-blur-sm scene-layer"
                 style={{ opacity: 0 }}
               >
-                {z.crew ? (
-                  <>
-                    <div className="flex items-center gap-4">
-                      <InitialsAvatar initials={z.crew.initials} accent={z.crew.accent} />
-                      <div>
-                        <h3 className="font-display text-lg font-bold text-teal-deep">
-                          {z.crew.name}
-                        </h3>
-                        <p className="text-sm font-medium text-teal-bright">{z.crew.role}</p>
-                      </div>
-                    </div>
-                    <p className="mt-4 text-sm leading-relaxed text-ink-muted">{z.sub}</p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-bright">
-                      {z.eyebrow}
-                    </p>
-                    <p className="mt-2 font-display text-lg font-bold text-teal-deep">
-                      {z.hotspot.benefit}
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-muted">{z.sub}</p>
-                  </>
-                )}
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-bright">
+                  {z.eyebrow}
+                </p>
+                <p className="mt-2 font-display text-lg font-bold text-teal-deep">
+                  {z.hotspot.benefit}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-ink-muted">{z.sub}</p>
               </article>
             )
           })}
@@ -246,15 +218,6 @@ function ReducedLayout() {
                 <p className="mt-3 inline-flex rounded-full bg-cream/15 px-3.5 py-1.5 text-sm font-semibold text-cream">
                   {z.hotspot.benefit}
                 </p>
-              ) : null}
-              {z.crew ? (
-                <div className="mt-4 flex items-center gap-3">
-                  <InitialsAvatar initials={z.crew.initials} accent={z.crew.accent} size={44} />
-                  <div>
-                    <p className="font-semibold text-cream">{z.crew.name}</p>
-                    <p className="text-sm text-teal-soft">{z.crew.role}</p>
-                  </div>
-                </div>
               ) : null}
             </div>
           </div>

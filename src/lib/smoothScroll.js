@@ -74,8 +74,7 @@ export function scrollToId(id) {
 
 /**
  * Scroll to a specific progress (0..1) inside a pinned ScrollTrigger scene —
- * used to jump to a zone within the flight (its bundle or crew section) rather
- * than to the flight's top. Exact, unlike a percentage anchor.
+ * used to jump to a zone within the flight rather than to the flight's top. Exact, unlike a percentage anchor.
  */
 export function scrollToSceneProgress(sceneId, p) {
   const st = ScrollTrigger.getById(sceneId)
