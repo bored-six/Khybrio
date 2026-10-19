@@ -1,0 +1,107 @@
+/* Offer sections: motion and the few patterns Tailwind can't say cleanly.
+
+   Same contract as index.css: every entrance here is a CSS keyframe that ENDS
+   visible and uses `both`, so a throttled tab finishes it and holds the end
+   state. JS only flips state; it never animates content in. The only thing
+   that rests at opacity 0 is the tap ripple, which is meant to vanish.
+   The global reduced-motion rule in index.css collapses all of it. */
+
+/* A block arriving in a mock: the booking widget, the payment step, a page
+   tab, a listing detail. Staggered off `--i` where there are several. */
+@keyframes offer-slot {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.97);
+  }
+}
+
+.offer-slot {
+  animation: offer-slot 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* A page tab popping into the site's nav as the package grows. */
+@keyframes offer-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+}
+
+.offer-pop {
+  animation: offer-pop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+/* The NFC tap. The card nudges toward the phone and settles back; the ripple
+   spreads from the phone; the screen swaps in just after contact. */
+@keyframes offer-tap {
+  0%,
+  100% {
+    transform: none;
+  }
+  42% {
+    transform: translate3d(var(--tx, 10px), var(--ty, -4px), 0) rotate(-4deg);
+  }
+}
+
+.offer-tap {
+  animation: offer-tap 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes offer-ripple {
+  from {
+    transform: scale(0.3);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+
+.offer-ripple {
+  animation: offer-ripple 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) 0.22s both;
+}
+
+@keyframes offer-screen {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+}
+
+.offer-screen {
+  animation: offer-screen 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+/* The add-ons ruler: minor ticks every 12px hanging off the top edge, a
+   longer major tick every 48px. A longer band gets more ruler, so effort
+   reads as length before anyone reads the label. */
+.offer-ruler {
+  background-color: var(--color-cream);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--color-teal-deep) 0 2px,
+      transparent 2px 48px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-teal-deep) 45%, transparent) 0 2px,
+      transparent 2px 12px
+    );
+  background-size:
+    100% 13px,
+    100% 7px;
+  background-repeat: no-repeat;
+  background-position:
+    0 0,
+    0 0;
+}
+
+/* Hang tags for the add-on items: a pointed left end with a punched hole.
+   clip-path rather than a border, so the point stays crisp at any size. */
+.offer-tag {
+  clip-path: polygon(13px 0, 100% 0, 100% 100%, 13px 100%, 0 50%);
+}

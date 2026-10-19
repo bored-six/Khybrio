@@ -1,30 +1,25 @@
-import { Check, ArrowRight } from 'lucide-react'
+import { Fragment } from 'react'
 import { Magnetic } from '../components/Magnetic'
-import { FlowMachine } from '../components/FlowMachine'
-import { scrollToId } from '../lib/smoothScroll'
-import { hero, runLog } from '../content/site'
+import { IconArrow, IconFlow, IconPin, IconSite, IconYes } from '../components/icons/OfferIcons'
+import { ExampleBadge } from './offer/shared'
+import { jumpTo } from './offer/anchor'
+import { hero } from '../content/offer'
 
 /**
- * The opening chamber — editorial structure on the brand's own dark teal.
+ * The opening chamber for the studio: who we are in one line, then one
+ * customer walking through all three services.
  *
- * The cream broadsheet version of this hero read as another site's page
- * stapled onto Khybrio; the identity here is teal-deep first. So the Wispr
- * playbook stays (serif commanding through scale at weight 400, a floating
- * pill nav, one accent colour doing all the pointing) but the room is dark,
- * which also restores the page's alternation: dark hero → cream problem →
- * dark flight.
+ * The room is the same lit teal room as before (spot, aurora, sweep,
+ * vignette, floor: see "Hero lighting" in index.css). What changed is the
+ * object on the floor. The flow machine said "automation agency"; the card
+ * now follows one invented customer from a Google listing, to a booking on
+ * the site, to a confirmation nobody had to send. It is a story, not a menu,
+ * so it does not repeat the services grid two sections down.
  *
- * The room is LIT, not filled. Three drifting aurora fields alone averaged
- * out to the same teal they sat on, so the panel read as paint with type on
- * it: a spot above the headline, a vignette closing the corners, a darker
- * floor under the machine and a slow sweep across the whole thing are what
- * give it a near-far axis. See "Hero lighting" in index.css.
- *
- * Entrances are CSS (`rise-in`, `rise-step`, `word-rise`), not Motion — the
- * headline and machine are the two things a visitor must see, and a JS
- * entrance that starts at opacity 0 leaves both invisible wherever the frame
- * loop is throttled. CSS keyframes run off the compositor's own clock, so
- * they still finish and hold their end state in a background tab.
+ * Entrances are CSS only (`rise-step`, `word-rise`, `rise-in-late`, the pipe
+ * keyframes): the headline and card are what a visitor must see, and CSS
+ * keyframes finish and hold their end state even in a throttled tab. No
+ * images, so first paint is fonts and DOM.
  */
 
 /** Hand-drawn coral squiggle under the headline accent, drawn in on load. */
@@ -49,48 +44,12 @@ function Squiggle() {
 }
 
 /**
- * A stray task chip drifting at the hero's edge — the "before" litter.
- *
- * These used to be cream-on-teal at 8% and read as smudges on the panel. They
- * carry a real cost line now and sit on their own darker glass, because the
- * point they make — this is what the week currently costs — only lands if you
- * can read them.
- *
- * `show` is per-chip and never goes below xl: legible chips need real gutter,
- * and below 1280 the hero's side margins are narrower than a chip, so they
- * land on the CTA row instead of beside it.
- */
-function DriftChip({ className, show = 'xl:block', tilt, label, body, cost, delay }) {
-  return (
-    <div
-      className={`float-drift pointer-events-none absolute hidden max-w-[15.5rem] rounded-2xl border border-cream/20 bg-teal-deep/60 px-4 py-3 shadow-[0_22px_50px_-24px_rgba(0,0,0,0.9)] backdrop-blur-md ${show} ${className}`}
-      style={{ '--tilt': tilt, animationDelay: delay }}
-      aria-hidden="true"
-    >
-      <p className="flex items-center gap-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-coral">
-        <span className="h-1.5 w-1.5 rounded-full bg-coral" />
-        {label}
-      </p>
-      <p className="mt-1 text-[0.82rem] font-medium leading-snug text-cream/85">{body}</p>
-      <p className="mt-1.5 text-[0.7rem] text-cream/45 line-through decoration-coral/60">
-        {runLog.byHandLabel}: {cost}
-      </p>
-    </div>
-  )
-}
-
-/**
- * The headline, split so each word can lift on its own beat.
- *
- * `start` continues the index across the copy fragments, so the stagger runs
- * left-to-right through the whole line rather than restarting at the accent.
- * The separating spaces are plain text nodes BETWEEN the spans, never inside
- * them: a word that owns its trailing space inside an inline-block can't be
- * broken there, and the lead fragment has to stay free to wrap on mobile.
+ * The headline, split so each word lifts on its own beat. `start` carries the
+ * index across fragments so the stagger runs through the whole line. Spaces
+ * sit BETWEEN the inline-blocks so the lead fragment can still wrap.
  */
 function SplitWords({ text, start = 0 }) {
   const words = text.trim().split(/\s+/)
-
   return words.map((word, i) => (
     <span key={`${word}-${i}`}>
       <span className="word-rise" style={{ '--i': start + i }}>
@@ -101,23 +60,132 @@ function SplitWords({ text, start = 0 }) {
   ))
 }
 
-export function Hero() {
-  const go = (href) => (e) => {
-    e.preventDefault()
-    scrollToId(href.slice(1))
-  }
+/* ── The journey card ───────────────────────────────────────────────────── */
 
-  const leadWords = hero.title[0].trim().split(' ').length
+const STEP_ICONS = { google: IconPin, site: IconSite, flow: IconFlow }
+
+/** A thumbnail map: two roads, a block, the pin. 40px, decorative. */
+function MiniMap() {
+  return (
+    <svg viewBox="0 0 40 40" className="h-10 w-10 shrink-0 rounded-lg" aria-hidden="true">
+      <rect width="40" height="40" fill="var(--color-teal-soft)" opacity="0.55" />
+      <path d="M-2 27L42 15" stroke="var(--color-cream)" strokeWidth="4" />
+      <path d="M14 -2L22 42" stroke="var(--color-cream)" strokeWidth="3" />
+      <rect x="26" y="22" width="10" height="9" rx="2" fill="var(--color-cream)" opacity="0.6" />
+      <circle cx="18" cy="20" r="5" fill="var(--color-coral)" stroke="var(--color-cream)" strokeWidth="2" />
+    </svg>
+  )
+}
+
+function StepPreview({ step }) {
+  const p = step.preview
+  if (step.key === 'google') {
+    return (
+      <div className="flex items-center gap-3 rounded-xl bg-teal-soft/25 p-2.5">
+        <MiniMap />
+        <div className="min-w-0">
+          <p className="truncate text-sm font-bold text-teal-deep">{p.name}</p>
+          <p className="truncate text-xs text-ink-muted">{p.line}</p>
+        </div>
+      </div>
+    )
+  }
+  if (step.key === 'site') {
+    return (
+      <div className="flex items-center gap-1.5 rounded-xl border-2 border-teal-deep/10 p-2">
+        <span className="rounded-lg bg-teal-soft/35 px-2.5 py-1.5 text-xs font-semibold text-teal-deep">
+          {p.day}
+        </span>
+        <span className="rounded-lg bg-coral px-2.5 py-1.5 text-xs font-semibold text-cream">
+          {p.time}
+        </span>
+        <span className="ml-auto rounded-lg bg-teal-deep px-3 py-1.5 text-xs font-semibold text-cream">
+          {p.button}
+        </span>
+      </div>
+    )
+  }
+  return (
+    <div>
+      <p className="rounded-2xl rounded-bl-md bg-teal-bright px-3 py-2 text-xs leading-snug text-cream">
+        {p.message}
+      </p>
+      <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-teal-deep">
+        <IconYes size={15} className="text-teal-bright" />
+        {p.logged}
+      </p>
+    </div>
+  )
+}
+
+function JourneyCard() {
+  const { journey } = hero
+  return (
+    <div className="overflow-hidden rounded-[28px] bg-cream text-left">
+      <div className="flex items-center justify-between gap-3 border-b-2 border-teal-deep/12 px-5 py-3 sm:px-7">
+        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-teal-bright">
+          {journey.title}
+        </p>
+        <ExampleBadge label={journey.badge} />
+      </div>
+
+      {/* Vertical on phones, a left-to-right line from md up. The wires and
+          their travelling pulse are the same pipe pieces the automation
+          diagrams use, so the hero speaks the page's own diagram language. */}
+      <div className="flex flex-col px-4 py-5 sm:px-6 sm:py-6 md:flex-row md:items-stretch">
+        {journey.steps.map((step, i) => {
+          const Icon = STEP_ICONS[step.key]
+          return (
+            <Fragment key={step.key}>
+              {i > 0 ? (
+                <div
+                  className="pipe-wire mx-auto my-1 h-6 w-[3px] shrink-0 md:mx-2 md:my-0 md:h-[3px] md:w-10 md:self-center"
+                  style={{ '--i': i - 1 }}
+                  aria-hidden="true"
+                >
+                  <span className="pipe-current" />
+                  <span className="pipe-pulse" />
+                </div>
+              ) : null}
+              <div
+                className="pipe-node flex flex-1 flex-col rounded-2xl border-2 border-teal-deep/10 bg-cream p-4"
+                style={{ '--i': i }}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-teal-deep text-cream">
+                    <Icon size={20} />
+                  </span>
+                  <span className="text-[0.62rem] font-bold uppercase tracking-[0.13em] text-ink-muted">
+                    {i + 1} · {step.tag}
+                  </span>
+                </div>
+                <p className="mt-3 font-display text-[1.05rem] font-semibold leading-snug text-teal-deep">
+                  {step.title}
+                </p>
+                <div className="mt-auto pt-3">
+                  <StepPreview step={step} />
+                </div>
+              </div>
+            </Fragment>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+/* ── The hero ───────────────────────────────────────────────────────────── */
+
+export function Hero() {
+  const leadWords = hero.title[0].trim().split(/\s+/).length
 
   return (
     <section
       id="hero"
       className="relative z-10 overflow-hidden bg-teal-deep px-5 pb-10 pt-28 sm:px-8 sm:pb-14 sm:pt-32"
     >
-      {/* Depth behind the headline, back to front: the light pool, the drifting
-          colour fields, the sweep, then the vignette and floor that close the
-          room in. Sizes are in vw/vh so everything scales with the panel
-          instead of pooling in a corner on wide screens. */}
+      {/* Depth, back to front: the light pool, the drifting colour fields,
+          the sweep, then the vignette and floor that close the room in. */}
       <div className="hero-atmos" aria-hidden="true">
         <span className="hero-spot" />
         <span
@@ -170,40 +238,7 @@ export function Hero() {
         <span className="hero-floor" />
       </div>
 
-      {/* Kept to the hero's gutters — at 4xl the headline owns the middle
-          band, so the chips sit high-right and low-left where it never is. */}
-      <DriftChip
-        className="left-[3%] top-[36%]"
-        tilt="-7deg"
-        delay="0s"
-        label={runLog.flows[0].label}
-        body={runLog.flows[0].trigger}
-        cost={runLog.flows[0].byHand}
-      />
-      <DriftChip
-        className="right-[4%] top-[12%]"
-        tilt="5deg"
-        delay="1.4s"
-        label={runLog.flows[1].label}
-        body={runLog.flows[1].trigger}
-        cost={runLog.flows[1].byHand}
-      />
-      {/* The third one waits for 2xl. It sits level with the CTA row, which is
-          the busiest band in the hero — there has to be clear air beside the
-          buttons before it earns its place. It also stops at 44%: the machine
-          card's top edge is at roughly 57% of the section and its gutters are
-          narrower than a chip, so anything lower lands on the card. */}
-      <DriftChip
-        className="right-[5%] top-[44%]"
-        show="2xl:block"
-        tilt="-4deg"
-        delay="2.6s"
-        label={runLog.flows[3].label}
-        body={runLog.flows[3].trigger}
-        cost={runLog.flows[3].byHand}
-      />
-
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
+      <div className="relative z-10 mx-auto max-w-5xl text-center">
         <p
           className="rise-step inline-flex items-center gap-2 rounded-full border border-cream/20 bg-cream/10 px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-teal-soft backdrop-blur-sm"
           style={{ '--i': 0 }}
@@ -212,11 +247,12 @@ export function Hero() {
           {hero.eyebrow}
         </p>
 
-        <h1 className="mt-6 font-normal leading-[0.95] tracking-[-0.03em] text-cream [font-size:clamp(2.6rem,7.5vw,5.6rem)]">
+        {/* Sized so "A digital services studio" holds one line on desktop and
+            the nowrap accent fits a 360px phone. Below 360 the accent is
+            allowed to wrap rather than run off the screen. */}
+        <h1 className="mt-6 text-balance font-normal leading-[0.98] tracking-[-0.03em] text-cream [font-size:clamp(2.4rem,6.6vw,4.75rem)]">
           <SplitWords text={hero.title[0]} />{' '}
-          {/* The punctuation rides inside the nowrap group so it can never
-              wrap onto a line of its own. */}
-          <span className="whitespace-nowrap">
+          <span className="min-[360px]:whitespace-nowrap">
             <span className="relative text-coral">
               <SplitWords text={hero.title[1]} start={leadWords} />
               <Squiggle />
@@ -236,54 +272,49 @@ export function Hero() {
           <Magnetic>
             <a
               href={hero.ctas.primary.href}
-              onClick={go(hero.ctas.primary.href)}
-              className="cta-glow inline-flex items-center gap-2 rounded-full border-2 border-cream bg-coral px-7 py-3.5 font-semibold text-cream transition-transform duration-300 hover:scale-[1.04]"
+              onClick={jumpTo(hero.ctas.primary.href)}
+              className="cta-glow inline-flex min-h-12 items-center gap-2.5 rounded-full border-2 border-cream bg-coral px-7 py-3.5 font-semibold text-cream transition-transform duration-300 hover:scale-[1.04]"
             >
               {hero.ctas.primary.label}
-              <ArrowRight size={17} strokeWidth={2.4} />
+              <IconArrow size={18} />
             </a>
           </Magnetic>
           <Magnetic>
             <a
               href={hero.ctas.secondary.href}
-              onClick={go(hero.ctas.secondary.href)}
-              className="inline-block rounded-full border-2 border-cream/35 px-7 py-3.5 font-semibold text-cream backdrop-blur-sm transition-colors duration-300 hover:bg-cream/10"
+              onClick={jumpTo(hero.ctas.secondary.href)}
+              className="inline-flex min-h-12 items-center rounded-full border-2 border-cream/35 px-7 py-3.5 font-semibold text-cream backdrop-blur-sm transition-colors duration-300 hover:bg-cream/10"
             >
               {hero.ctas.secondary.label}
             </a>
           </Magnetic>
         </div>
 
-        <div
+        <ul
           className="rise-step mt-7 flex flex-wrap justify-center gap-x-5 gap-y-2"
           style={{ '--i': 8 }}
         >
           {hero.trust.map((t) => (
-            <span key={t} className="flex items-center gap-1.5 text-sm text-cream/70">
-              <Check size={14} strokeWidth={2.6} color="var(--color-coral)" />
+            <li key={t} className="flex items-center gap-1.5 text-sm text-cream/70">
+              <IconYes size={15} className="text-coral" />
               {t}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
       <div className="rise-in-late relative z-10 mx-auto mt-12 max-w-5xl sm:mt-14">
-        {/* A pool of light on the floor under the card, so the shadow reads as
-            the card being lifted rather than a dark rectangle behind it. */}
+        {/* A pool of light under the card so its shadow reads as lift. */}
         <span
           aria-hidden="true"
           className="absolute inset-x-[8%] -bottom-6 -z-10 h-24 rounded-[50%] bg-teal-bright/25 blur-3xl"
         />
-        {/* The animated ring is the machine's border now. */}
-        <div className="border-flow hero-card-lift" style={{ '--bf-r': '32px' }}>
-          <FlowMachine />
+        <div className="border-flow hero-card-lift" style={{ '--bf-r': '28px' }}>
+          <JourneyCard />
         </div>
       </div>
 
-      {/* The band under the card was dead teal. A hairline with a dot falling
-          down it carries the handover instead — unlabelled on purpose: the
-          next section's own eyebrow is already on screen by the time this is,
-          and naming it here just printed the same words twice. */}
+      {/* The handover to the next section: a dot falling down a hairline. */}
       <div className="relative z-10 mt-11 flex justify-center sm:mt-14" aria-hidden="true">
         <span className="relative block h-14 w-px overflow-hidden bg-cream/15">
           <span className="cue-dot absolute inset-x-0 top-0 block h-4 bg-coral" />
