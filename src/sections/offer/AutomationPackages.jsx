@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
+import { ScrollTrigger } from '../../lib/smoothScroll'
 import { Reveal } from '../../components/Reveal'
 import { automation as A } from '../../content/offer'
 import { ExampleBadge, QuoteButton, SectionHead } from './shared'
@@ -193,6 +194,19 @@ export function AutomationPackages() {
 
   const shown = A.workflows.find((w) => w.key === focus)
 
+  // The example pipeline mounts and unmounts with the picks, which moves every
+  // section below it. Re-measure the scroll triggers when it does, or their
+  // reveals fire late until the next resize.
+  const hasPipeline = Boolean(shown)
+  const mounted = useRef(false)
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true
+      return
+    }
+    ScrollTrigger.refresh()
+  }, [hasPipeline])
+
   return (
     <section
       id="automation"
@@ -251,7 +265,10 @@ export function AutomationPackages() {
             })}
           </Reveal>
 
-          {full ? <p className="mt-3 text-sm text-teal-soft">{A.capNote}</p> : null}
+          {/* Always mounted so screen readers hear the cap when a sixth pick is blocked. */}
+          <p aria-live="polite" className={full ? 'mt-3 text-sm text-teal-soft' : 'sr-only'}>
+            {full ? A.capNote : ''}
+          </p>
 
           {shown ? <Pipeline workflow={shown} /> : null}
 

@@ -286,6 +286,7 @@ export function GoogleProfile() {
                 </span>
               </span>
               <span
+                aria-hidden="true"
                 className={`inline-flex min-h-10 items-center gap-2 self-start rounded-full px-4 text-sm font-semibold transition-colors duration-300 sm:ml-auto sm:self-center ${
                   allOn ? 'bg-coral text-cream' : 'border-2 border-teal-deep/20 text-teal-deep'
                 }`}

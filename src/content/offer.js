@@ -137,7 +137,7 @@ export const websites = {
       name: 'Standard',
       pages: 6,
       pagesLabel: 'Up to 6 pages',
-      line: 'Everything in Starter, and now people can book you and find you through Google.',
+      line: 'Everything in Starter, plus a booking system and your Google profile linked.',
       addsLabel: 'Adds to Starter',
       adds: ['A booking system', 'One automation tied to the site', 'Your Google profile linked'],
     },
