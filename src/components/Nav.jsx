@@ -143,7 +143,7 @@ export function Nav() {
           <nav
             ref={navRef}
             onMouseLeave={() => setHoverIdx(-1)}
-            className="relative hidden items-center md:flex"
+            className="relative hidden items-center lg:flex"
           >
             {/* The travelling marker, behind the labels. */}
             {/* Sized to the nav's own height rather than centred with a
@@ -205,7 +205,7 @@ export function Nav() {
             <a
               href="#contact"
               onClick={go('contact')}
-              className="hidden rounded-full border-2 border-teal-deep bg-coral px-4 py-2 text-sm font-semibold text-cream transition-transform duration-300 hover:scale-[1.04] md:inline-block"
+              className="hidden rounded-full border-2 border-teal-deep bg-coral px-4 py-2 text-sm font-semibold text-cream transition-transform duration-300 hover:scale-[1.04] lg:inline-block"
             >
               {navCta.label}
             </a>
@@ -214,7 +214,7 @@ export function Nav() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="p-1.5 text-ink md:hidden"
+            className="p-1.5 text-ink lg:hidden"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
           >
@@ -231,7 +231,7 @@ export function Nav() {
         </div>
 
         {open ? (
-          <div className="mt-2 overflow-hidden rounded-[24px] border-2 border-teal-deep bg-cream p-3 md:hidden">
+          <div className="mt-2 overflow-hidden rounded-[24px] border-2 border-teal-deep bg-cream p-3 lg:hidden">
             <nav className="flex flex-col gap-1">
               {nav.map((item, i) => (
                 <a

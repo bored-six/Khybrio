@@ -277,8 +277,8 @@ export const automation = {
   max: 5,
   capNote: 'Five is the most one package connects.',
   emptyNote: 'Pick a workflow to see where it fits.',
-  fitOne: 'One workflow: that is the One workflow package.',
-  fitOps: (n) => `${n} connected workflows: that fits the Operations package.`,
+  fitOne: '1 workflow picked: that fits the One workflow package.',
+  fitOps: (n) => `${n} workflows picked: that fits the Operations package.`,
   demo: {
     badge: 'Example',
     lead: 'What it looks like once it runs',

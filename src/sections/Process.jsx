@@ -47,7 +47,7 @@ export function Process() {
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-coral font-display text-sm font-bold text-cream">
                   {step.n}
                 </span>
-                <span className="rounded-full bg-cream/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-cream/70">
+                <span className="relative rounded-full bg-[color-mix(in_oklab,var(--color-cream)_10%,var(--color-teal-deep))] px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-widest text-cream/70">
                   {step.when}
                 </span>
               </div>
