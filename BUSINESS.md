@@ -1,30 +1,26 @@
-# Khybrio — Business Context
+# Khybrio: Business Context
 
 > Drop this file into any chat to give it full context on the business.
-> Last updated: 2026-07-30. Status: **pre-launch — no paying clients yet.**
+> Last updated: 2026-10-20. Status: early; first clients signed October 2026 (no client names or prices in this public repo).
 
 ## One paragraph
 
-Khybrio is a three-person team in Zamboanga City, Philippines, selling **workflow
-automation to small businesses internationally (in USD)** — finding the repetitive
-work in a business (copy-pasting, re-typing, chasing) and making it run itself,
-then handing everything over documented and in the client's name. A **separate
-local offering for Philippine businesses (in PHP)** leads with Google Business
-Profile + review collection, with websites and automation behind it. One brand,
-one domain, two pages: `/` (international) and `/ph` (local).
+Khybrio is a digital services studio in Zamboanga City, Philippines, for small businesses, starting with Philippine ones. Three services, each sold on its own: website packages (Starter, Standard, Premium), Google Business Profile setup ("Google muna", or item by item) and workflow automation (One workflow, or the Operations package of up to five). Add-ons sit on top in fixed bands. No prices on the site: every job is quoted on a free call, fixed price, in writing, and the client owns everything. One site, in English, at /. The old /ph page is a redirect to it.
 
 ## The team
 
 | Person | Role | Does |
 |---|---|---|
 | Shiek Abdurahman | Developer | Builds every automation and site, plus handover docs, hosting, uptime |
-| Dave Calio | First contact & onboarding | First person a prospect meets; walks owners through what the audit found, plain language |
+| Dave Calio | First contact & onboarding | First person a prospect meets; runs the free call, plain language |
 | Haiqal Munjalin | Marketing & sales | Proposals, scoping, follow-through to a signed agreement |
+| TBC | TBC | Joined by 2026-10-14; name and role not yet recorded |
 
-Rein Garcia (social media management) left the team; anything implying a fourth
-member or an open-ended social media service is outdated.
+Rein Garcia (social media management) left the team; social media management is not offered. The site states no headcount.
 
 ## The pivot (why the business looks like this)
+
+> **Superseded 2026-10-20.** Kept as history. The two-page split, USD offer, review retainer, managed plan and free audit described here are retired. See "The offer".
 
 The original offer was a **bundle**: website + NFC tap card + Google Business
 Profile/Facebook Page optimization, sold locally in Zamboanga. It kept dying on
@@ -48,53 +44,74 @@ The reframe:
   monthly **review-collection service**; what's sold is the review count and the
   Maps ranking it buys. This is also the recurring local revenue line.
 
-## The international offer (`/` — USD)
+## The offer (since 2026-10-20)
 
-**Positioning:** "Your team is doing a computer's job." We find the repetitive
-work eating your week and make it run itself. Then we hand it over, documented,
-in your name.
+### Positioning
+- Khybrio is a **digital services studio** for small businesses. Not an
+  automation agency any more, not a web design agency. Every service below is
+  sold standalone; none is a "feeder" for another.
+- Based in Zamboanga City, Philippines. Starting with Philippine businesses.
+- ONE site, in English. The separate Taglish `/ph` page is retired and merged.
+- **No prices on the site.** Everything is "quoted on a free call", fixed price,
+  agreed in writing before work starts, no hourly billing.
+- The client owns everything: domain, site, profile, automations, accounts.
 
-**Three lines of work, automation leads:**
-1. **Workflow automation** — tool-to-tool connections, automated messaging,
-   scheduled reports, data entry removed at the source
-2. **Websites & booking** — a site that *does something*: bookings, enquiry
-   forms, payments. Never sold as "a professional website"; sold as a machine
-   that feeds the automations
-3. **Local presence** — Google Business Profile set up properly, review flow
+### 1. Website packages: Starter, Standard, Premium
 
-**Six named workflows** (the anti-vagueness list):
-- Retail & e-commerce → orders out of DMs and into a system
-- Services & trades → quotes and job scheduling
-- Any business with invoices → getting paid without chasing
-- Clinics & appointments → bookings, forms and reminders
-- Offices & admin → reports that build themselves
-- Customer-facing teams → the first reply, instantly
+| | Starter | Standard | Premium |
+|---|---|---|---|
+| Pages | 1 to 3 | up to 6 | up to 10 |
+| Mobile-fast, domain and hosting set up in the client's name | yes | yes | yes |
+| Contact buttons | yes | yes | yes |
+| Inquiry form | yes | yes | yes |
+| Booking system | no | yes | yes |
+| Payments and confirmations | no | no | yes |
+| Automations tied to the site | no | 1 | up to 3 |
+| Google profile linked | no | yes | yes |
 
-**The process (real timeframes, stated as targets not guarantees):**
-1. **The audit · Day 0** — prospect names their three most-repeated tasks, gets
-   a short video back showing what we'd automate. Free, no call. ("Send us your
-   three" is the site-wide call to action.)
-2. **Map the work · Day 1–3** — one call watching how the task actually happens
-3. **Build and run in parallel · Week 1–3** — nothing switches off until proven
-   on real data
-4. **Hand over · Week 3–4** — documentation, recorded walkthrough, every
-   account in the client's name
+The client pays the yearly domain and hosting fees directly.
 
-**Packages** (no public prices — see pricing philosophy):
-- **One workflow** — the entry point; the single most annoying task, end to end
-- **Operations package** — up to five connected workflows
-- **Site + automation** — everything above plus the booking/enquiry site
-- **Managed plan** — optional monthly: monitoring, fixes, small changes, one
-  new workflow per quarter, cancel anytime. Never a condition of the build.
+### 2. Google Business Profile
+Items: claim and verify; hours, address and category; photos; first posts;
+fix or merge wrong listings.
+Sold together as the package **"Google muna"** (keep this name) or item by item.
 
-**Founding clients:** first five clients get **35% off any package** in
-exchange for a case study and testimonial. This exists because the offer is
-new and saying so converts better than faking a track record.
+### 3. Workflow automation
+Packages: **One workflow**, or **Operations package** (up to 5 connected workflows).
+The six workflows:
+- Orders from DMs/Messenger into a system
+- Quotes and job scheduling
+- Invoice reminders and payment chasing
+- Bookings, forms and reminders
+- Scheduled reports
+- Instant first reply
 
-## The local offer (`/ph` — PHP, Taglish copy)
+### Add-ons
+Extras bought on top of a package. Each sits in a band by how hard it is and
+how long it takes; every add-on in a band costs the same.
 
-**Order of sale:** Google Business Profile first, reviews second, website
-third, automation fourth. "Apat na serbisyo. Google muna."
+- **Small**: quick additions, under about an hour.
+  Google Maps embed, Messenger/WhatsApp button, social links, extra form field,
+  Google Analytics setup
+- **Medium**: half a day to a day.
+  Extra page, extra form that emails you
+- **Large**: several days to build.
+  Booking system on Starter, payments on Standard, extra automation workflow
+- **Physical**: items handed to the client, each at its own fixed price.
+  - Custom NFC card: customized to the business, links to ANY platform
+    (Google, Facebook, Instagram, TikTok, website, menu)
+  - NFC stand: counter stand, links to Google reviews
+
+### Removed (must not appear anywhere on the site)
+- Review service / monthly review retainer, "Google + reviews" package
+- Managed plan / monthly retainer
+- Buong setup / Full setup bundle, any bundle
+- The free audit ("send us your three", "free workflow audit", video back)
+- Social media management
+- Logo work
+- Any USD pricing, "international" framing, Taglish copy
+
+### Selling the Google profile
 
 **The sales opener is a demo, not a pitch:** in their shop, on your phone,
 search their category + "Zamboanga" on Google Maps. Show them the competitor
@@ -102,23 +119,15 @@ at the top with 40 reviews — and them missing, unclaimed, or one blurry photo
 from 2019. "Every person who searched this today went to them." It closes
 itself.
 
-**Review service (the recurring line):** monthly retainer — collect reviews
-from real customers after real transactions (tap card / counter stand / staff
-follow-up, all included free), reply to every review, monthly one-page report.
-Never buy or fabricate reviews — it's against Google's rules and gets listings
-removed, and the FAQ says so outright.
+## Pricing philosophy
 
-## Pricing philosophy (both markets)
-
-- **No prices on the site.** Quoted on a free 15-minute call / after the free
-  audit — "a posted number would be wrong for half the businesses who read it."
-- **Fixed price, agreed in writing before anything starts.** No hourly billing,
-  no scope creep. (The promise is about *how* we bill, not what we charge.)
-- **Payment terms (international):** half up front, half on handover; bank
-  transfer or Wise, invoiced in USD.
-- **The client owns everything** — domain, site, profiles, automations,
-  accounts, documentation. Nothing held hostage if they leave. (Any written
-  agreement must actually assign these — this promise is contractual.)
+- **No prices on the site.** Quoted on a free call.
+- **Fixed price, agreed in writing before anything starts.** No hourly billing.
+- **Add-ons are priced by band.** Physical items (NFC card, NFC stand) each have
+  their own fixed price.
+- **The client pays domain and hosting yearly, directly,** in their name.
+- **The client owns everything.** The written agreement must actually assign it.
+- **No monthly fee to Khybrio.**
 
 ## Voice & honesty rules (the constitution — apply to ALL copy)
 
@@ -137,8 +146,7 @@ These came from hard lessons; breaking them is the one unforgivable edit:
    will rank #1"), "almost any modern phone" (never "any phone"), "taking on
    work from anywhere" (never "working with businesses in X" until true).
 5. **Plain language, no jargon.** Explain what we're doing and why.
-6. **Say we're new.** The founding-clients discount does the trust-building
-   that fake social proof would have faked.
+6. **Say we're new.** Being plain about it does the trust-building fake proof would have faked.
 7. **Push back on flawed requests** rather than quietly shipping them.
 
 ## Brand identity
@@ -151,32 +159,23 @@ These came from hard lessons; breaking them is the one unforgivable edit:
 - **Style:** editorial broadsheet — 2px borders, rounded "chamber" sections
   alternating dark teal and cream, floating pill nav, hand-drawn coral
   squiggle underlines. Flat, no gradients-for-decoration, honest.
-- **Hero signature:** the "flow machine" — a task feeds in, a little computer
-  churns (rows type on, progress bar fills), the finished job drops out with
-  its runtime vs. the struck-through by-hand cost.
+- **Hero:** see `src/sections/Hero.jsx` (redesigned October 2026).
+- The footer lockup PNG still carries the old "Local digital presence"
+  descriptor (open item).
 
 ## Channels & operations
 
-- **Email:** khybrio.org@gmail.com *(open item: move to a domain email —
-  a Gmail address undercuts a multi-thousand-dollar automation pitch)*
+- **Email:** khybrio.org@gmail.com *(open item: move to a domain email, since
+  a Gmail address undercuts the pitch)*
 - **Facebook:** facebook.com/khybrio · **Instagram:** @khybrio
-- **Base:** Zamboanga City, Philippines; local work across Mindanao;
-  international work remote, calls in the client's time zone
-- **Site:** React + Vite, deployed to GitHub Pages under `/Khybrio/`.
-  All copy lives in `src/content/site.js` (international) and
-  `src/content/ph.js` (local) — copy edits never touch components.
+- **Base:** Zamboanga City; takes on work from anywhere in the Philippines
+- **Site:** One page at `/`; `ph/index.html` is a static redirect to `/` for old
+  links and NFC cards. Copy: `src/content/site.js` and `src/content/offer.js`.
 
-## Current status & open items (as of 2026-07-30)
+## Current status & open items (as of 2026-10-20)
 
-1. **Contact form is not wired.** `formEndpoint` is `null` in both content
-   files; the form tells visitors it isn't connected. Owner is setting up
-   Formspree — until then, every CTA dead-ends. **This is the launch blocker.**
-2. **No clients yet.** All proof is labelled example content; the founding
-   discount is the honest bridge.
-3. **Validation plan (owner's own framing):** talk to 15 local owners without
-   pitching — ask "how do new customers find you?", "what's the most annoying
-   part of the day-to-day?", then do the Maps search in front of them and
-   watch. The current positioning is a hypothesis until those conversations
-   confirm it.
-4. Domain email (above), and real client work to replace example content as
-   it lands — with written permission, always.
+1. The contact form is wired to Formspree.
+2. Real client work replaces example content only with written permission.
+3. The fourth team member's name and role.
+4. The footer logo descriptor (see Brand identity).
+5. A domain email.
