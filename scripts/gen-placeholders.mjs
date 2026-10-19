@@ -107,7 +107,6 @@ const files = [
   ['05-shiek.svg', frame(1920, 1080, '05 · SHIEK', khybi(960, 560, 70), 'desk nook · 16:9')],
   ['06-dave.svg', frame(1920, 1080, '06 · DAVE', khybi(960, 560, 70), 'meeting bench · 16:9')],
   ['07-haiqal.svg', frame(1920, 1080, '07 · HAIQAL', khybi(960, 560, 70), 'meeting bench · 16:9')],
-  ['08-rein.svg', frame(1920, 1080, '08 · REIN', khybi(960, 560, 70), 'content corner · 16:9')],
   ['sample-01.svg', mockup(1280, 800, 'SAMPLE 01')],
   ['sample-02.svg', mockup(1280, 800, 'SAMPLE 02')],
   ['sample-03.svg', mockup(1280, 800, 'SAMPLE 03')],

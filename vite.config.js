@@ -12,14 +12,14 @@ export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/Khybrio/' : '/',
   plugins: [react(), tailwindcss()],
   build: {
-    // Two real pages, not a router: the international automation page at / and
-    // the Philippine local page at /ph/. A multi-page build gives each a real
-    // URL that static hosting serves directly — no SPA 404 redirect hack — and
-    // means neither page ships the other's copy or sections.
+    // One app at /. ph/index.html is only a redirect, kept so old /ph/ links and
+    // NFC cards still land somewhere. It is a Vite input (not a file in public/)
+    // so %BASE_URL% expands inside it, and so dev serves it at /ph/ instead of
+    // falling back to the main app.
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
-        ph: resolve(import.meta.dirname, 'ph/index.html'),
+        'ph-redirect': resolve(import.meta.dirname, 'ph/index.html'),
       },
     },
   },

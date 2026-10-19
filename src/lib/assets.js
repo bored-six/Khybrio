@@ -23,8 +23,7 @@ const world = (name, alt) => ({
 })
 
 export const A = {
-  // The seven island zones, in flight order. 08-rein is still on disk but no
-  // longer in the flight — that crew zone was retired with the team change.
+  // The seven island zones, in flight order.
   hero: world('01-hero', 'Wide isometric view of the Khybrio island'),
   webDesk: world('02-web-desk', 'Khybi at the web desk with a floating browser'),
   nfcKiosk: world('03-nfc-kiosk', 'Khybi tapping an NFC card to a phone'),
