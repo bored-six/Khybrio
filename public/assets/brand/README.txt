@@ -1,1 +1,1 @@
-khybrio-mark.svg and khybrio-mark-clean.svg go here. See ASSETS.md.
+Current logo files: khybrio-mark.png (tile), khybrio-glyph.png (no tile), khybrio-logo-full-transparent.png (lockup). See ASSETS.md "Logo".

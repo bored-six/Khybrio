@@ -103,23 +103,25 @@ it in over the stills.
 
 ## Logo
 
-Yours to design, per your brief. What the code expects:
+The current logo is the **swirl signal mark** (three curls with radiating arcs),
+as shown in `Khybrio-Brand-Reference.pdf`. These are the only logo files:
 
-| Path | Notes |
+| Path | Use |
 |---|---|
-| `public/assets/brand/khybrio-mark.svg` | Grain version. Nav, footer, printed NFC card face. |
-| `public/assets/brand/khybrio-mark-clean.svg` | No grain. Favicon and other small sizes, where texture just reads as noise. |
-| `public/favicon.svg` | Currently the placeholder mark — overwrite with the clean version. |
+| `public/assets/brand/khybrio-mark.png` | Cream mark on a deep-teal tile. Nav, small lockups, link previews. |
+| `public/assets/brand/khybrio-glyph.png` | Cream mark, no tile, transparent. For placing on teal surfaces (NFC card). |
+| `public/assets/brand/khybrio-logo-full-transparent.png` | Mark + KHYBRIO wordmark + "Local digital presence". Teal surfaces only. |
+| `public/favicon.png` | Favicon. |
 
-The brief, restated so it's in the repo: a single **fused** letterform-and-icon
-mark — not a letter sitting next to an icon. A bold "K" merged with a radiating
-signal / location-ping burst emerging from or behind one side of the letter,
-echoing "get found". Cream `#F5F7F6` on solid deep teal `#1C4D4A`, with a light
-hand-stamped grain overlaid on the shape (SVG noise filter or a textured overlay
-clipped to the mark) rather than a perfectly clean vector edge.
+The old "K with a signal burst" mark is retired. Its SVGs were deleted on
+2026-11-10 so they can't be picked up again by mistake.
 
-Build it as SVG, not a Higgsfield raster, so it stays crisp at favicon size and
-scales cleanly to print.
+**Changing the logo:** replace the files above, keep the same names. The tap
+pages repo (`../khybrio-tap`) copies `khybrio-mark.png`; its `npm test` fails
+until someone runs `npm run sync-brand` there, so the cards can't keep an old logo.
+
+Still wanted: an SVG version of the swirl mark, so it stays crisp at favicon
+size and in print.
 
 ---
 
