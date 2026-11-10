@@ -3,7 +3,6 @@ import { Magnetic } from '../../components/Magnetic'
 import { IconArrow } from '../../components/icons/OfferIcons'
 import { quoteCta } from '../../content/offer'
 import { jumpTo } from './anchor'
-import './offer.css'
 
 /**
  * Pieces every offer section shares. Kept small on purpose: the sections are

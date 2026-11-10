@@ -7,7 +7,7 @@ import { hero } from '../content/offer'
 
 /**
  * The opening chamber for the studio: who we are in one line, then one
- * customer walking through all three services.
+ * customer walking through the three packages.
  *
  * The room is the same lit teal room as before (spot, aurora, sweep,
  * vignette, floor: see "Hero lighting" in index.css). What changed is the
@@ -130,8 +130,8 @@ function JourneyCard() {
       </div>
 
       {/* Vertical on phones, a left-to-right line from md up. The wires and
-          their travelling pulse are the same pipe pieces the automation
-          diagrams use, so the hero speaks the page's own diagram language. */}
+          their travelling pulse carry the customer from one package to the
+          next. */}
       <div className="flex flex-col px-4 py-5 sm:px-6 sm:py-6 md:flex-row md:items-stretch">
         {journey.steps.map((step, i) => {
           const Icon = STEP_ICONS[step.key]

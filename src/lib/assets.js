@@ -23,7 +23,7 @@ const world = (name, alt) => ({
 })
 
 export const A = {
-  // The seven island zones, in flight order.
+  // The seven island renders. Only `hero` is used now (the footer).
   hero: world('01-hero', 'Wide isometric view of the Khybrio island'),
   webDesk: world('02-web-desk', 'Khybi at the web desk with a floating browser'),
   nfcKiosk: world('03-nfc-kiosk', 'Khybi tapping an NFC card to a phone'),
@@ -36,19 +36,9 @@ export const A = {
   // projects under a "Recent work" heading. The generated SVGs are still in
   // public/assets/showcase/ if a real portfolio section comes back.
 
-  /**
-   * Ambient loop over the hero zone, before the visitor scrolls. Ping-ponged
-   * locally from the Higgsfield clip — the source drifts, so its first and last
-   * frames don't match and looping it raw snapped on every wrap.
-   *
-   * The only video left in the flight. `flightClip` — the seven stitched
-   * HIGGSFIELD.md segments — is gone: the footage came back 1080p where the
-   * plan called for 4K, so it was magnified ~1.6x on a retina viewport and read
-   * softer than the 2752px stills behind it. 25MB to look worse. Re-add the
-   * export and flip `mediaType` in scenes.config.js if 4K clips ever land;
-   * scripts/build-flight.sh still rebuilds the stitch.
-   */
-  heroLoop: `${BASE}assets/world/hero-loop.mp4`,
+  // The flight and its hero loop video were cut on 2026-11-10. The stills
+  // and hero-loop.mp4 are still in public/assets/world/;
+  // scripts/build-flight.sh still rebuilds the stitched take.
 
   mark: {
     src: `${BASE}assets/brand/khybrio-mark.png`,

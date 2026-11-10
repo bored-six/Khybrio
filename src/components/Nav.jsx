@@ -3,14 +3,13 @@ import { Menu, X } from 'lucide-react'
 import { Logo } from './Logo'
 import { Magnetic } from './Magnetic'
 import { useContent } from '../content/context'
-import { scrollToId, scrollToSceneProgress, ScrollTrigger } from '../lib/smoothScroll'
-import { subscribeActiveIndex } from '../lib/sceneRegistry'
+import { scrollToId } from '../lib/smoothScroll'
 
 /**
  * Floating pill navigation — a bordered cream capsule with breathing room from
  * the page edges, in the broadsheet style the hero sets. Cream with ink text
- * stays readable over every surface on the page, including the dark flight, so
- * there is no scrolled "solid" state to manage.
+ * stays readable over every surface on the page, including the dark chambers,
+ * so there is no scrolled "solid" state to manage.
  *
  * It does three jobs beyond linking, because five abstract labels floating in a
  * capsule told a visitor neither where they were nor what was behind any of it:
@@ -30,8 +29,6 @@ import { subscribeActiveIndex } from '../lib/sceneRegistry'
 export function Nav() {
   const { nav, navCta } = useContent()
   const [open, setOpen] = useState(false)
-  const [activeZone, setActiveZone] = useState(0)
-  const [atFlight, setAtFlight] = useState(true)
   const [activeIdx, setActiveIdx] = useState(-1)
   const [hoverIdx, setHoverIdx] = useState(-1)
   const [progress, setProgress] = useState(0)
@@ -39,48 +36,20 @@ export function Nav() {
 
   const navRef = useRef(null)
   const itemRefs = useRef([])
-  // The scroll handler runs on every frame's worth of scrolling and must not
-  // close over stale zone state, so these mirror it.
-  const zoneRef = useRef(0)
-  const flightRef = useRef(true)
-
-  useEffect(() => subscribeActiveIndex(setActiveZone), [])
-  useEffect(() => {
-    zoneRef.current = activeZone
-  }, [activeZone])
-  useEffect(() => {
-    flightRef.current = atFlight
-  }, [atFlight])
 
   useEffect(() => {
     // Lenis scrolls the real window, so scrollY stays authoritative.
     let frame = 0
     const read = () => {
       frame = 0
-      const st = ScrollTrigger.getById('flight')
-      const inFlight = st ? window.scrollY < st.end : true
-      setAtFlight(inFlight)
-      flightRef.current = inFlight
-
       const scrollable = document.body.scrollHeight - window.innerHeight
       setProgress(scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0)
 
       // Whichever section owns the upper third of the viewport is the one being
-      // read. Flight entries resolve by zone instead — the flight is a single
-      // pinned element covering two nav items.
+      // read.
       const line = window.innerHeight * 0.38
       let found = -1
       nav.forEach((item, i) => {
-        if (item.zoneRange) {
-          if (
-            inFlight &&
-            zoneRef.current >= item.zoneRange[0] &&
-            zoneRef.current <= item.zoneRange[1]
-          ) {
-            found = i
-          }
-          return
-        }
         const el = document.getElementById(item.id)
         if (!el) return
         const r = el.getBoundingClientRect()
@@ -122,13 +91,7 @@ export function Nav() {
     scrollToId(id)
   }
 
-  // Nav item click — jump into the flight at a zone when `flightProgress` is set.
-  const goItem = (item) => (e) => {
-    e.preventDefault()
-    setOpen(false)
-    if (item.flightProgress != null) scrollToSceneProgress(item.id, item.flightProgress)
-    else scrollToId(item.id)
-  }
+  const goItem = (item) => go(item.id)
 
   const hinted = hoverIdx >= 0 ? nav[hoverIdx] : null
 

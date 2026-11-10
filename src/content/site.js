@@ -1,6 +1,6 @@
 /**
- * Copy for the site: one page, one copy set. Hero and offer copy (services,
- * packages, add-ons) live in content/offer.js. Voice and honesty rules for
+ * Copy for the site: one page, one copy set. Hero and offer copy (packages
+ * and services) live in content/offer.js. Voice and honesty rules for
  * everything written here are in BUSINESS.md.
  *
  * Components import from this file and nothing else, so copy edits never mean
@@ -9,84 +9,23 @@
 
 export const brand = { name: 'Khybrio', location: 'Zamboanga City, Philippines' }
 
-/**
- * The counter and dot trail run off this list: one entry per island zone in
- * the flight. It stays flat and independent of the animation so the counter can
- * advance zone-by-zone as the flight moves.
- */
-export const milestones = [
-  { id: 'flight', label: 'What we do' },
-  { id: 'flight', label: 'Free call' },
-  { id: 'flight', label: 'Handover' },
-]
-
 export const nav = [
-  { id: 'websites', label: 'Websites', hint: 'Starter, Standard and Premium sites' },
-  { id: 'google', label: 'Google profile', hint: 'Your listing on Google Search and Maps' },
-  { id: 'automation', label: 'Automation', hint: 'One workflow, or up to five connected' },
+  { id: 'packages', label: 'Packages', hint: 'Get found, Get booked, Get ahead' },
+  { id: 'services', label: 'Services', hint: 'Everything the packages are made from' },
   { id: 'process', label: 'How it works', hint: 'Free call, written quote, build, handover' },
-  { id: 'faq', label: 'FAQ', hint: 'Price, timing, ownership and fees' },
+  { id: 'faq', label: 'FAQ', hint: 'Price, timing, ownership and monthly fees' },
 ]
 export const navCta = { label: 'Book a free call' }
-
-/**
- * The island flight: a short opening beat, not the page's argument. Three
- * zones, one island still each, in the order of scenes.config.js `stills`.
- *
- * Each zone carries an all-caps eyebrow, a headline with exactly one phrase in
- * the coral accent, and a one-line subhead. `hotspot` is the pill on the zone
- * (and the card on desktop), `ctas` the buttons, and `hint` the cue on zone one.
- * The detail for every zone lives in the sections below it.
- */
-export const flight = {
-  hint: 'Scroll to fly in',
-  zones: [
-    {
-      key: 'open',
-      eyebrow: 'What we do',
-      title: ['Three services. ', 'Sold separately', '.'],
-      sub: 'Websites, Google Business Profiles and workflow automation. Take one, or more.',
-    },
-    {
-      key: 'call',
-      eyebrow: 'Step one · Free',
-      title: ['Start with a ', 'free call', '.'],
-      sub: 'Tell us what is getting in the way. You get a fixed price in writing before anything starts.',
-      hotspot: { benefit: 'Free · No obligation' },
-    },
-    {
-      key: 'handover',
-      eyebrow: 'At the end · Handover',
-      title: ['Everything ', 'in your name', '.'],
-      sub: 'Domain, site, profile, automations and every account. If you never speak to us again, it keeps running.',
-      hotspot: { benefit: 'Every account in your name' },
-      ctas: {
-        primary: { label: 'Book a free call', href: '#contact' },
-        secondary: { label: 'See the services', href: '#services' },
-      },
-    },
-  ],
-}
-
-export const problem = {
-  eyebrow: 'Where customers slip away',
-  title: 'Three gaps that quietly cost a small business customers',
-  items: [
-    { title: 'Not on Google Maps', body: 'Someone nearby searches for what you sell. Your Facebook Page does not show up on Google Maps, so they go to the shop that does. Keep the Page. This is a different place people look.' },
-    { title: 'Nowhere to send people', body: 'A customer wants your prices, your hours or a booking late at night. If the only way to ask is a message that waits for a reply, some of them will not wait.' },
-    { title: 'The same work, by hand', body: 'Orders copied out of Messenger, invoices chased one at a time, the same reply typed all day. It eats hours, and every re-type is a chance to get something wrong.' },
-  ],
-}
 
 export const process = {
   eyebrow: 'How it works',
   title: 'Four steps. The first one is free.',
   body: 'You get a fixed price before any work starts. If we think you do not need us, we will say so on the call.',
   steps: [
-    { n: '01', when: 'Free', name: 'A free call', body: 'Tell us about your business and what is getting in the way. We tell you which of our services would help, if any, and what we would build. No obligation.' },
-    { n: '02', when: 'In writing', name: 'A fixed quote', body: 'We send a written quote with what we will build, a target date and one fixed price. No hourly billing. Nothing starts until you agree to it.' },
-    { n: '03', when: 'To the agreed date', name: 'We build it', body: 'We build what the quote says and show you as we go. Automations run alongside the way you work now until they have proven themselves on your real work.' },
-    { n: '04', when: 'Yours to keep', name: 'Handover', body: 'The domain, the website, the Google profile, the automations and every account are in your name, with a written walkthrough. If you never speak to us again, it keeps running.' },
+    { n: '01', when: 'Free', name: 'A free call', body: 'Tell us about your business and what is getting in the way. We tell you which package or service would help, if any. No obligation.' },
+    { n: '02', when: 'In writing', name: 'A fixed quote', body: 'One fixed price for the setup and one for the monthly part, with what we will build and a launch date. Nothing starts until you agree to it.' },
+    { n: '03', when: 'About two weeks', name: 'We build it', body: 'The core setup goes live in about two weeks once we have your photos and details. Revisions on the setup are free until it matches what we agreed.' },
+    { n: '04', when: 'Every month', name: 'We keep it running', body: 'Everything is in your name from day one. Each month we keep it accurate and active, and send a report so you can judge the results yourself.' },
   ],
 }
 
@@ -101,20 +40,16 @@ export const about = {
   ],
 }
 
-// [OWNER CHECK] The timeline numbers and the paid-tool line are carried over
-// from the old copy, not from the offer spec.
 export const faq = {
   eyebrow: 'Before you ask',
   title: 'Questions owners usually ask',
   items: [
-    { q: 'How much does it cost?', a: 'It depends on what you need, so we do not post prices here. A number on this page would be wrong for half the people reading it. Book a free call, tell us what you need, and we send one fixed price in writing. It does not change once you agree to it, and we do not bill by the hour.' },
-    { q: 'How long does it take?', a: 'Your written quote has a target date. As a rough guide, a Google profile is about a week of our work, and a website or a single workflow is two to four weeks. Bigger builds take longer. The date holds as long as we have your photos, details and access to your accounts, which is usually what decides the pace. Google can take one to two weeks to verify a profile on its own, and that part is out of our hands.' },
-    { q: 'Who owns the website, the profile and the automations?', a: 'You do. The domain, the website, the Google Business Profile, the automations and every account are set up in your name from the start. If you stop working with us, nothing is switched off and nothing is held back.' },
-    { q: 'Are there any ongoing fees?', a: 'There is no monthly fee to us. A website needs a domain and hosting, and you pay those yearly fees directly to the provider, in your name. If an automation needs a paid tool of its own, the quote says so before you agree to anything.' },
-    { q: 'What are add-ons?', a: 'Extras on top of a package, like a Google Maps embed, an extra page, a booking system on a Starter site, or an NFC card for your counter. Each one sits in a small, medium or large band by how long it takes, and every add-on in a band costs the same. Physical items like NFC cards and stands each have their own fixed price.' },
-    { q: 'Do I need all three services?', a: 'No. Each one is sold on its own. You might only need your Google profile fixed, or one task automated. On the call we tell you what would actually help, even if it is one small thing.' },
-    { q: 'I already have a Facebook Page. Do I need this?', a: 'Keep your Page. It works well for people who already know you. It does not show up when someone searches Google Maps for what you sell nearby, which is what a Google Business Profile is for. A website adds a place you fully control that can take bookings and inquiries.' },
-    { q: 'Where are you based?', a: 'Zamboanga City, Philippines. We can meet in person around the city, and we take on work from anywhere in the Philippines by call, email or Messenger.' },
+    { q: 'How much does it cost?', a: 'It depends on your business, so we do not post prices here. Book a free call and we send a fixed price in writing: one for the setup and one for the monthly part. It does not change once you agree to it, and we do not bill by the hour.' },
+    { q: 'Why is there a monthly part?', a: 'A listing left alone goes stale, and that is when people stop trusting it. The monthly part keeps your hours, photos and posts correct, answers your reviews, keeps the site and chatbot working, and ends with a report. If you only want a one-time setup of a single service, we can quote that too.' },
+    { q: 'How long does it take?', a: 'The core setup goes live in about two weeks once we have your photos, details and access to your accounts. Bigger builds like a dashboard or custom software take longer, and the quote says when. Google can take a week or two to verify a profile on its own, and that part is out of our hands.' },
+    { q: 'Who owns the website, the profile and the accounts?', a: 'You do. The domain, the website, the Google and Facebook profiles and every account are set up in your name from the start, with full access for you at all times. If you stop working with us, nothing is switched off and nothing is held back.' },
+    { q: 'I already have a Facebook Page. Do I need this?', a: 'Keep your Page. We tidy it up and link it to Google. It does not show up when someone searches Google Maps for what you sell nearby, which is what a Google Business Profile is for, and a website gives people a place to book that you fully control.' },
+    { q: 'Where are you based?', a: 'Zamboanga City, Philippines. We meet in person around the city, and take on work from anywhere in the Philippines by call, email or Messenger.' },
   ],
 }
 
@@ -170,4 +105,4 @@ export const contact = {
   ],
 }
 
-export const footer = { blurb: 'Websites, Google Business Profiles and workflow automation for small businesses in the Philippines.' }
+export const footer = { blurb: 'Your business, always connected. Websites, local presence, systems and monthly care for small businesses in the Philippines.' }

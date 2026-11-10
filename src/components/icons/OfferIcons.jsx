@@ -85,17 +85,6 @@ export function IconFlow(props) {
   )
 }
 
-/** Add-ons: a base slab with a block on it; the coral piece is the extra landing. */
-export function IconStack(props) {
-  return (
-    <Mark {...props}>
-      <rect x="3" y="13" width="18" height="7.5" rx="2.5" />
-      <rect x="5.5" y="6.5" width="7" height="6.5" rx="1.5" />
-      <rect x="14.5" y="4" width="5.5" height="5.5" rx="1.5" fill={ACCENT} stroke="none" />
-    </Mark>
-  )
-}
-
 /** NFC card: a card with two tap waves; the bead is the chip. */
 export function IconCard(props) {
   return (
@@ -108,15 +97,34 @@ export function IconCard(props) {
   )
 }
 
-/** NFC stand: a tall panel on a foot; the bead is the spot you tap. */
-export function IconStand(props) {
+/** Content: a frame with a play mark; the bead is the record light. */
+export function IconContent(props) {
   return (
     <Mark {...props}>
-      <rect x="6" y="2.5" width="12" height="14.5" rx="2.5" />
-      <path d="M12 17V21" />
-      <path d="M4.5 21H19.5" />
-      <path d="M9.5 13.5H14.5" />
-      <circle cx="12" cy="8.5" r="2.2" fill={ACCENT} stroke="none" />
+      <rect x="2.5" y="5" width="19" height="14" rx="2.5" />
+      <path d="M10 9.5V14.5L14.2 12Z" />
+      <circle cx="18" cy="8.2" r="1.6" fill={ACCENT} stroke="none" />
+    </Mark>
+  )
+}
+
+/** Care: a shield with a check; the bead is the heartbeat it keeps. */
+export function IconCare(props) {
+  return (
+    <Mark {...props}>
+      <path d="M12 2.8L19.5 5.6V11.3C19.5 16 16.3 19.6 12 21.2C7.7 19.6 4.5 16 4.5 11.3V5.6Z" />
+      <path d="M8.6 12.1L11 14.4L15.4 9.8" />
+      <circle cx="19.5" cy="5.6" r="1.9" fill={ACCENT} stroke="none" />
+    </Mark>
+  )
+}
+
+/** Every month: an open loop with its arrowhead. */
+export function IconRepeat(props) {
+  return (
+    <Mark {...props}>
+      <path d="M19 12A7 7 0 1 1 16.4 6.6" />
+      <path d="M17.2 3.2L16.6 6.8L20.2 7.4" />
     </Mark>
   )
 }
@@ -139,10 +147,3 @@ export function IconYes(props) {
   )
 }
 
-export function IconNo(props) {
-  return (
-    <Mark {...props}>
-      <path d="M7.5 12H16.5" />
-    </Mark>
-  )
-}

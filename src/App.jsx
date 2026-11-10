@@ -1,15 +1,9 @@
 import { useEffect } from 'react'
 import { initSmoothScroll, ScrollTrigger } from './lib/smoothScroll'
 import { Nav } from './components/Nav'
-import { SceneCounter } from './components/SceneCounter'
 import { Hero } from './sections/Hero'
-import { Problem } from './sections/Problem'
-import { Flight } from './sections/Flight'
-import { ServicesOverview } from './sections/offer/ServicesOverview'
-import { WebsitePackages } from './sections/offer/WebsitePackages'
-import { GoogleProfile } from './sections/offer/GoogleProfile'
-import { AutomationPackages } from './sections/offer/AutomationPackages'
-import { AddOns } from './sections/offer/AddOns'
+import { Packages } from './sections/offer/Packages'
+import { Services } from './sections/offer/Services'
 import { Process } from './sections/Process'
 import { About } from './sections/About'
 import { Faq } from './sections/Faq'
@@ -17,12 +11,13 @@ import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
 
 /**
- * The whole site, one page.
+ * The whole site, one page, kept short on purpose (2026-11-10: it had grown
+ * to ~23 screens and read as bloated).
  *
- * Order is deliberate: the gap a small business has (Problem), the island tour
- * that frames the three services, the offer itself (services, then each
- * package and the add-ons), how buying works (Process), who we are, the
- * objections, and finally the ask.
+ * Order: the promise (Hero), the three packages, the services they are made
+ * from, how buying works (Process), who we are, the objections, the ask.
+ * The island fly-through, the problem section and the per-service package
+ * configurators were cut; git history has them.
  */
 export default function App() {
   useEffect(() => {
@@ -43,16 +38,10 @@ export default function App() {
   return (
     <>
       <Nav />
-      <SceneCounter />
       <main>
         <Hero />
-        <Problem />
-        <Flight />
-        <ServicesOverview />
-        <WebsitePackages />
-        <GoogleProfile />
-        <AutomationPackages />
-        <AddOns />
+        <Packages />
+        <Services />
         {/* Process sits in the dark rounded chamber set into the cream page.
             The wrapper carries its own teal fill so any subpixel seam between
             sections shows teal, not the cream body behind. */}
