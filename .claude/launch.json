@@ -30,6 +30,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "../khybrio-tap", "run", "dev"],
       "port": 4321
+    },
+    {
+      "name": "khybrio-studio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../khybrio-tap", "run", "studio"],
+      "port": 4322
     }
   ]
 }
