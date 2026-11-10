@@ -1,0 +1,125 @@
+/* The live line: the hero's one idea.
+
+   The coral underline under "always connected" is not a decoration, it is
+   the start of a cable. From its left end the cable runs out to the margin,
+   down beside the copy, into the journey card, and dips into each step's
+   icon tile: found, booked, ahead. It draws itself once, then a coral
+   signal travels the whole route on a loop and each tile flashes as the
+   signal reaches it. Connected, literally.
+
+   Geometry is measured in Hero.jsx (layout offsets, so entrance transforms
+   never skew it). Everything uses pathLength=1000, so a resize changes the
+   route without restarting or desyncing any animation.
+
+   Contract, same as index.css: the base cable's draw ENDS drawn and uses
+   `both`; the pulse and the tile flash rest invisible / at their class
+   colours, so the global reduced-motion rule leaves a static, fully drawn
+   cable with no signal running. Without JS the cable is never rendered and
+   the card's own pipe wires stay. */
+
+.cable-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* The cable itself: 1.75px coral at 70%. Reads on the teal
+   gutter and on the cream card alike, and as one wire with the underline. */
+@keyframes cable-draw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+}
+
+.cable-base {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+  animation: cable-draw 1.5s cubic-bezier(0.45, 0, 0.2, 1) 1.1s both;
+}
+
+/* The signal. A dash of length --ld (path units) runs the whole route in the
+   first 72% of the cycle, then rests off the end. Linear, so Hero.jsx can
+   time each tile's flash to the moment the head arrives. */
+@keyframes cable-run {
+  0% {
+    stroke-dashoffset: var(--ld);
+  }
+  72%,
+  100% {
+    stroke-dashoffset: -1000;
+  }
+}
+
+.cable-pulse,
+.cable-glow {
+  stroke-dasharray: var(--ld) 2000;
+  stroke-dashoffset: var(--ld);
+  animation: cable-run var(--lt) linear var(--l0) infinite;
+}
+
+/* The source: a dot where the underline begins, ringing once per signal. */
+@keyframes cable-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.cable-dot {
+  animation: cable-fade 0.4s ease-out 1s both;
+}
+
+.cable-end {
+  animation: cable-fade 0.4s ease-out 2.4s both;
+}
+
+@keyframes cable-ring {
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  32%,
+  100% {
+    opacity: 0;
+    transform: scale(3.8);
+  }
+}
+
+.cable-ring {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cable-ring var(--lt) ease-out var(--l0) infinite;
+}
+
+/* Each step's icon tile flashes coral the instant the signal touches it,
+   then cools back to teal with a ring spreading off it. Fill mode none: at
+   rest (before the delay, and under reduced motion) the tile is its class
+   colour, never stuck coral. */
+@keyframes tile-flash {
+  0% {
+    background-color: var(--color-coral);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-coral) 60%, transparent);
+  }
+  22% {
+    background-color: var(--color-teal-deep);
+  }
+  34%,
+  100% {
+    background-color: var(--color-teal-deep);
+    box-shadow: 0 0 0 11px rgba(232, 98, 45, 0);
+  }
+}
+
+.cable-tile {
+  animation: tile-flash var(--lt) ease-out var(--ping) infinite;
+}
+
+/* The cable replaces the card's short pipe wires while it is mounted. The
+   wires keep their space so the card does not reflow when it appears. */
+[data-live] .pipe-wire {
+  visibility: hidden;
+}
