@@ -24,3 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 .gstack/
+
+# Internal planning files, kept off the public repo
+plans/monthly-income-plan.*
