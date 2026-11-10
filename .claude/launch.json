@@ -24,6 +24,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--", "--port", "5177", "--strictPort"],
       "port": 5177
+    },
+    {
+      "name": "khybrio-tap",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../khybrio-tap", "run", "dev"],
+      "port": 4321
     }
   ]
 }
