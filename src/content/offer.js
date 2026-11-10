@@ -76,6 +76,10 @@ export const packages = {
   tiers: [
     {
       key: 'found',
+      // Crop into the island render: asset key in A, the point to zoom on
+      // (as a share of the frame), and how far in. Same camera in all three,
+      // so similar zooms keep Khybi the same size across the set.
+      scene: { asset: 'signalTower', x: '52%', y: '45%', zoom: 1.3 },
       name: 'Get found',
       line: 'Be on the map, and look trustworthy when people check.',
       inherits: null,
@@ -90,6 +94,7 @@ export const packages = {
     },
     {
       key: 'booked',
+      scene: { asset: 'webDesk', x: '55%', y: '35%', zoom: 1.35 },
       name: 'Get booked',
       line: 'Customers can book or order at any hour, without waiting on a reply.',
       inherits: 'Everything in Get found, plus',
@@ -103,6 +108,7 @@ export const packages = {
     },
     {
       key: 'ahead',
+      scene: { asset: 'haiqal', x: '50%', y: '42%', zoom: 1.4 },
       name: 'Get ahead',
       line: 'Run the business from one screen, and reach people who do not follow you yet.',
       inherits: 'Everything in Get booked, plus',
@@ -132,6 +138,7 @@ export const services = {
     {
       key: 'systems',
       name: 'Systems',
+      scene: { asset: 'shiek', x: '48%', y: '40%', zoom: 1.25 },
       line: 'The foundation',
       items: [
         {
@@ -150,6 +157,7 @@ export const services = {
     },
     {
       key: 'marketing',
+      scene: { asset: 'nfcKiosk', x: '55%', y: '40%', zoom: 1.3 },
       name: 'Marketing',
       line: 'Be found and remembered',
       items: [
@@ -175,6 +183,7 @@ export const services = {
     },
     {
       key: 'optimization',
+      scene: { asset: 'dave', x: '54%', y: '40%', zoom: 1.35 },
       name: 'Optimization',
       line: 'Keep it running',
       items: [

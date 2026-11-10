@@ -8,6 +8,7 @@ import {
   IconSite,
 } from '../../components/icons/OfferIcons'
 import { services as S } from '../../content/offer'
+import { Scene } from './Packages'
 import { SectionHead } from './shared'
 
 /**
@@ -17,6 +18,11 @@ import { SectionHead } from './shared'
  * Laid out as an index, not a wall of cards: one ruled row per pillar, the
  * pillar name in the margin, its services across the row. The item lists run
  * inline as plain text so six groups fit in about one screen.
+ *
+ * On wide screens the margin under each pillar name holds a small window onto
+ * the island (the same Scene as the package cards): the code nook, the NFC
+ * kiosk, the handshake. Below lg the margin collapses into a heading line, so
+ * the windows are dropped there rather than stacked into a phone-length list.
  */
 
 const ICONS = {
@@ -38,7 +44,7 @@ export function Services() {
           {S.pillars.map((pillar, p) => (
             <div
               key={pillar.key}
-              className="grid gap-6 border-b-2 border-teal-deep/12 py-8 lg:grid-cols-12 lg:gap-8"
+              className="group grid gap-6 border-b-2 border-teal-deep/12 py-8 lg:grid-cols-12 lg:gap-8"
             >
               <div className="flex items-baseline gap-3 lg:col-span-3 lg:block">
                 <span className="font-display text-sm font-bold text-coral">
@@ -46,6 +52,13 @@ export function Services() {
                 </span>
                 <h3 className="font-display text-2xl font-bold text-teal-deep lg:mt-2">{pillar.name}</h3>
                 <p className="text-sm text-ink-muted lg:mt-1">{pillar.line}</p>
+                {pillar.scene ? (
+                  <Scene
+                    scene={pillar.scene}
+                    index={p}
+                    className="hidden aspect-[16/10] rounded-[20px] lg:mt-5 lg:block"
+                  />
+                ) : null}
               </div>
 
               <ul className="grid gap-6 sm:grid-cols-2 lg:col-span-9 lg:grid-cols-3">

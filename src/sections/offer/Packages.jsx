@@ -1,4 +1,6 @@
+import { AssetImage } from '../../components/AssetImage'
 import { Reveal } from '../../components/Reveal'
+import { A } from '../../lib/assets'
 import { IconRepeat, IconYes } from '../../components/icons/OfferIcons'
 import { packages as P } from '../../content/offer'
 import { QuoteButton, SectionHead } from './shared'
@@ -12,7 +14,41 @@ import { QuoteButton, SectionHead } from './shared'
  * The middle card is the dark one: it closes the gap between being found and
  * being booked, so it is the one we recommend. The badge says "Our pick",
  * never "most picked": that would be proof we do not have (BUSINESS.md rule 1).
+ *
+ * Above the stack, each card opens a window onto the island: Khybi at the
+ * map pin, at the booking desk, with the dashboard tablet. Same camera, same
+ * zoom, so the three read as stops on one walk rather than three pictures.
  */
+
+/**
+ * A window cut out of an island render. The frame owns the shape and the
+ * aspect ratio (so nothing shifts while the image loads), a wrapper owns the
+ * hover zoom, and the image owns the crop and the slow pan (.scene-crop in
+ * index.css). Three elements, three transforms, none fighting another.
+ *
+ * Ground rule: on cream the window carries a 2px teal-deep/12 rule so the
+ * render's warm sky does not dissolve into the card; on teal the 8px teal
+ * margin around it is the frame.
+ */
+export function Scene({ scene, index = 0, dark = false, className = '' }) {
+  const asset = A[scene.asset]
+  if (!asset) return null
+  return (
+    <div
+      className={`relative overflow-hidden ${
+        dark ? '' : 'border-2 border-teal-deep/12'
+      } ${className}`}
+    >
+      <div className="absolute inset-0 transition-[scale] duration-700 ease-out group-hover:scale-[1.05]">
+        <AssetImage
+          asset={asset}
+          className="scene-crop absolute inset-0 h-full w-full object-cover"
+          style={{ '--sx': scene.x, '--sy': scene.y, '--sz': scene.zoom, '--i': index }}
+        />
+      </div>
+    </div>
+  )
+}
 
 function Layers({ count, dark }) {
   return (
@@ -72,19 +108,33 @@ export function Packages() {
           from={{ y: 48, scale: 0.97 }}
           stagger={0.12}
           duration={0.9}
-          className="mt-12 grid items-stretch gap-4 sm:gap-5 lg:grid-cols-3"
+          className="mt-12 grid items-stretch gap-4 sm:gap-5 min-[900px]:grid-cols-3"
         >
           {P.tiers.map((tier, i) => {
             const dark = Boolean(tier.featured)
             return (
               <article
                 key={tier.key}
-                className={`relative flex flex-col rounded-[28px] p-6 sm:p-8 ${
+                className={`group relative flex flex-col rounded-[28px] p-6 sm:p-8 ${
                   dark
                     ? 'bg-teal-deep text-cream shadow-[0_40px_70px_-40px_rgba(15,43,41,0.8)] lg:-my-4 lg:py-12'
                     : 'border-2 border-teal-deep/12 bg-cream text-teal-deep'
                 }`}
               >
+                {/* Inset 8px from the card edge on every side it touches,
+                    radius 28 - 8 = 20 (18 on the cream cards, whose 2px
+                    border eats into the inside), so the window is concentric
+                    with the card. The featured card's taller lg padding needs
+                    its own pull. */}
+                <Scene
+                  scene={tier.scene}
+                  index={i}
+                  dark={dark}
+                  className={`-mx-4 -mt-4 mb-7 aspect-[2/1] sm:-mx-6 sm:-mt-6 ${
+                    dark ? 'rounded-[20px] lg:-mt-10' : 'rounded-[18px]'
+                  }`}
+                />
+
                 <div className="flex items-start justify-between gap-4">
                   <Layers count={i + 1} dark={dark} />
                   {tier.featured ? (

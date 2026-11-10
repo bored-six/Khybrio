@@ -23,7 +23,8 @@ const world = (name, alt) => ({
 })
 
 export const A = {
-  // The seven island renders. Only `hero` is used now (the footer).
+  // The seven island renders. `hero` is the footer and the About poster;
+  // the other six are cropped into the package cards and the services index.
   hero: world('01-hero', 'Wide isometric view of the Khybrio island'),
   webDesk: world('02-web-desk', 'Khybi at the web desk with a floating browser'),
   nfcKiosk: world('03-nfc-kiosk', 'Khybi tapping an NFC card to a phone'),
@@ -36,9 +37,13 @@ export const A = {
   // projects under a "Recent work" heading. The generated SVGs are still in
   // public/assets/showcase/ if a real portfolio section comes back.
 
-  // The flight and its hero loop video were cut on 2026-11-10. The stills
-  // and hero-loop.mp4 are still in public/assets/world/;
-  // scripts/build-flight.sh still rebuilds the stitched take.
+  // Ambient 16s loop of the whole island (1920x1080, ~3MB), beside the About
+  // headline. About.jsx only attaches it on wide screens near the viewport,
+  // never on save-data or reduced motion; `hero` is the still in its place.
+  heroLoop: {
+    src: `${BASE}assets/world/hero-loop.mp4`,
+    alt: 'The Khybrio island, with Khybi at work',
+  },
 
   mark: {
     src: `${BASE}assets/brand/khybrio-mark.png`,
