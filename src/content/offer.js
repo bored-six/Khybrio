@@ -93,7 +93,7 @@ export const packages = {
       name: 'Get booked',
       line: 'Customers can book or order at any hour, without waiting on a reply.',
       inherits: 'Everything in Get found, plus',
-      featured: 'Our usual pick',
+      featured: 'Our pick',
       setup: [
         'A website with online booking or ordering',
         'A chatbot that answers and books in Messenger',

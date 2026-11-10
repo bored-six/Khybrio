@@ -1,6 +1,6 @@
 # Khybrio
 
-Marketing site for Khybrio, a digital services studio in Zamboanga City: website packages, Google Business Profile setup and workflow automation for small businesses in the Philippines. One page in English, React 19 + Vite + Tailwind v4, on GitHub Pages under /Khybrio/. ph/index.html is a static redirect to / because old links and NFC cards point at /ph/; never delete it.
+Marketing site for Khybrio, a studio in Zamboanga City that keeps small businesses in the Philippines "always connected": three packages (Get found, Get booked, Get ahead) built from six services. One page in English, React 19 + Vite + Tailwind v4, on GitHub Pages under /Khybrio/. ph/index.html is a static redirect to / because old links and NFC cards point at /ph/; never delete it.
 
 ```bash
 npm install
@@ -12,44 +12,31 @@ npm run dev
 | `npm run dev` | Dev server |
 | `npm run build` | Production build |
 | `npm run lint` | Oxlint |
+| `npm run check:anchors` | Fails if any in-page link points at a section that does not exist |
 | `npm run placeholders` | Regenerate the placeholder SVGs |
 
 ---
 
-## The signature interaction
+## The page
 
-A **scroll-scrubbed camera flight** over the Khybrio island, using the technique
-from [oso95/scroll-world](https://github.com/oso95/scroll-world): scroll position
-drives the visuals instead of triggering a one-shot animation.
+Hero, Packages, Services, How it works, About, FAQ, Contact. It was cut from
+about 23 screens to about 9.5 on 2026-11-10. The island fly-through (a
+scroll-scrubbed camera flight over three island stills) went with it; git
+history before `e4c83c1` has `Flight.jsx`, `ScrollScene`, `SceneMedia` and the
+scrub hooks if it ever comes back.
 
-One pinned scene (`ScrollScene`, `src/sections/Flight.jsx`) scrubs a slow camera
-push and crossfade over three island stills, one per zone, with a numbered
-counter. Per-zone copy and buttons read the same scroll-progress value as the
-camera, so nothing drifts out of sync. A short ambient loop plays over the first
-zone. The zones are data: `src/scenes/scenes.config.js` and `flight` in
-`src/content/site.js` must stay in the same order.
-
-Two things to know before touching `ScrollScene`. Progress lives in a ref, not
-state (children subscribe through `useProgressEffect` and write to the DOM
-directly), because re-rendering 60 times a second to move a transform is waste.
-And the pin length is set in pixels, never percentages: a percentage `end`
-resolves against the trigger's own height, which pin-spacing grows, so every
-refresh fed a bigger number back in.
-
-`SceneMedia` can also scrub a video clip (`mediaType: 'video'`) through
-`useScrubbedVideo`, the scroll-world core ported to a hook: blob-seek, RAF lerp,
-seek gating and iOS priming. The flight runs on stills today because they are
-sharper than the 1080p footage was.
+Scroll entrances run on GSAP ScrollTrigger through `Words` (headlines) and
+`Reveal` (everything else). Markup renders visible and JS applies the hidden
+state, with a failsafe reveal, so a missed trigger never hides content.
 
 ---
 
 ## Structure
 
-- `src/content/site.js`: Problem, Process, About, FAQ, Contact, Footer, Nav and flight copy
-- `src/content/offer.js`: hero and offer copy
-- `src/sections/`: one file per page section; `offer/` holds the five offer sections
-- `src/components/`: shared pieces (`ScrollScene`, `SceneMedia`, `SceneCounter`, `Nav`, `AssetImage`, ...)
-- `src/scenes/`, `src/hooks/`, `src/lib/sceneRegistry.js`: the flight's scene data, scrub hooks and counter state
+- `src/content/offer.js`: hero, packages and services copy (spec: `.claude/specs/offer.md`)
+- `src/content/site.js`: Nav, Process, About, FAQ, Contact and Footer copy
+- `src/sections/`: one file per page section; `offer/` holds Packages and Services
+- `src/components/`: shared pieces (`Nav`, `Words`, `Reveal`, `AssetImage`, custom icons, ...)
 - `src/lib/`: `smoothScroll` (Lenis with GSAP ScrollTrigger), `assets`
 - `ph/index.html`: redirect only
 
@@ -57,7 +44,7 @@ sharper than the 1080p footage was.
 
 ## Accessibility
 
-`prefers-reduced-motion: reduce` disables Lenis and the reveal animations, and the flight falls back to a static stacked layout.
+`prefers-reduced-motion: reduce` disables Lenis and the reveal animations.
 
 ---
 

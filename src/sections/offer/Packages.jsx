@@ -10,7 +10,8 @@ import { QuoteButton, SectionHead } from './shared'
  * reading a word, and the stack is the only decoration the cards carry.
  *
  * The middle card is the dark one: it closes the gap between being found and
- * being booked, so it is the one we usually recommend.
+ * being booked, so it is the one we recommend. The badge says "Our pick",
+ * never "most picked": that would be proof we do not have (BUSINESS.md rule 1).
  */
 
 function Layers({ count, dark }) {

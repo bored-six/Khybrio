@@ -1,69 +1,68 @@
-# Khybrio final offer (agreed with the owner, 2026-10-20)
+# Khybrio offer (agreed with the owner, 2026-11-10)
 
-Source of truth for every agent working on the site revamp. Do not add, rename
-or drop anything here without the owner's say-so.
+Source of truth for every agent working on the site. Do not add, rename or
+drop anything here without the owner's say-so. Replaces the 2026-10-20 offer
+(Starter/Standard/Premium sites, "Google muna", six workflows, add-on bands),
+which git history still has.
+
+Where it comes from: the Khybrio Operational Map (FigJam, Strategy and Brand
+panels) for the services, tagline and positioning, and a recent client
+proposal for what goes in each package. Site copy lives in
+`src/content/offer.js`.
 
 ## Positioning
-- Khybrio is a **digital services studio** for small businesses. Not an
-  automation agency any more, not a web design agency. Every service below is
-  sold standalone; none is a "feeder" for another.
-- Based in Zamboanga City, Philippines. Starting with Philippine businesses.
-- ONE site, in English. The separate Taglish `/ph` page is retired and merged.
-- **No prices on the site.** Everything is "quoted on a free call", fixed price,
-  agreed in writing before work starts, no hourly billing.
-- The client owns everything: domain, site, profile, automations, accounts.
+- Tagline: **"Your business, always connected."**
+- Khybrio is a growth partner that builds assets for small businesses, not a
+  vendor selling one-off services. Three pillars:
+  - **Systems**, the foundation: website, chatbot, booking.
+  - **Marketing**: local presence and content.
+  - **Optimization**: care and monthly reporting.
+- Based in Zamboanga City, Philippines. Philippine businesses, priced in PHP.
+- ONE site, in English, at `/`. `/ph` is only a redirect.
+- **No prices on the site.** Everything is quoted on a free call: one fixed
+  price for the setup and one for the monthly part, agreed in writing before
+  work starts, no hourly billing.
+- The client owns everything: domain, site, profiles, systems, accounts, with
+  full access at all times.
 
-## 1. Website packages: Starter, Standard, Premium
+## The three packages
+Each one includes everything in the one before it. Each has a setup part and a
+monthly part. Get booked is the one we recommend by default.
 
-| | Starter | Standard | Premium |
+| | Get found | Get booked | Get ahead |
 |---|---|---|---|
-| Pages | 1 to 3 | up to 6 | up to 10 |
-| Mobile-fast, domain and hosting set up in the client's name | yes | yes | yes |
-| Contact buttons | yes | yes | yes |
-| Inquiry form | yes | yes | yes |
-| Booking system | no | yes | yes |
-| Payments and confirmations | no | no | yes |
-| Automations tied to the site | no | 1 | up to 3 |
-| Google profile linked | no | yes | yes |
+| Promise | Be on the map, look trustworthy | Book or order at any hour | Run it from one screen, reach new people |
+| **Setup** | Google Business Profile claimed, verified, filled in · Google Maps pin · Facebook Page set up and linked to Google · simple website to look through (no booking) · NFC review cards | + website with online booking or ordering · Messenger chatbot that answers and books · photo day | + live dashboard for bookings and sales · orders and leads logged automatically · Google and Meta ads set up to track leads |
+| **Every month** | Google upkeep (posts, photos, hours) · every review answered · monthly report | + website care and small changes · chatbot upkeep · regular posts and video | + dashboard upkeep and support · more content every week · ads managed and reported |
 
-The client pays the yearly domain and hosting fees directly.
+Content volumes (videos and posts a week) are set per client in the quote,
+not on the site.
 
-## 2. Google Business Profile
-Items: claim and verify; hours, address and category; photos; first posts;
-fix or merge wrong listings.
-Sold together as the package **"Google muna"** (keep this name) or item by item.
+## The six services
+The packages are made from these. Any of them can also be quoted on its own,
+including a one-time setup with no monthly part.
 
-## 3. Workflow automation
-Packages: **One workflow**, or **Operations package** (up to 5 connected workflows).
-The six workflows:
-- Orders from DMs/Messenger into a system
-- Quotes and job scheduling
-- Invoice reminders and payment chasing
-- Bookings, forms and reminders
-- Scheduled reports
-- Instant first reply
+| Pillar | Service | Includes |
+|---|---|---|
+| Systems | Website | Mobile-first design, landing pages, online booking, direct ordering, branch finder and menu, domain setup |
+| Systems | Systems and automation | AI chatbot, order logging, lead tracking, live reporting dashboard, custom software |
+| Marketing | Local presence and reviews | Google Business Profile (claim, verify, optimize), Google Maps listing, Facebook Page setup and linking, review requests, replies and monthly reports |
+| Marketing | Content management | Content marketing (strategy, newsletters, SEO content), photo and video, Google and Meta ads (lead tracking, reporting) |
+| Marketing | NFC and print | Business cards, review cards, counter stands, custom design |
+| Optimization | Care and maintenance | Hosting, backups, monitoring, content edits and small updates, monthly reports |
 
-## Add-ons
-Extras bought on top of a package. Each sits in a band by how hard it is and
-how long it takes; every add-on in a band costs the same.
+## Guarantee
+- **On-time launch:** the core setup goes live in about two weeks once the
+  client provides their photos, details and access. Google's verification
+  time is Google's, and the site says so.
+- **Full ownership:** the client owns their accounts, domain and customer data.
+- **Free revisions on setup** until the delivered work matches the agreed scope.
 
-- **Small**: quick additions, under about an hour.
-  Google Maps embed, Messenger/WhatsApp button, social links, extra form field,
-  Google Analytics setup
-- **Medium**: half a day to a day.
-  Extra page, extra form that emails you
-- **Large**: several days to build.
-  Booking system on Starter, payments on Standard, extra automation workflow
-- **Physical**: items handed to the client, each at its own fixed price.
-  - Custom NFC card: customized to the business, links to ANY platform
-    (Google, Facebook, Instagram, TikTok, website, menu)
-  - NFC stand: counter stand, links to Google reviews
-
-## Removed (must not appear anywhere on the site)
-- Review service / monthly review retainer, "Google + reviews" package
-- Managed plan / monthly retainer
-- Buong setup / Full setup bundle, any bundle
-- The free audit ("send us your three", "free workflow audit", video back)
-- Social media management
-- Logo work
+## Not offered / never on the site
 - Any USD pricing, "international" framing, Taglish copy
+- Logo or brand identity work
+- A free audit as a site offer (the audit is a sales-meeting tool, see
+  BUSINESS.md "Selling")
+- Any proof we do not have: client logos, results, "most picked" claims. The
+  map's "look like we've already scaled" line does not override the honesty
+  rules in BUSINESS.md.
