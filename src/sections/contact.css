@@ -1,0 +1,40 @@
+/* The guided chat in the contact section.
+
+   Same contract as index.css: every entrance is a CSS keyframe that ENDS
+   visible and uses `both`, so a throttled tab finishes it and holds the end
+   state. Nothing here rests hidden. The global reduced-motion rule in
+   index.css collapses all of it. */
+
+@keyframes chat-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+.chat-in {
+  animation: chat-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Khybi on the result: a slow, small bob so the mascot reads as alive. */
+@keyframes chat-bob {
+  50% {
+    transform: translate3d(0, -5px, 0);
+  }
+}
+
+.chat-bob {
+  animation: chat-bob 3.6s ease-in-out infinite;
+  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.28));
+}
+
+/* The package scene settles from a slight zoom as the result arrives. */
+@keyframes chat-scene {
+  from {
+    transform: scale(1.12);
+  }
+}
+
+.chat-scene {
+  animation: chat-scene 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}

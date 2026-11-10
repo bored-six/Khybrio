@@ -27,6 +27,7 @@ for (const f of files) {
 
 const site = await import(join(root, 'content/site.js'))
 const offer = await import(join(root, 'content/offer.js'))
+const quiz = await import(join(root, 'content/quiz.js'))
 
 const targets = []
 const collect = (value, path) => {
@@ -40,6 +41,7 @@ const collect = (value, path) => {
 }
 collect(offer, 'offer')
 collect(site, 'site')
+collect(quiz, 'quiz')
 site.nav.forEach((item, i) => targets.push([item.id, `site.nav[${i}].id`]))
 
 const missing = targets.filter(([id]) => !ids.has(id))

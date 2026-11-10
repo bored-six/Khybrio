@@ -54,21 +54,9 @@ export const faq = {
 }
 
 export const contact = {
-  eyebrow: 'Book a free call',
-  title: 'Tell us about your business. We will tell you what would help.',
-  body: 'Send a short message and we will set up a free call at a time that suits you. You get a straight answer, and a fixed quote if you want one. No obligation.',
-  submitLabel: 'Book my free call',
-  /**
-   * Shown when someone submits again inside the cooldown. Reads as reassurance
-   * rather than an accusation: nearly everyone who sees it is a real person
-   * who was not certain the first one sent.
-   */
-  cooldownNote: 'That one is already with us, so no need to send it twice. We will reply within a day. If something urgent comes up, message us on Facebook or Instagram.',
-  /**
-   * What the visitor sees if the form cannot send. It has to name a channel
-   * that works today and stay in the site's voice.
-   */
-  fallbackNote: 'Our form is having trouble. Email khybrio.org@gmail.com or message us on Facebook or Instagram, and we will set up the call from there.',
+  // The section's headline, questions and result copy live in content/quiz.js.
+  // This keeps what is about reaching us: the relay endpoint and the channels.
+  channelsLabel: 'Or message us directly',
   /**
    * Formspree. Contact.jsx POSTs JSON with `Accept: application/json`, which is
    * exactly its AJAX contract, so no code change is needed to swap the endpoint.
@@ -77,12 +65,6 @@ export const contact = {
    * cannot work from GitHub Pages.
    */
   formEndpoint: 'https://formspree.io/f/xrpzzyre',
-  fields: {
-    name: { label: 'Your name', placeholder: 'Juan Dela Cruz' },
-    business: { label: 'Business name', placeholder: 'Your business' },
-    contact: { label: 'Email or mobile number', placeholder: 'you@email.com or 09XX XXX XXXX' },
-    message: { label: 'What does your business do, and what do you need?', placeholder: 'e.g. We run a bakery. We are not on Google Maps, and we take orders through Messenger by hand.' },
-  },
   channels: [
     {
       label: 'Email',

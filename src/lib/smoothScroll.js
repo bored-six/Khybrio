@@ -64,10 +64,13 @@ export function initSmoothScroll() {
   }
 }
 
-/** Anchor navigation that respects Lenis instead of fighting it. */
-export function scrollToId(id) {
+/**
+ * Anchor navigation that respects Lenis instead of fighting it. `offset` is in
+ * pixels (negative stops short, leaving room for the floating nav).
+ */
+export function scrollToId(id, offset = 0) {
   const el = document.getElementById(id)
   if (!el) return
-  if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.2 })
-  else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  if (lenis) lenis.scrollTo(el, { offset, duration: 1.2 })
+  else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: 'smooth' })
 }

@@ -148,6 +148,11 @@ These came from hard lessons; breaking them is the one unforgivable edit:
 - **Site:** One page at `/`; `ph/index.html` is a static redirect to `/` for old
   links and NFC cards. Copy: `src/content/site.js` and `src/content/offer.js`.
   Order: Hero, Packages, Services, How it works, About, FAQ, Contact.
+  Contact is a guided chat: Khybi asks five questions (business type, Google
+  Maps, how customers book, branches, biggest pain), takes name and contact,
+  then shows a suggested package. The lead email carries every answer and the
+  package the visitor was shown, so read it before the call. The suggestion is
+  a starting point, not a quote; the rules are in `src/lib/recommend.test.js`.
 - **Operational map:** FigJam board with the sales funnel, services and
   positioning. Its Pricing and Packaging boxes were still blank on 2026-11-10.
 
